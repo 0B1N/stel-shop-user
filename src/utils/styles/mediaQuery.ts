@@ -1,12 +1,16 @@
-const mediaQuery = (minWdith: number) => `
-  @media (min-width: ${minWdith}px)
-` as const;
+type MediaQueryType = {
+  large: "@media (min-width: 1280px)";
+  small: "@media (min-width: 768px)";
+  xsmall: "@media (min-width: 375px)";
+};
+
+const mediaQuery = (minWdith: 1280 | 768 | 375) =>
+  `@media (min-width: ${minWdith}px)` as const;
 
 const media = {
-  large: mediaQuery(1200),
+  large: mediaQuery(1280),
   small: mediaQuery(768),
   xsmall: mediaQuery(375),
-  custom: mediaQuery,
-};
+} as MediaQueryType;
 
 export default media;

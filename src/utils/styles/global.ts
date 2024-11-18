@@ -144,6 +144,8 @@ const resetCSS = css`
   a {
     text-decoration: none;
     color: inherit;
+    display: inline-block;
+    font-size: 0;
   }
 
   input[type="text"]::-ms-clear {
