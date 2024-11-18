@@ -101,7 +101,7 @@ const resetCSS = css`
     margin: 0;
     padding: 0;
     outline: none;
-    font-family: "Noto Sans KR", "Malgun Gothic", "맑은 고딕", "sans-serif";
+    font-family: "Spoqa Han Sans Neo", "sans-serif";
   }
 
   article,

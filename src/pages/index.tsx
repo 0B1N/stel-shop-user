@@ -1,5 +1,10 @@
+import Header from "components/header";
 import Image from "next/image";
 
 export default function RootLayout() {
-  return <div></div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
