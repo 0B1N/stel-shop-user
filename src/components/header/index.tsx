@@ -16,20 +16,15 @@ function Header({ className }: HeaderProps) {
         <Link href="/">
           <span className="header__menu--text">HOME</span>
         </Link>
-        <a
-          className="header__menu--text"
-          href="https://stellive.me/about"
-          target="_blank"
-        >
-          ABOUT
-        </a>
-        <a
-          className="header__menu--text"
-          href="https://stellive.me/talents"
-          target="_blank"
-        >
-          TALENTS
-        </a>
+        <Link href="/">
+          <span className="header__menu--text">STORE</span>
+        </Link>
+        <Link href="/">
+          <span className="header__menu--text">REVIEW</span>
+        </Link>
+        <Link href="/">
+          <span className="header__menu--text">F&Q</span>
+        </Link>
       </div>
 
       <Link href="/">
