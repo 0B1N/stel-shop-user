@@ -1,22 +1,17 @@
-import Card from "components/Card";
-import Header from "components/header";
-import HomeBanner from "components/HomeBanner";
-import HomeSection from "components/HomeSection";
-import Modal from "components/Modal";
-import ReviewCard, { ReviewData } from "components/ReviewCard";
-import { useState } from "react";
 import styled from "styled-components";
-import {
-  new_mockup_data,
-  photo_review_mockup_data,
-  popular_mockup_data,
-} from "utils/mockup/main";
 
-type MainPageProps = {
+import Header from "components/header";
+import HomeSection from "components/HomeSection";
+import { review_page_data } from "utils/mockup/review";
+import ReviewCard, { ReviewData } from "components/ReviewCard";
+import Modal from "components/Modal";
+import { useState } from "react";
+
+type ReviewPageProps = {
   className?: string;
 };
 
-function MainPage({ className }: MainPageProps) {
+function ReviewPage({ className }: ReviewPageProps) {
   const [reviewData, setReviewData] = useState<{ data: ReviewData }>();
   const [reviewModalVisible, setReviewModalVisible] = useState(false);
 
@@ -24,22 +19,8 @@ function MainPage({ className }: MainPageProps) {
     <div className={className}>
       <Header />
 
-      <HomeBanner />
-
-      <HomeSection title="NEW" href="/new">
-        {new_mockup_data.map((data, i) => (
-          <Card {...data} key={i} />
-        ))}
-      </HomeSection>
-
-      <HomeSection title="POPULAR" href="/popular">
-        {popular_mockup_data.map((data, i) => (
-          <Card {...data} key={i} />
-        ))}
-      </HomeSection>
-
-      <HomeSection title="PHOTO REVIEW" href="/review">
-        {photo_review_mockup_data.map((v, i) => (
+      <HomeSection title="PHOTO REVIEW">
+        {review_page_data.map((v, i) => (
           <ReviewCard
             data={v}
             key={i}
@@ -64,4 +45,8 @@ function MainPage({ className }: MainPageProps) {
   );
 }
 
-export default styled(MainPage)``;
+export default styled(ReviewPage)`
+  .homeSection__header {
+    justify-content: center;
+  }
+`;
