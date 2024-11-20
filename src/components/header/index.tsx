@@ -19,7 +19,7 @@ function Header({ className }: HeaderProps) {
         <Link href="/">
           <span className="header__menu--text">STORE</span>
         </Link>
-        <Link href="/">
+        <Link href="/review">
           <span className="header__menu--text">REVIEW</span>
         </Link>
         <Link href="/">

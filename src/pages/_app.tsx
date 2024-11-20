@@ -3,6 +3,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import GlobalStyles from "utils/styles/global";
+import Modal from "components/Modal";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

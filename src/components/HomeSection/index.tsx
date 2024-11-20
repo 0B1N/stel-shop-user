@@ -6,7 +6,7 @@ import media from "utils/styles/mediaQuery";
 
 type HomeSectionProps = {
   title: string;
-  href: string;
+  href?: string;
   className?: string;
   children?: ReactNode;
 };
@@ -19,10 +19,12 @@ function HomeSection({ title, href, className, children }: HomeSectionProps) {
           <span>{title}</span>
         </div>
 
-        <Link href={href} className="homeSection__header--more">
-          <span>더보기</span>
-          <ArrowIcon />
-        </Link>
+        {href && (
+          <Link href={href} className="homeSection__header--more">
+            <span>더보기</span>
+            <ArrowIcon />
+          </Link>
+        )}
       </header>
 
       <div className="homeSection__contents">{children}</div>
