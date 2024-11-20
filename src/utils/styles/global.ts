@@ -1,4 +1,5 @@
 import { createGlobalStyle, css } from "styled-components";
+import media from "./mediaQuery";
 
 const resetCSS = css`
   * {
@@ -180,6 +181,14 @@ const resetCSS = css`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+  }
+
+  html {
+    font-size: 12px;
+
+    ${media.small} {
+      font-size: 14px;
+    }
   }
 `;
 

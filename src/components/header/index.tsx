@@ -62,7 +62,7 @@ export default styled(Header)`
 
     &--text {
       margin: 0 8px;
-      font-size: 14px;
+      font-size: 1rem;
     }
   }
 
@@ -78,7 +78,7 @@ export default styled(Header)`
 
     &--text,
     &--heart {
-      font-size: 14px;
+      font-size: 1rem;
     }
 
     &--heart,

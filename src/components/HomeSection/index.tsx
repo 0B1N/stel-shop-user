@@ -2,6 +2,7 @@ import ArrowIcon from "components/Icon/ArrowIcon";
 import Link from "next/link";
 import { ReactNode } from "react";
 import styled from "styled-components";
+import media from "utils/styles/mediaQuery";
 
 type HomeSectionProps = {
   title: string;
@@ -47,14 +48,14 @@ export default styled(HomeSection)`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    /* padding: 0 16px; */
     margin-bottom: 44px;
+    padding: 0 18px;
 
     &--title {
       font-family: "Roboto", sans-serif;
       font-weight: 900;
       font-style: normal;
-      font-size: 40px;
+      font-size: 2.8571rem;
       text-align: center;
       position: relative;
 
@@ -75,11 +76,11 @@ export default styled(HomeSection)`
 
     &--more {
       color: #757575;
-      font-size: 16px;
+      font-size: 1.1429rem;
       display: inline-flex;
       align-items: center;
       cursor: pointer;
-      letter-spacing: -0.8px;
+      letter-spacing: -0.0571rem;
 
       svg {
         margin-top: -3px;
@@ -92,5 +93,11 @@ export default styled(HomeSection)`
     gap: 28px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  ${media.small} {
+    .homeSection__header {
+      padding: 0;
+    }
   }
 `;

@@ -72,7 +72,7 @@ export default styled(ReviewCardProps)`
     margin: 12px 0 8px;
 
     &--text {
-      font-size: 14px;
+      font-size: 1rem;
       color: #565656;
     }
   }
@@ -94,8 +94,8 @@ export default styled(ReviewCardProps)`
       margin-top: -7px;
 
       &--text {
-        font-size: 14px;
-        letter-spacing: -0.22px;
+        font-size: 1rem;
+        letter-spacing: -0.0157rem;
         color: #313131;
       }
     }

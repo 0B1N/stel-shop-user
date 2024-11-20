@@ -65,7 +65,7 @@ export default styled(Card)`
       position: absolute;
       top: 20px;
       left: 0;
-      font-size: 14px;
+      font-size: 1rem;
       padding: 4px 6px;
       border-radius: 0 4px 4px 0;
       background-color: #ff403f;
@@ -76,25 +76,25 @@ export default styled(Card)`
 
   .card__title {
     margin: 22px 0 4px;
-    letter-spacing: -0.8px;
-    font-size: 15px;
+    letter-spacing: -0.0571rem;
+    font-size: 1.0714rem;
   }
 
   .card__price {
-    font-size: 17px;
+    font-size: 1.2143rem;
     font-weight: bold;
     margin-top: 6px;
 
     &--discount {
       color: #949494;
-      font-size: 15px;
+      font-size: 1.0714rem;
       margin-left: 5px;
       text-decoration: line-through;
       font-weight: 500;
     }
 
     &--sale {
-      font-size: 18px;
+      font-size: 1.2857rem;
       font-weight: bold;
     }
   }
