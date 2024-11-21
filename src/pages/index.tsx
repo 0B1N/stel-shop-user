@@ -26,13 +26,13 @@ function MainPage({ className }: MainPageProps) {
 
       <HomeBanner />
 
-      <HomeSection title="NEW" href="/new">
+      <HomeSection title="NEW" href="/store">
         {new_mockup_data.map((data, i) => (
           <Card {...data} key={i} />
         ))}
       </HomeSection>
 
-      <HomeSection title="POPULAR" href="/popular">
+      <HomeSection title="POPULAR" href="/store">
         {popular_mockup_data.map((data, i) => (
           <Card {...data} key={i} />
         ))}
