@@ -33,13 +33,13 @@ function HomeSection({ title, href, className, children }: HomeSectionProps) {
 }
 
 export default styled(HomeSection)`
-  max-width: 1280px;
+  /* max-width: 1280px; */
   width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0 100px;
+  padding: 0 0 100px; */
 
   &.new {
     padding-top: 90px;
@@ -91,10 +91,10 @@ export default styled(HomeSection)`
   }
 
   .homeSection__contents {
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    justify-content: center;
+    /* display: flex; */
+    /* gap: 28px; */
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
   }
 
   ${media.small} {

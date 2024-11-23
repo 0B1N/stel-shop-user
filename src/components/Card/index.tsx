@@ -21,7 +21,35 @@ function Card({ className, title, img, rate, price, isNew, sale }: CardProps) {
     <div className={className}>
       <div className="card__image" data-empty={!img}>
         {isNew && <span className="card__image--new">신상품</span>}
-        {img && <Image width={299} height={299} src={img} alt={title} />}
+        {img && (
+          <Image
+            src={img}
+            fill
+            // width={163}
+            // height={163}
+            alt="Picture of the author"
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // sizes="(min-width: 768px) 50vw, (min-width: 1280px) 100vw"
+            // placeholder="blur"
+            style={
+              {
+                // width: "100%",
+                // maxWidth: "100%",
+                // maxHeight: "100%",
+                // aspectRatio: "1 / 1",
+              }
+            }
+          />
+
+          // <Image
+          //   fill={true}
+          //   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          //   // width={299}
+          //   // height={299}
+          //   src={img}
+          //   alt={title}
+          // />
+        )}
       </div>
 
       <p className="card__title">{title}</p>
@@ -47,6 +75,8 @@ function Card({ className, title, img, rate, price, isNew, sale }: CardProps) {
 export default styled(Card)`
   text-align: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 
   .card__image {
     position: relative;
@@ -54,6 +84,13 @@ export default styled(Card)`
     border-radius: 21px;
     overflow: hidden;
     background-color: #949494;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
 
     &[data-empty="true"] {
       width: 299px;

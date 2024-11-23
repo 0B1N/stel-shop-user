@@ -1,3 +1,4 @@
+import { ReactNode, useContext } from "react";
 import styled from "styled-components";
 
 type RadioItemProps = {
@@ -16,7 +17,11 @@ function RadioItem({
   value,
 }: RadioItemProps) {
   return (
-    <div className={`${className} radio-item`} onClick={() => onChange(value)}>
+    <div
+      className={className}
+      data-active={active}
+      onClick={() => onChange(value)}
+    >
       <div className="circle">
         {active && <span className="inner-circle" />}
       </div>
@@ -30,12 +35,8 @@ export default styled(RadioItem)`
   cursor: pointer;
 
   display: flex;
-  flex: 1 1 50%;
+  flex: 1 1 100%;
   align-items: center;
-
-  &:hover .label:after {
-    transform: scale(3);
-  }
 
   .circle {
     position: relative;
@@ -57,9 +58,14 @@ export default styled(RadioItem)`
   }
 
   .name {
-    color: rgb(76, 76, 76);
-    font-size: 15px;
-    font-weight: 400;
+    color: #6b6b6b;
+    font-size: 14px;
     padding-left: 8px;
+  }
+
+  &[data-active="true"] {
+    .name {
+      color: #141414;
+    }
   }
 `;
