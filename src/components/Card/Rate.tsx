@@ -10,7 +10,7 @@ function Rate({ rate, className }: RateProps) {
       {Array(5)
         .fill(null)
         .map((_, i) => (
-          <StarIcon fill={i + 1 <= rate ? "#000" : "#d7d7d7"} />
+          <StarIcon key={i} fill={i + 1 <= rate ? "#000" : "#d7d7d7"} />
         ))}
     </div>
   );

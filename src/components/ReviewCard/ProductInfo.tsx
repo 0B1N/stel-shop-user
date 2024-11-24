@@ -39,7 +39,7 @@ function ProductInfo({
 
 export default styled(ProductInfo)`
   display: flex;
-  gap: 16px;
+  gap: 1.1429rem;
   align-items: center;
 
   .productInfo--image {
@@ -51,13 +51,23 @@ export default styled(ProductInfo)`
   .productInfo__detail {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
     margin-top: -7px;
+    width: calc(100% - 76px);
 
     &--text {
       font-size: 1rem;
       letter-spacing: -0.0157rem;
       color: #313131;
       line-height: 1.3;
+      text-align: left;
+
+      width: 100%;
+      display: inline-block;
+      /* padding: 0 5px; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       &.title {
         font-weight: 500;

@@ -173,7 +173,7 @@ const resetCSS = css`
     border: 0;
   }
 
-  select,
+  /* select,
   input[type="checkbox"],
   input[type="checkbox"]:checked,
   input[type="radio"],
@@ -181,7 +181,7 @@ const resetCSS = css`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-  }
+  } */
 
   html {
     font-size: 12px;
