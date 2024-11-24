@@ -33,16 +33,10 @@ function HomeSection({ title, href, className, children }: HomeSectionProps) {
 }
 
 export default styled(HomeSection)`
-  /* max-width: 1280px; */
   width: 100%;
-  /* margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 0 100px; */
 
   &.new {
-    padding-top: 90px;
+    padding: 90px 16px 0;
   }
 
   .homeSection__header {
@@ -51,7 +45,6 @@ export default styled(HomeSection)`
     display: flex;
     justify-content: space-between;
     margin-bottom: 44px;
-    padding: 0 18px;
 
     &--title {
       font-family: "Roboto", sans-serif;
@@ -91,15 +84,28 @@ export default styled(HomeSection)`
   }
 
   .homeSection__contents {
-    /* display: flex; */
-    /* gap: 28px; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: 1 0;
+    display: grid;
+    grid-column-gap: 1.1428571429rem;
+    grid-row-gap: 2.2857142857rem;
+    position: relative;
+    grid-auto-rows: min-content;
   }
 
   ${media.small} {
     .homeSection__header {
       padding: 0;
+    }
+
+    .homeSection__contents {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  ${media.large} {
+    .homeSection__contents {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 `;

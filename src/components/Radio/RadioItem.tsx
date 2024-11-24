@@ -33,7 +33,6 @@ function RadioItem({
 export default styled(RadioItem)`
   position: relative;
   cursor: pointer;
-
   display: flex;
   flex: 1 1 100%;
   align-items: center;
@@ -53,7 +52,7 @@ export default styled(RadioItem)`
       width: 8px;
       height: 8px;
       border-radius: 100%;
-      background-color: #142a69;
+      background-color: #141414;
     }
   }
 
@@ -66,6 +65,7 @@ export default styled(RadioItem)`
   &[data-active="true"] {
     .name {
       color: #141414;
+      font-weight: bold;
     }
   }
 `;

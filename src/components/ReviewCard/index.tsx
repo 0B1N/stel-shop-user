@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { numberWithCommas } from "utils/number";
 import ProductInfo from "./ProductInfo";
+import Figure from "components/Card/Figure";
 
 export type ReviewData = {
   rate: number;
@@ -32,14 +33,11 @@ function ReviewCardProps({ className, data, onClick }: ReviewCardProps) {
         onClick(data);
       }}
     >
-      <div className="reviewCard__image">
-        <Image
-          width={299}
-          height={299}
-          src={data.thumbnail}
-          alt="photo_review"
-        />
-      </div>
+      <Figure
+        className="reviewCard__image"
+        src={data.thumbnail}
+        alt="photo_review"
+      />
 
       <div className="reviewCard__info">
         <Rate rate={data.rate} />
@@ -58,13 +56,10 @@ function ReviewCardProps({ className, data, onClick }: ReviewCardProps) {
 }
 
 export default styled(ReviewCardProps)`
+  text-align: center;
   cursor: pointer;
-
-  .reviewCard__image {
-    overflow: hidden;
-    border-radius: 21px;
-    font-size: 0;
-  }
+  display: flex;
+  flex-direction: column;
 
   .reviewCard__info {
     display: flex;

@@ -11,7 +11,7 @@ export default function FilterIcon({ className }: FilterIconProps) {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_855_71658)">
+      <g clipPath="url(#clip0_855_71658)">
         <path
           d="M2.87998 5.88H13.97C14.35 7.11 15.47 8 16.83 8C18.19 8 19.31 7.1 19.69 5.88H21.14C21.62 5.88 22.02 5.49 22.02 5C22.02 4.51 21.63 4.12 21.14 4.12H19.69C19.31 2.89 18.19 2 16.83 2C15.47 2 14.35 2.9 13.97 4.12H2.87998C2.39998 4.12 1.99998 4.51 1.99998 5C1.99998 5.49 2.38998 5.88 2.87998 5.88Z"
           fill="currentColor"

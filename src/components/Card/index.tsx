@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Rate from "./Rate";
 import Image from "next/image";
 import { numberWithCommas } from "utils/number";
+import Figure from "./Figure";
 
 export type CardData = {
   title: string;
@@ -19,38 +20,11 @@ type CardProps = {
 function Card({ className, title, img, rate, price, isNew, sale }: CardProps) {
   return (
     <div className={className}>
-      <div className="card__image" data-empty={!img}>
-        {isNew && <span className="card__image--new">신상품</span>}
-        {img && (
-          <Image
-            src={img}
-            fill
-            // width={163}
-            // height={163}
-            alt="Picture of the author"
-            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            // sizes="(min-width: 768px) 50vw, (min-width: 1280px) 100vw"
-            // placeholder="blur"
-            style={
-              {
-                // width: "100%",
-                // maxWidth: "100%",
-                // maxHeight: "100%",
-                // aspectRatio: "1 / 1",
-              }
-            }
-          />
-
-          // <Image
-          //   fill={true}
-          //   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          //   // width={299}
-          //   // height={299}
-          //   src={img}
-          //   alt={title}
-          // />
-        )}
-      </div>
+      <Figure
+        className={`card__image ${isNew ? "new" : ""}`}
+        src={img}
+        alt={title}
+      />
 
       <p className="card__title">{title}</p>
       <Rate rate={rate} />
@@ -79,35 +53,23 @@ export default styled(Card)`
   flex-direction: column;
 
   .card__image {
-    position: relative;
-    font-size: 0;
-    border-radius: 21px;
-    overflow: hidden;
-    background-color: #949494;
+    &.new {
+      position: relative;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
-
-    &[data-empty="true"] {
-      width: 299px;
-      height: 299px;
-    }
-
-    &--new {
-      display: inline-block;
-      position: absolute;
-      top: 20px;
-      left: 0;
-      font-size: 1rem;
-      padding: 4px 6px;
-      border-radius: 0 4px 4px 0;
-      background-color: #ff403f;
-      color: #fff;
-      font-weight: bold;
+      &::before {
+        content: "신상품";
+        display: inline-block;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        font-size: 1rem;
+        padding: 4px 6px;
+        border-radius: 0 4px 4px 0;
+        background-color: #ff403f;
+        color: #fff;
+        font-weight: bold;
+        z-index: 1;
+      }
     }
   }
 

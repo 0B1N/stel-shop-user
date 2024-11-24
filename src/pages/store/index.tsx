@@ -16,14 +16,24 @@ import RadioList from "components/Radio/RadioList";
 import { useState } from "react";
 import FilterIcon from "components/Icon/FilterIcon";
 import media from "utils/styles/mediaQuery";
+import { useRouter } from "next/router";
 
 type StorePageProps = {
   className?: string;
+  params: {
+    order: ProductOrderType | undefined;
+  };
 };
 
-function StorePage({ className }: StorePageProps) {
-  const [order, setOrder] = useState<ProductOrderType>();
+function StorePage({ className, params }: StorePageProps) {
+  const router = useRouter();
+
+  const [order, setOrder] = useState<ProductOrderType>(
+    (params?.order ?? router.query?.order) as ProductOrderType | undefined,
+  );
+
   const [category, setCategory] = useState<ProductCategoryType>();
+
   const [member, setMember] = useState<ProductMemberType>();
 
   return (
@@ -82,21 +92,18 @@ function StorePage({ className }: StorePageProps) {
   );
 }
 
+StorePage.getInitialProps = async (ctx) => {
+  return {
+    params: {
+      order: `${ctx.query.order}` as ProductOrderType | undefined,
+    },
+  };
+};
+
 export default styled(StorePage)`
   .homeSection__header {
     justify-content: center !important;
     display: none;
-  }
-
-  .homeSection__contents {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    flex: 1 0;
-    display: grid;
-    grid-column-gap: 1.1428571429rem;
-    grid-row-gap: 2.2857142857rem;
-    position: relative;
-    min-height: 37.4285714286rem;
-    grid-auto-rows: min-content;
   }
 
   .wrapper {
@@ -127,6 +134,7 @@ export default styled(StorePage)`
         border-radius: 12px;
         background-color: rgba(255, 255, 255, 0.6);
         box-shadow: 0 0 10px rgba(20, 20, 20, 0.15);
+        cursor: pointer;
 
         svg {
           width: 24px;
@@ -160,21 +168,11 @@ export default styled(StorePage)`
       .list {
         padding: 0;
         max-width: 100%;
-
-        .homeSection__contents {
-          /* justify-content: space-between; */
-          /* justify-content: center; */
-          /* gap: 32px 16px; */
-        }
       }
     }
   }
 
   ${media.small} {
-    .homeSection__contents {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
     .wrapper {
       .header {
         &__filter {
@@ -191,10 +189,6 @@ export default styled(StorePage)`
   }
 
   ${media.large} {
-    .homeSection__contents {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
     .wrapper {
       .header {
         &__filter {
