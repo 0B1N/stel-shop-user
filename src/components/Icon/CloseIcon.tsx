@@ -2,16 +2,21 @@ import { MouseEventHandler } from "react";
 
 type CloseIconProps = {
   className?: string;
+  size?: number;
   onClick?: MouseEventHandler<SVGSVGElement>;
 };
 
-export default function CloseIcon({ className, onClick }: CloseIconProps) {
+export default function CloseIcon({
+  className,
+  size,
+  onClick,
+}: CloseIconProps) {
   return (
     <svg
       className={className}
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width={size ?? "20"}
+      height={size ?? "20"}
       viewBox="0 0 20 20"
       fill="none"
       onClick={onClick}
