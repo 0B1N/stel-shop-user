@@ -1,8 +1,11 @@
 import Rate from "components/Card/Rate";
 import Collapse from "components/Collapse";
 import Header from "components/header";
+import CloseIcon from "components/Icon/CloseIcon";
+import HeartIcon from "components/Icon/HeartIcon";
 import MinusIcon from "components/Icon/MinusIcon";
 import PlusIcon from "components/Icon/PlusIcon";
+import ProductCounter from "components/ProductCounter";
 import ReviewItem from "components/ReviewItem";
 import Table from "components/Table";
 import Image from "next/image";
@@ -24,6 +27,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
   const [count, setCount] = useState(1);
   const [anchorIndex, setAnchorIndex] = useState(0);
   const [hideProductInfo, setHideProductInfo] = useState(true);
+  const [visibleBuyModal, setVisibleBuyModal] = useState(false);
 
   const tallent = useMemo(() => 7, []);
 
@@ -48,6 +52,40 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
                 alt="product_detail"
               />
             </figure>
+          </div>
+
+          <div className="productInfo__option productForm">
+            <div className="productForm__top">
+              <div
+                className="productForm__top--badge"
+                style={{
+                  backgroundColor: STELLIVE_PALETTE[tallent][100],
+                  color: STELLIVE_PALETTE[tallent][500],
+                }}
+              >
+                {PRODCUT_MEMBERS[tallent]}
+              </div>
+
+              <div className="productForm__top__action"></div>
+            </div>
+
+            <p className="productForm__title">2024 타비 뿡댕이 키링</p>
+            <p className="productForm__category">키링</p>
+            <p className="productForm__price">￦ 15,000</p>
+
+            <div className="productForm__review">
+              <Rate size={19} rate={5} className="productForm__review--rate" />
+
+              <span className="productForm__review--label">00개 리뷰 보기</span>
+            </div>
+
+            <div className="productForm__delivery">
+              <p className="productForm__delivery--title">기본 배송료 : 무료</p>
+              <p className="productForm__delivery--text">
+                국내 도서 산간/해외는 추가 비용이 발생할 수 있으며, 정확한
+                배송비는 결제 화면에서 확인할 수 있습니다.
+              </p>
+            </div>
           </div>
 
           <div className="productInfo__tag">
@@ -219,38 +257,10 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <span className="productForm__review--label">00개 리뷰 보기</span>
           </div>
 
-          <div className="productForm__countPrice">
-            <div className="productForm__countPrice--wrap">
-              <span className="productForm__countPrice--label">수량</span>
-              <div className="productForm__countPrice__count">
-                <button
-                  className="productForm__countPrice__count--button"
-                  disabled={count === 1}
-                  onClick={() => setCount(count - 1)}
-                >
-                  <MinusIcon />
-                </button>
-                <span className="productForm__countPrice__count--label">
-                  {count}
-                </span>
-                <button
-                  className="productForm__countPrice__count--button"
-                  onClick={() => setCount(count + 1)}
-                >
-                  <PlusIcon />
-                </button>
-              </div>
-            </div>
-
-            <div className="productForm__countPrice--wrap">
-              <span className="productForm__countPrice--label">
-                총 상품 금액
-              </span>
-              <div className="productForm__countPrice__total">
-                ￦ {numberWithCommas(15000 * count)}
-              </div>
-            </div>
-          </div>
+          <ProductCounter
+            count={count}
+            onCountChange={(count) => setCount(count)}
+          />
 
           <div className="productForm__submit">
             <div className="productForm__submit--button cart">장바구니</div>
@@ -265,6 +275,45 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </p>
           </div>
         </div>
+
+        <div className="productFooter">
+          <div className="productFooter--heart">
+            <HeartIcon />
+          </div>
+          <div
+            className="productFooter--buy"
+            onClick={() => setVisibleBuyModal(!visibleBuyModal)}
+          >
+            구매하기
+          </div>
+        </div>
+
+        {visibleBuyModal && (
+          <div className="productModal">
+            <div className="productModal__content">
+              <div
+                className="productModal__content__close"
+                onClick={() => setVisibleBuyModal(!visibleBuyModal)}
+              >
+                <CloseIcon />
+              </div>
+
+              <ProductCounter
+                count={count}
+                onCountChange={(count) => setCount(count)}
+              />
+
+              <div className="productModal__content__submit">
+                <button className="productModal__content__submit--button cart">
+                  장바구니
+                </button>
+                <button className="productModal__content__submit--button buy">
+                  바로 구매하기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -288,7 +337,7 @@ export default styled(ProductDetailPage)`
     display: flex;
 
     .productInfo {
-      max-width: 65.14285714285714rem;
+      width: 100%;
 
       &__image {
         display: flex;
@@ -324,12 +373,20 @@ export default styled(ProductDetailPage)`
         }
       }
 
+      &__option.productForm {
+        display: inline-block;
+        min-width: auto;
+        width: 100%;
+        padding: 1.142857142857143rem 1.142857142857143rem 1.714285714285714rem;
+        margin-left: 0;
+      }
+
       &__tag {
         width: 100%;
         display: flex;
         border-bottom: 1px solid #828282;
         position: sticky;
-        top: 86px;
+        top: 61px;
         background-color: #fff;
         z-index: 3;
         margin-bottom: 1.714285714285714rem;
@@ -358,8 +415,8 @@ export default styled(ProductDetailPage)`
       }
 
       &__group {
-        padding-bottom: 5rem;
         position: relative;
+        padding: 0 1.142857142857143rem 5rem;
         margin-bottom: 5.142857142857143rem;
 
         & > .box {
@@ -381,7 +438,7 @@ export default styled(ProductDetailPage)`
           font-weight: 700;
           line-height: 1.714285714285714rem;
           letter-spacing: -0.014285714285714287rem;
-          width: 100%;
+          width: calc(100% - 2.285714285714286rem);
           padding: 1.142857142857143rem 1.714285714285714rem;
           color: #6b6b6b;
           border-radius: 0.5714285714285714rem;
@@ -394,6 +451,7 @@ export default styled(ProductDetailPage)`
       }
 
       &__buyGuide {
+        padding: 0 1.142857142857143rem;
         margin-bottom: 5.142857142857143rem;
 
         &--title {
@@ -404,15 +462,28 @@ export default styled(ProductDetailPage)`
           margin-bottom: 0.5714285714285714rem;
         }
       }
+
+      &__review {
+        padding: 0 1.142857142857143rem;
+
+        &--title {
+          font-size: 1.428571428571429rem;
+          font-weight: 700;
+          line-height: 2rem;
+          letter-spacing: -0.014285714285714287rem;
+          margin: 0 0 0.5714285714285714rem;
+        }
+      }
     }
 
     .productForm {
+      display: none;
       min-width: 32rem;
       padding-left: 1.142857142857143rem;
       margin-left: 1.142857142857143rem;
 
       &__top {
-        margin-bottom: 8px;
+        margin-bottom: 0.5714rem;
 
         &--badge {
           display: flex;
@@ -440,7 +511,7 @@ export default styled(ProductDetailPage)`
         font-weight: 500;
         line-height: 2.785714285714286rem;
         letter-spacing: -0.014285714285714287rem;
-        margin-bottom: 8px;
+        margin-bottom: 0.5714rem;
       }
 
       &__category {
@@ -462,16 +533,16 @@ export default styled(ProductDetailPage)`
         font-weight: 700;
         line-height: 2.428571428571428rem;
         letter-spacing: -0.014285714285714287rem;
-        margin: 16px 0;
+        margin: 1.1429rem 0;
       }
 
       &__review {
         display: flex;
         align-items: center;
-        margin-bottom: 40px;
+        margin-bottom: 2.8571rem;
 
         &--label {
-          margin-left: 8px;
+          margin-left: 0.5714rem;
           font-size: 1rem;
           font-weight: 500;
           line-height: 1.571428571428571rem;
@@ -621,9 +692,195 @@ export default styled(ProductDetailPage)`
         }
       }
     }
+
+    .productFooter {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5714285714285714rem;
+      padding: 1.142857142857143rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+
+      &--heart {
+        border: none;
+        outline: none;
+        background: #f8f8f8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 52px !important;
+        height: 52px !important;
+        padding: 0;
+        color: #d9d9d9;
+        background: #fff;
+        box-sizing: content-box;
+        border-radius: 50%;
+
+        svg {
+          width: 2.285714285714286rem;
+          height: 2.285714285714286rem;
+        }
+      }
+
+      &--buy {
+        background: rgb(28, 117, 255);
+        color: rgb(255, 255, 255);
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 3.714285714285714rem;
+        font-family: Pretendard;
+        font-size: 1.142857142857143rem;
+        font-weight: 700;
+        line-height: 1.714285714285714rem;
+        letter-spacing: -0.014285714285714287rem;
+        text-align: center;
+        color: $whtie;
+        outline: none;
+        border: none;
+        border-radius: 0.5714285714285714rem;
+        background-color: #1c75ff;
+        padding: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        margin: 0;
+      }
+    }
+
+    .productModal {
+      position: fixed;
+      z-index: 200;
+      inset: 0px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      &__content {
+        border-top-left-radius: 1.142857142857143rem;
+        border-top-right-radius: 1.142857142857143rem;
+        height: 45%;
+        position: absolute;
+        background-color: #fff;
+        width: 100%;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 1.142857142857143rem;
+        margin: 0;
+        padding: 0 1.142857142857143rem 1.142857142857143rem;
+        max-height: calc(90dvh - 6rem - 58px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+
+        &__close {
+          display: flex;
+          align-self: center;
+          padding: 1.142857142857143rem 0 1.142857142857143rem
+            1.142857142857143rem;
+          margin-left: auto;
+          cursor: pointer;
+        }
+
+        &__submit {
+          margin-top: auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.5714285714285714rem;
+
+          &--button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 4rem;
+            width: 100%;
+            font-family: Pretendard;
+            font-size: 1.142857142857143rem;
+            font-weight: 700;
+            line-height: 1.714285714285714rem;
+            letter-spacing: -0.014285714285714287rem;
+            line-height: normal;
+            outline: none;
+            border: none;
+            border-radius: 0.5714285714285714rem;
+            box-sizing: border-box;
+            cursor: pointer;
+
+            &.cart {
+              border: solid 1px #d9d9d9;
+              background: #fff;
+              color: #141414;
+            }
+
+            &.buy {
+              background: #141414;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
   }
 
   ${media.small} {
     margin-top: 86px;
+  }
+
+  ${media.large} {
+    .body {
+      .productInfo {
+        max-width: 65.14285714285714rem;
+
+        &__option.productForm {
+          display: none;
+        }
+
+        &__tag {
+          top: 86px;
+        }
+
+        &__group {
+          padding: 0 0 5rem;
+
+          &--button {
+            width: 100%;
+          }
+        }
+
+        &__buyGuide {
+          padding: 0;
+        }
+
+        &__review {
+          padding: 0;
+        }
+      }
+
+      .productForm {
+        display: inline-block;
+      }
+
+      .productFooter {
+        display: none;
+      }
+    }
   }
 `;

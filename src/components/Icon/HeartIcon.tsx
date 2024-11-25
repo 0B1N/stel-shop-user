@@ -6,23 +6,10 @@ type HeartIconProps = {
 
 function HeartIcon({ className }: HeartIconProps) {
   return (
-    <svg
-      className={className}
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 24 24" fill="none">
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
-        stroke="#000000"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="transparent"
+        d="M21.5327 7.26C20.6335 5.06 18.6552 4 16.6768 4C14.8783 4 13.0898 4.88 12.1106 6.58C12.0907 6.61 12.0707 6.65 12.0507 6.68C12.0307 6.71 12.0107 6.72 11.9808 6.72C11.9508 6.72 11.9308 6.71 11.9108 6.68C11.8908 6.65 11.8708 6.61 11.8509 6.58C10.8817 4.88 9.08319 4 7.2847 4C5.32634 4 3.348 5.06 2.44876 7.26C1.23977 10.22 2.65858 13.49 4.50703 15.86C8.22391 20.28 11.2514 21.71 11.8808 21.98C11.9608 22.01 12.0407 22.01 12.1206 21.98C12.7501 21.72 15.7676 20.29 19.4944 15.86C21.3329 13.49 22.7617 10.22 21.5527 7.26H21.5327Z"
+        fill="currentColor"
       />
     </svg>
   );
@@ -30,17 +17,4 @@ function HeartIcon({ className }: HeartIconProps) {
 
 export default styled(HeartIcon)`
   cursor: pointer;
-
-  path {
-    transition:
-      fill 0.3s ease-in-out,
-      stroke 0.1s ease-in-out;
-  }
-
-  &:hover {
-    path {
-      fill: #e8594b;
-      stroke: #e8594b;
-    }
-  }
 `;

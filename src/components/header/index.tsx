@@ -102,6 +102,13 @@ export default styled(Header)`
       &--hamburger {
         display: inline-block;
       }
+
+      &--heart {
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
     }
   }
 
