@@ -38,8 +38,6 @@ function StorePage({ className, params }: StorePageProps) {
 
   return (
     <div className={className}>
-      <Header />
-
       <div className="wrapper">
         <div className="header">
           <span className="header__title">PRODUCT</span>
@@ -101,9 +99,10 @@ StorePage.getInitialProps = async (ctx) => {
 };
 
 export default styled(StorePage)`
+  margin-top: 61px;
+
   .homeSection__header {
-    justify-content: center !important;
-    display: none;
+    display: none !important;
   }
 
   .wrapper {
@@ -173,7 +172,11 @@ export default styled(StorePage)`
   }
 
   ${media.small} {
+    margin-top: 86px;
+
     .wrapper {
+      padding: 30px 0 0;
+
       .header {
         &__filter {
           display: none;

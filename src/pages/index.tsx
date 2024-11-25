@@ -23,8 +23,6 @@ function MainPage({ className }: MainPageProps) {
 
   return (
     <div className={className}>
-      <Header />
-
       <HomeBanner />
 
       <HomeSection title="NEW" href="/store?order=new">
@@ -66,6 +64,8 @@ function MainPage({ className }: MainPageProps) {
 }
 
 export default styled(MainPage)`
+  margin-top: 61px;
+
   .new {
     max-width: 1280px;
     margin: 0 auto;
@@ -73,6 +73,8 @@ export default styled(MainPage)`
   }
 
   ${media.small} {
+    margin-top: 86px;
+
     .homeSection__contents {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

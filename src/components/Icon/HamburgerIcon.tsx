@@ -1,7 +1,6 @@
 type HamburgerIconProps = { className?: string; size?: number };
 
 export default function HamburgerIcon({ className, size }: HamburgerIconProps) {
-  console.log(className);
   return (
     <svg
       className={className}
