@@ -33,6 +33,7 @@ function Header({ className }: HeaderProps) {
           <a className="header__contents--text" href="">
             LOGIN
           </a>
+
           <Link href="/like">
             <span className="header__contents--heart">
               <HeartIcon />
@@ -40,10 +41,12 @@ function Header({ className }: HeaderProps) {
             </span>
           </Link>
 
-          <a className="header__contents--text" href="">
-            CART (0)
-          </a>
+          <Link href="/cart">
+            <span className="header__contents--text">CART (0)</span>
+          </Link>
+
           <HamburgerIcon className="header__contents--hamburger" />
+
           <Link href="/">
             <SearchIcon className="header__contents--search" />
           </Link>
@@ -115,7 +118,7 @@ export default styled(Header)`
     }
   }
 
-  ${media.small} {
+  ${media.large} {
     .wrapper {
       max-width: 1280px;
       width: 100%;

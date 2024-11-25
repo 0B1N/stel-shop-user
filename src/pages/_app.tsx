@@ -5,8 +5,11 @@ import Head from "next/head";
 import GlobalStyles from "utils/styles/global";
 import Modal from "components/Modal";
 import Header from "components/header";
+import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -16,8 +19,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
 
+      {/* {router.asPath !== "/cart" && <Header />} */}
       <Header />
-
       <Component {...pageProps} />
     </>
   );
