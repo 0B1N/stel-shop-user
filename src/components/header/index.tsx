@@ -33,10 +33,13 @@ function Header({ className }: HeaderProps) {
           <a className="header__contents--text" href="">
             LOGIN
           </a>
-          <a href="" className="header__contents--heart">
-            <HeartIcon />
-            (0)
-          </a>
+          <Link href="/like">
+            <span className="header__contents--heart">
+              <HeartIcon />
+              (0)
+            </span>
+          </Link>
+
           <a className="header__contents--text" href="">
             CART (0)
           </a>
