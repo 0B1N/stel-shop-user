@@ -19,8 +19,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
 
-      {router.asPath !== "/cart" && <Header />}
-
+      {/* {router.asPath !== "/cart" && <Header />} */}
+      <Header />
       <Component {...pageProps} />
     </>
   );

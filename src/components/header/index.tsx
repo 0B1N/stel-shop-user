@@ -118,7 +118,7 @@ export default styled(Header)`
     }
   }
 
-  ${media.small} {
+  ${media.large} {
     .wrapper {
       max-width: 1280px;
       width: 100%;
