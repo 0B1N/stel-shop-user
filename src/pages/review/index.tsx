@@ -6,6 +6,7 @@ import { review_page_data } from "utils/mockup/review";
 import ReviewCard, { ReviewData } from "components/ReviewCard";
 import Modal from "components/Modal";
 import { useState } from "react";
+import media from "utils/styles/mediaQuery";
 
 type ReviewPageProps = {
   className?: string;
@@ -17,8 +18,6 @@ function ReviewPage({ className }: ReviewPageProps) {
 
   return (
     <div className={className}>
-      <Header />
-
       <HomeSection title="PHOTO REVIEW">
         {review_page_data.map((v, i) => (
           <ReviewCard
@@ -46,7 +45,13 @@ function ReviewPage({ className }: ReviewPageProps) {
 }
 
 export default styled(ReviewPage)`
+  margin-top: 61px;
+
   .homeSection__header {
     justify-content: center;
+  }
+
+  ${media.small} {
+    margin-top: 86px;
   }
 `;

@@ -1,19 +1,24 @@
 import StarIcon from "components/Icon/StarIcon";
-import { useMemo } from "react";
 import styled from "styled-components";
 
-type RateProps = { rate: number; className?: string };
+type RateProps = { rate: number; size?: number; className?: string };
 
-function Rate({ rate, className }: RateProps) {
+function Rate({ rate, className, size }: RateProps) {
   return (
-    <div>
+    <div className={className}>
       {Array(5)
         .fill(null)
         .map((_, i) => (
-          <StarIcon key={i} fill={i + 1 <= rate ? "#000" : "#d7d7d7"} />
+          <StarIcon
+            size={size}
+            key={i}
+            fill={i + 1 <= rate ? "#000" : "#d7d7d7"}
+          />
         ))}
     </div>
   );
 }
 
-export default styled(Rate)``;
+export default styled(Rate)`
+  font-size: 0;
+`;

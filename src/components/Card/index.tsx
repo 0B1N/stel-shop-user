@@ -3,6 +3,7 @@ import Rate from "./Rate";
 import Image from "next/image";
 import { numberWithCommas } from "utils/number";
 import Figure from "./Figure";
+import Link from "next/link";
 
 export type CardData = {
   title: string;
@@ -19,30 +20,32 @@ type CardProps = {
 
 function Card({ className, title, img, rate, price, isNew, sale }: CardProps) {
   return (
-    <div className={className}>
-      <Figure
-        className={`card__image ${isNew ? "new" : ""}`}
-        src={img}
-        alt={title}
-      />
+    <Link href="/detail/[id]" as="/detail/1">
+      <div className={className}>
+        <Figure
+          className={`card__image ${isNew ? "new" : ""}`}
+          src={img}
+          alt={title}
+        />
 
-      <p className="card__title">{title}</p>
-      <Rate rate={rate} />
-      <div className="card__price">
-        {sale ? (
-          <>
-            <span className="card__price--sale">
-              ￦{numberWithCommas(price * (1 - sale / 100))}
-            </span>
-            <span className="card__price--discount">
-              ￦{numberWithCommas(price)}
-            </span>
-          </>
-        ) : (
-          `￦ ${numberWithCommas(price)}`
-        )}
+        <p className="card__title">{title}</p>
+        <Rate rate={rate} />
+        <div className="card__price">
+          {sale ? (
+            <>
+              <span className="card__price--sale">
+                ￦{numberWithCommas(price * (1 - sale / 100))}
+              </span>
+              <span className="card__price--discount">
+                ￦{numberWithCommas(price)}
+              </span>
+            </>
+          ) : (
+            `￦ ${numberWithCommas(price)}`
+          )}
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

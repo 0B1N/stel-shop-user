@@ -1,14 +1,15 @@
 type StarIconProps = {
   fill?: string;
   className?: string;
+  size?: number;
 };
 
-export default function StarIcon({ className, fill }: StarIconProps) {
+export default function StarIcon({ className, fill, size }: StarIconProps) {
   return (
     <svg
       fill={fill ?? "#000000"}
-      width="12px"
-      height="12px"
+      width={`${size ?? 12}px`}
+      height={`${size ?? 12}px`}
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
