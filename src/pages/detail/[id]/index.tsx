@@ -31,6 +31,18 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
 
   const tallent = useMemo(() => 7, []);
 
+  function handleClick(id: string, index: number) {
+    setAnchorIndex(index);
+
+    const scrollTop = document.getElementById(id).offsetTop;
+    const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
+
+    window.scrollTo({
+      top: scrollTop - exclusionArea,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <div className={className}>
       <div className="body">
@@ -76,7 +88,12 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <div className="productForm__review">
               <Rate size={19} rate={5} className="productForm__review--rate" />
 
-              <span className="productForm__review--label">00개 리뷰 보기</span>
+              <span
+                className="productForm__review--label"
+                onClick={() => handleClick("review", 2)}
+              >
+                00개 리뷰 보기
+              </span>
             </div>
 
             <div className="productForm__delivery">
@@ -96,25 +113,29 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
 
             <div
               className="productInfo__tag__item"
-              onClick={() => setAnchorIndex(0)}
+              data-active={anchorIndex === 0}
+              onClick={() => handleClick("productDetail", 0)}
             >
               상품 상세
             </div>
             <div
               className="productInfo__tag__item"
-              onClick={() => setAnchorIndex(1)}
+              data-active={anchorIndex === 1}
+              onClick={() => handleClick("buyGuide", 1)}
             >
               구매 안내
             </div>
             <div
               className="productInfo__tag__item"
-              onClick={() => setAnchorIndex(2)}
+              data-active={anchorIndex === 2}
+              onClick={() => handleClick("review", 2)}
             >
               리뷰 00
             </div>
           </div>
 
           <div
+            id="productDetail"
             className="productInfo__group"
             style={{
               overflow: hideProductInfo ? "hidden" : "visible",
@@ -133,7 +154,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </button>
           </div>
 
-          <div className="productInfo__buyGuide">
+          <div className="productInfo__buyGuide" id="buyGuide">
             <h2 className="productInfo__buyGuide--title">구매 안내</h2>
 
             <Collapse title="배송 정보">
@@ -160,7 +181,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </Collapse>
           </div>
 
-          <div className="productInfo__review">
+          <div className="productInfo__review" id="review">
             <h2 className="productInfo__review--title">리뷰 (00)</h2>
 
             <div className="productInfo__review__content">
@@ -254,7 +275,12 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
           <div className="productForm__review">
             <Rate size={19} rate={5} className="productForm__review--rate" />
 
-            <span className="productForm__review--label">00개 리뷰 보기</span>
+            <span
+              className="productForm__review--label"
+              onClick={() => handleClick("review", 2)}
+            >
+              00개 리뷰 보기
+            </span>
           </div>
 
           <ProductCounter
@@ -411,6 +437,11 @@ export default styled(ProductDetailPage)`
           color: #a2a2a2;
           text-align: center;
           cursor: pointer;
+
+          &[data-active="true"] {
+            font-weight: bold;
+            color: #000;
+          }
         }
       }
 
