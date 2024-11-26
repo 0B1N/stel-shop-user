@@ -30,6 +30,24 @@ function MenuModal({ className, onClose }: MenuModalProps) {
             className="menuList__item"
             onClick={() => {
               onClose();
+              router.push("/store");
+            }}
+          >
+            STORE
+          </li>
+          <li
+            className="menuList__item"
+            onClick={() => {
+              onClose();
+              router.push("/review");
+            }}
+          >
+            REVIEW
+          </li>
+          <li
+            className="menuList__item"
+            onClick={() => {
+              onClose();
               router.push("/like");
             }}
           >

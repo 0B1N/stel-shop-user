@@ -54,4 +54,18 @@ export default styled(ReviewPage)`
   ${media.small} {
     margin-top: 86px;
   }
+
+  ${media.large} {
+    max-width: 1280px;
+    width: 100%;
+    margin: 86px auto 0;
+
+    .homeSection__header {
+      justify-content: flex-start;
+    }
+
+    .new {
+      padding: 90px 0 0 !important;
+    }
+  }
 `;
