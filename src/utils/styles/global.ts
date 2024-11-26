@@ -184,9 +184,14 @@ const resetCSS = css`
   } */
 
   html {
-    font-size: 12px;
+    scroll-behavior: smooth;
+    font-size: 11px;
 
     ${media.small} {
+      font-size: 12px;
+    }
+
+    ${media.large} {
       font-size: 14px;
     }
   }

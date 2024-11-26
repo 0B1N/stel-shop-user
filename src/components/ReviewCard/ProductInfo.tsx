@@ -26,9 +26,7 @@ function ProductInfo({
 
       <div className="productInfo__detail">
         <span className="productInfo__detail--text title">{title}</span>
-        <span className="productInfo__detail--text option">
-          옵션 : L (66 x 34 cm)
-        </span>
+        <span className="productInfo__detail--text option">{option}</span>
         <span className="productInfo__detail--text price">
           ￦{numberWithCommas(price)}
         </span>

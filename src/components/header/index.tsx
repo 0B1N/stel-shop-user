@@ -65,7 +65,7 @@ export default styled(Header)`
   width: 100%;
   top: 0;
   background-color: #fff;
-  z-index: 2;
+  z-index: 3;
 
   .wrapper {
     max-width: 1280px;

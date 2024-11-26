@@ -3,13 +3,14 @@ import styled from "styled-components";
 type ArrowIconProps = {
   className?: string;
   rotate?: number;
+  size?: number;
 };
 
-function ArrowIcon({ className }: ArrowIconProps) {
+function ArrowIcon({ className, size }: ArrowIconProps) {
   return (
     <svg
-      width="16"
-      height="17"
+      width={`${size ?? 16}px`}
+      height={`${size ?? 16}px`}
       viewBox="0 0 16 17"
       fill="none"
       className={className}
