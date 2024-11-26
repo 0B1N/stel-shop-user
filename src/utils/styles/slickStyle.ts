@@ -114,7 +114,7 @@ export const slickTheme = css`
 
   .slick-dots {
     position: absolute;
-    bottom: -25px;
+    bottom: -19px;
 
     display: block;
 
@@ -125,6 +125,7 @@ export const slickTheme = css`
     list-style: none;
 
     text-align: center;
+    font-size: 0;
   }
 
   .slick-dots li {
@@ -132,12 +133,13 @@ export const slickTheme = css`
 
     display: inline-block;
 
-    width: 20px;
-    height: 20px;
+    width: 8px;
+    height: 8px;
     margin: 0 5px;
     padding: 0;
 
     cursor: pointer;
+    transition: all 0.3s;
   }
 
   .slick-dots li button {
@@ -146,16 +148,15 @@ export const slickTheme = css`
 
     display: block;
 
-    width: 20px;
-    height: 20px;
-    padding: 5px;
-
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
-
-    color: transparent;
     border: 0;
     outline: none;
-    background: transparent;
+    transition: all 0.3s;
   }
 
   .slick-dots li button:hover,
@@ -168,31 +169,13 @@ export const slickTheme = css`
     opacity: 1;
   }
 
-  .slick-dots li button:before {
-    font-family: "slick";
-    font-size: 6px;
-    line-height: 20px;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
+  .slick-dots li.slick-active {
     width: 20px;
-    height: 20px;
-
-    content: "•";
-    text-align: center;
-
-    opacity: 0.25;
-    color: black;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
-  .slick-dots li.slick-active button:before {
-    opacity: 0.75;
-    color: black;
+  .slick-dots li.slick-active button {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 15px;
   }
 `;
 
@@ -218,10 +201,8 @@ export const slick = css`
 
   .slick-list {
     position: relative;
-
     display: block;
     overflow: hidden;
-
     margin: 0;
     padding: 0;
   }
@@ -254,7 +235,6 @@ export const slick = css`
   .slick-track:before,
   .slick-track:after {
     display: table;
-
     content: "";
   }
   .slick-track:after {
@@ -267,12 +247,14 @@ export const slick = css`
   .slick-slide {
     display: none;
     float: left;
-
     height: 100%;
     min-height: 1px;
   }
   [dir="rtl"] .slick-slide {
     float: right;
+  }
+  .slick-slide > div {
+    font-size: 0;
   }
   .slick-slide img {
     display: block;
@@ -291,9 +273,7 @@ export const slick = css`
   }
   .slick-vertical .slick-slide {
     display: block;
-
     height: auto;
-
     border: 1px solid transparent;
   }
   .slick-arrow.slick-hidden {
