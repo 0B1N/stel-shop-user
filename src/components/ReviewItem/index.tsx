@@ -1,47 +1,41 @@
 import styled from "styled-components";
 import UserInfo from "./UserInfo";
 import Image from "next/image";
+import { ReviewData } from "components/ReviewCard";
 
 type ReviewItemProps = {
   className?: string;
-  email: string;
-  rate: number;
-  desc: string;
-  date: string;
-  imgs: string[];
-  option?: string;
-  profile?: string;
+  data: ReviewData;
+  onClick(data: ReviewData): void;
 };
 
-function ReviewItem({
-  className,
-  email,
-  rate,
-  desc,
-  date,
-  imgs,
-  option,
-}: ReviewItemProps) {
+function ReviewItem({ className, data, onClick }: ReviewItemProps) {
   return (
-    <div className={`${className} reviewItem`}>
-      <UserInfo email={email} rate={rate} date={date} />
+    <div className={`${className} reviewItem`} onClick={() => onClick(data)}>
+      <UserInfo
+        email={data.email}
+        rate={data.review.rate}
+        date={data.review.date}
+      />
 
       <div className="reviewItem__content">
         <div className="reviewItem__content__body">
-          {option && (
-            <p className="reviewItem__content__body--option">{option}</p>
+          {data.product.option && (
+            <p className="reviewItem__content__body--option">
+              {data.product.option}
+            </p>
           )}
-          <p className="reviewItem__content__body--desc">{desc}</p>
+          <p className="reviewItem__content__body--desc">{data.review.desc}</p>
         </div>
 
         <div className="reviewItem__content__images">
-          {imgs.length > 1 && (
+          {data.review.images.length > 1 && (
             <div className="reviewItem__content__images--more">
-              +{imgs.length - 1}
+              +{data.review.images.length - 1}
             </div>
           )}
 
-          <Image fill={true} src={imgs[0]} alt="reviewPhoto" />
+          <Image fill={true} src={data.review.images[0]} alt="reviewPhoto" />
         </div>
       </div>
     </div>

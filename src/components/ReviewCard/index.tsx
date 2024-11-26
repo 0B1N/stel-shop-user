@@ -1,18 +1,21 @@
 import Rate from "components/Card/Rate";
-import Image from "next/image";
 import styled from "styled-components";
-import { numberWithCommas } from "utils/number";
 import ProductInfo from "./ProductInfo";
 import Figure from "components/Card/Figure";
 
 export type ReviewData = {
-  rate: number;
-  date: string;
-  thumbnail: string;
-  detail: {
-    img: string;
+  email: string;
+  review: {
+    images: string[];
+    desc: string;
+    rate: number;
+    date: string;
+  };
+  product: {
+    image: string;
     title: string;
     price: number;
+    option?: string;
   };
 };
 
@@ -22,7 +25,7 @@ type ReviewCardProps = {
   onClick(data: ReviewData): void;
 };
 
-function ReviewCardProps({ className, data, onClick }: ReviewCardProps) {
+function ReviewCard({ className, data, onClick }: ReviewCardProps) {
   return (
     <div
       className={className}
@@ -35,27 +38,28 @@ function ReviewCardProps({ className, data, onClick }: ReviewCardProps) {
     >
       <Figure
         className="reviewCard__image"
-        src={data.thumbnail}
+        src={data.review.images[0]}
         alt="photo_review"
       />
 
       <div className="reviewCard__info">
-        <Rate rate={data.rate} />
+        <Rate rate={data.review.rate} />
         <span className="reviewCard__info--text">
-          {data.date.split("-").join(".")}
+          {data.review.date.split("-").join(".")}
         </span>
       </div>
 
       <ProductInfo
-        title={data.detail.title}
-        image={data.detail.img}
-        price={data.detail.price}
+        title={data.product.title}
+        image={data.product.image}
+        price={data.product.price}
+        option={data.product.option}
       />
     </div>
   );
 }
 
-export default styled(ReviewCardProps)`
+export default styled(ReviewCard)`
   text-align: center;
   cursor: pointer;
   display: flex;

@@ -183,7 +183,7 @@ export const slick = css`
   /* Slider */
   .slick-slider {
     position: relative;
-
+    height: 100%;
     display: block;
     box-sizing: border-box;
 
@@ -205,6 +205,7 @@ export const slick = css`
     overflow: hidden;
     margin: 0;
     padding: 0;
+    height: 100%;
   }
   .slick-list:focus {
     outline: none;
@@ -227,7 +228,7 @@ export const slick = css`
     position: relative;
     top: 0;
     left: 0;
-
+    height: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -254,6 +255,7 @@ export const slick = css`
     float: right;
   }
   .slick-slide > div {
+    height: 100%;
     font-size: 0;
   }
   .slick-slide img {

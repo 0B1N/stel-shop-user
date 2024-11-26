@@ -6,6 +6,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import media from "utils/styles/mediaQuery";
 import { emailMasking } from "utils/text";
+import Slider, { Settings as SliderProps } from "react-slick";
+import { slick, slickTheme } from "utils/styles/slickStyle";
+import ArrowIcon from "components/Icon/ArrowIcon";
 
 type ModalProps = {
   className?: string;
@@ -13,11 +16,40 @@ type ModalProps = {
   onClose(): void;
 };
 
+const settings: SliderProps = {
+  dots: true,
+  infinite: false,
+  speed: 100,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  cssEase: "linear",
+  arrows: true,
+  nextArrow: (
+    <div>
+      <ArrowIcon size={19} />
+    </div>
+  ),
+  prevArrow: (
+    <div>
+      <ArrowIcon size={19} rotate={180} />
+    </div>
+  ),
+};
+
 function Modal({ className, data, onClose }: ModalProps) {
   return (
     <div className={className}>
       <div className="modal">
-        <div className="modal__photo"></div>
+        <div className="modal__photo">
+          <Slider {...settings}>
+            {data.review.images.map((src, i) => (
+              <div className="modal__photo__item">
+                <Image fill={true} src={src} alt={`review_image_${i}`} />
+              </div>
+            ))}
+          </Slider>
+        </div>
+
         <div className="modal__detail">
           <header className="modal__detail__header">
             <span className="modal__detail__header--title">리뷰 상세</span>
@@ -39,39 +71,24 @@ function Modal({ className, data, onClose }: ModalProps) {
               </div>
               <div className="modal__detail__user__body">
                 <p className="modal__detail__user__body--email">
-                  {emailMasking("binnyy01@gmail.com")}
+                  {emailMasking(data.email)}
                 </p>
-                <Rate rate={5} />
+                <Rate rate={data.review.rate} />
               </div>
-              <div className="modal__detail__user--date">6일전</div>
+              <div className="modal__detail__user--date">
+                {data.review.date}
+              </div>
             </div>
 
-            <div className="modal__detail--comment">
-              {`이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대!\n이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대! 이건 꼭 사아대!\n
-이건 꼭 사아대!`}
-            </div>
+            <div className="modal__detail--comment">{data.review.desc}</div>
           </div>
 
           <ProductInfo
             className="modal__detail--product"
-            title="2024 타비 뿡댕이 키링"
-            image="/test_image.png"
-            price={15000}
+            title={data.product.title}
+            image={data.product.image}
+            price={data.product.price}
+            option={data.product.option}
           />
         </div>
       </div>
@@ -80,6 +97,9 @@ function Modal({ className, data, onClose }: ModalProps) {
 }
 
 export default styled(Modal)`
+  ${slick}
+  ${slickTheme}
+
   position: fixed;
   z-index: 200;
   inset: 0px;
@@ -99,8 +119,56 @@ export default styled(Modal)`
     &__photo {
       width: 100%;
       height: 280px;
+      display: flex;
+      align-items: center;
       overflow: hidden;
       background-color: rgba(20, 20, 20, 0.302);
+
+      .slick-slider {
+        width: 100%;
+
+        .slick-dots {
+          display: none !important;
+        }
+
+        .slick-arrow {
+          width: 2.857142857142857rem;
+          height: 2.857142857142857rem;
+          border-radius: 50%;
+          background-color: rgba(20, 20, 20, 0.302);
+          display: inline-flex !important;
+          justify-content: center;
+          align-items: center;
+          z-index: 2;
+          color: #fff;
+
+          &::before {
+            content: none;
+          }
+
+          &.slick-prev {
+            left: 1.142857142857143rem;
+          }
+
+          &.slick-next {
+            right: 1.142857142857143rem;
+          }
+
+          &.slick-disabled {
+            display: none !important;
+          }
+        }
+      }
+
+      &__item {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        img {
+          object-fit: contain;
+        }
+      }
     }
 
     &__detail {
@@ -189,6 +257,32 @@ export default styled(Modal)`
       &__photo {
         width: 50%;
         height: 100%;
+
+        &__item {
+          height: 100%;
+          aspect-ratio: 1 / 1;
+        }
+
+        .slick-slider {
+          width: 100%;
+          height: auto;
+
+          .slick-list {
+            height: auto;
+
+            .slick-track {
+              height: auto;
+
+              .slick-slide > div {
+                height: auto;
+              }
+            }
+          }
+
+          .slick-dots {
+            display: block !important;
+          }
+        }
       }
 
       &__detail {
