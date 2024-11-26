@@ -1,6 +1,14 @@
-type HamburgerIconProps = { className?: string; size?: number };
+type HamburgerIconProps = {
+  className?: string;
+  size?: number;
+  onClick?(): void;
+};
 
-export default function HamburgerIcon({ className, size }: HamburgerIconProps) {
+export default function HamburgerIcon({
+  className,
+  size,
+  onClick,
+}: HamburgerIconProps) {
   return (
     <svg
       className={className}
@@ -9,6 +17,7 @@ export default function HamburgerIcon({ className, size }: HamburgerIconProps) {
       height={size ?? "24px"}
       viewBox="0 0 24 24"
       fill="none"
+      onClick={onClick}
     >
       <path
         d="M4 18L20 18"

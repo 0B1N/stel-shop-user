@@ -7,9 +7,10 @@ import SearchIcon from "components/Icon/SearchIcon";
 
 type HeaderProps = {
   className?: string;
+  onMenuClick(): void;
 };
 
-function Header({ className }: HeaderProps) {
+function Header({ className, onMenuClick }: HeaderProps) {
   return (
     <header className={className}>
       <div className="wrapper">
@@ -45,7 +46,10 @@ function Header({ className }: HeaderProps) {
             <span className="header__contents--text">CART (0)</span>
           </Link>
 
-          <HamburgerIcon className="header__contents--hamburger" />
+          <HamburgerIcon
+            className="header__contents--hamburger"
+            onClick={() => onMenuClick()}
+          />
 
           <Link href="/">
             <SearchIcon className="header__contents--search" />

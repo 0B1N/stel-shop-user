@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { AppProps } from "next/app";
 import Head from "next/head";
 import GlobalStyles from "utils/styles/global";
-import Modal from "components/Modal";
 import Header from "components/header";
-import { useRouter } from "next/router";
+import MenuModal from "components/MenuModal";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+  const [visibleMenuModal, setVisibleMenuModal] = useState(false);
 
   return (
     <>
@@ -19,9 +18,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
 
-      {/* {router.asPath !== "/cart" && <Header />} */}
-      <Header />
+      <Header onMenuClick={() => setVisibleMenuModal(!visibleMenuModal)} />
+
       <Component {...pageProps} />
+
+      {visibleMenuModal && (
+        <MenuModal onClose={() => setVisibleMenuModal(!visibleMenuModal)} />
+      )}
     </>
   );
 }
