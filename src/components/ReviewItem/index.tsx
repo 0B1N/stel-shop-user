@@ -41,7 +41,7 @@ function ReviewItem({
             </div>
           )}
 
-          <Image width={100} height={100} src={imgs[0]} alt="reviewPhoto" />
+          <Image fill={true} src={imgs[0]} alt="reviewPhoto" />
         </div>
       </div>
     </div>
@@ -93,11 +93,12 @@ export default styled(ReviewItem)`
 
     &__images {
       position: relative;
-      overflow: hidden;
       flex-shrink: 0;
       width: 7.714285714285714rem;
       height: 7.714285714285714rem;
       margin-left: 1.142857142857143rem;
+      border-radius: 0.5714285714285714rem;
+      overflow: hidden;
 
       &--more {
         display: flex;
@@ -115,6 +116,7 @@ export default styled(ReviewItem)`
         line-height: 1.571428571428571rem;
         letter-spacing: -0.014285714285714287rem;
         color: #fff;
+        z-index: 2;
       }
     }
   }
