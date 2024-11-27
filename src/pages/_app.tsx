@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { AppProps } from "next/app";
 import Head from "next/head";
 import GlobalStyles from "utils/styles/global";
 import Header from "components/header";
 import MenuModal from "components/MenuModal";
+import Modal from "components/Modal";
+import { Provider } from "react-redux";
+import { store } from "store";
+import ProductBuyModal from "components/ProductBuyModal";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [visibleMenuModal, setVisibleMenuModal] = useState(false);
-
   return (
     <>
       <Head>
@@ -18,13 +20,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
 
-      <Header onMenuClick={() => setVisibleMenuModal(!visibleMenuModal)} />
+      <Provider store={store}>
+        <Header />
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
 
-      {visibleMenuModal && (
-        <MenuModal onClose={() => setVisibleMenuModal(!visibleMenuModal)} />
-      )}
+        <MenuModal />
+        <Modal />
+        <ProductBuyModal />
+      </Provider>
     </>
   );
 }

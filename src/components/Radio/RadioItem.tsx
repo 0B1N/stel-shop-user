@@ -40,8 +40,8 @@ export default styled(RadioItem)`
   .circle {
     position: relative;
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 1.2857rem;
+    height: 1.2857rem;
     border: 1px solid #bebebe;
     border-radius: 100%;
     display: flex;
@@ -49,8 +49,8 @@ export default styled(RadioItem)`
     justify-content: center;
 
     .inner-circle {
-      width: 8px;
-      height: 8px;
+      width: 0.5714rem;
+      height: 0.5714rem;
       border-radius: 100%;
       background-color: #141414;
     }
@@ -58,8 +58,8 @@ export default styled(RadioItem)`
 
   .name {
     color: #6b6b6b;
-    font-size: 14px;
-    padding-left: 8px;
+    font-size: 1rem;
+    padding-left: 0.5714rem;
   }
 
   &[data-active="true"] {

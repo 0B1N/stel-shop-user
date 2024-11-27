@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-import Header from "components/header";
 import HomeSection from "components/HomeSection";
 import Card from "components/Card";
-import { store_page_mockup } from "utils/mockup/store";
 import {
   PRODCUT_MEMBERS,
   PRODUCT_CATEGORY,
@@ -13,28 +11,26 @@ import {
   ProductOrderType,
 } from "utils/enum/store";
 import RadioList from "components/Radio/RadioList";
-import { useState } from "react";
 import FilterIcon from "components/Icon/FilterIcon";
 import media from "utils/styles/mediaQuery";
-import { useRouter } from "next/router";
+import useStore from "hooks/useStore";
+import { useDispatch } from "react-redux";
+import { handleFilter } from "store/storePageSlice";
+
+export type StorePageParams = {
+  order: ProductOrderType;
+  member: ProductMemberType;
+  category: ProductCategoryType;
+};
 
 type StorePageProps = {
   className?: string;
-  params: {
-    order: ProductOrderType | undefined;
-  };
+  params: StorePageParams;
 };
 
 function StorePage({ className, params }: StorePageProps) {
-  const router = useRouter();
-
-  const [order, setOrder] = useState<ProductOrderType>(
-    (params?.order ?? router.query?.order) as ProductOrderType | undefined,
-  );
-
-  const [category, setCategory] = useState<ProductCategoryType>();
-
-  const [member, setMember] = useState<ProductMemberType>();
+  const { filter, list } = useStore(params);
+  const dispatch = useDispatch();
 
   return (
     <div className={className}>
@@ -42,9 +38,52 @@ function StorePage({ className, params }: StorePageProps) {
         <div className="header">
           <span className="header__title">PRODUCT</span>
 
-          <div className="header__filter">
+          <div
+            className="header__filter"
+            onClick={() => dispatch(handleFilter({ menu: !filter.menu }))}
+          >
             <FilterIcon />
           </div>
+
+          {filter.menu && (
+            <div className="header__filterMenu">
+              <div className="header__filterMenu__item">
+                <div className="header__filterMenu__item--title">정렬</div>
+
+                <RadioList
+                  data={PRODUCT_ORDER}
+                  selectedCategoryId={`${filter.order}`}
+                  onChange={(order: ProductOrderType) => {
+                    dispatch(handleFilter({ order }));
+                  }}
+                />
+              </div>
+
+              <div className="header__filterMenu__item">
+                <div className="header__filterMenu__item--title">정렬</div>
+
+                <RadioList
+                  data={PRODUCT_CATEGORY}
+                  selectedCategoryId={`${filter.category}`}
+                  onChange={(category: ProductCategoryType) => {
+                    dispatch(handleFilter({ category }));
+                  }}
+                />
+              </div>
+
+              <div className="header__filterMenu__item">
+                <div className="header__filterMenu__item--title">정렬</div>
+
+                <RadioList
+                  data={PRODCUT_MEMBERS}
+                  selectedCategoryId={`${filter.member}`}
+                  onChange={(member: ProductMemberType) => {
+                    dispatch(handleFilter({ member }));
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="body">
@@ -54,8 +93,10 @@ function StorePage({ className, params }: StorePageProps) {
 
               <RadioList
                 data={PRODUCT_ORDER}
-                selectedCategoryId={`${order}`}
-                onChange={(v: ProductOrderType) => setOrder(v)}
+                selectedCategoryId={`${filter.order}`}
+                onChange={(order: ProductOrderType) => {
+                  dispatch(handleFilter({ order }));
+                }}
               />
             </div>
 
@@ -64,8 +105,10 @@ function StorePage({ className, params }: StorePageProps) {
 
               <RadioList
                 data={PRODUCT_CATEGORY}
-                selectedCategoryId={`${category}`}
-                onChange={(v: ProductCategoryType) => setCategory(v)}
+                selectedCategoryId={`${filter.category}`}
+                onChange={(category: ProductCategoryType) => {
+                  dispatch(handleFilter({ category }));
+                }}
               />
             </div>
 
@@ -74,13 +117,15 @@ function StorePage({ className, params }: StorePageProps) {
 
               <RadioList
                 data={PRODCUT_MEMBERS}
-                selectedCategoryId={`${member}`}
-                onChange={(v: ProductMemberType) => setMember(v)}
+                selectedCategoryId={`${filter.member}`}
+                onChange={(member: ProductMemberType) => {
+                  dispatch(handleFilter({ member }));
+                }}
               />
             </div>
           </div>
           <HomeSection title="POPULAR" className="list">
-            {store_page_mockup.map((data, i) => (
+            {list.map((data, i) => (
               <Card {...data} key={i} />
             ))}
           </HomeSection>
@@ -93,7 +138,9 @@ function StorePage({ className, params }: StorePageProps) {
 StorePage.getInitialProps = async (ctx) => {
   return {
     params: {
-      order: `${ctx.query.order}` as ProductOrderType | undefined,
+      order: `${ctx.query.order ?? "popular"}` as ProductOrderType | undefined,
+      member: (ctx.query.member ?? 0) as ProductMemberType,
+      category: (ctx.query.category ?? 0) as ProductCategoryType,
     },
   };
 };
@@ -115,6 +162,7 @@ export default styled(StorePage)`
       margin-bottom: 30px;
       display: flex;
       justify-content: space-between;
+      position: relative;
 
       &__title {
         color: #141414;
@@ -134,10 +182,45 @@ export default styled(StorePage)`
         background-color: rgba(255, 255, 255, 0.6);
         box-shadow: 0 0 10px rgba(20, 20, 20, 0.15);
         cursor: pointer;
+        position: relative;
 
         svg {
           width: 24px;
           height: 24px;
+        }
+      }
+
+      &__filterMenu {
+        width: calc(100vw - 32px);
+        position: absolute;
+        padding: 1.1429rem;
+        border-radius: 10px;
+        border: 1px solid #141414;
+        background-color: #fff;
+        z-index: 3;
+        top: 50px;
+        right: 0;
+
+        &__item + .header__filterMenu__item {
+          margin-top: 16px;
+        }
+
+        &__item {
+          &--title {
+            font-size: 1.1429rem;
+            font-weight: 700;
+            letter-spacing: -0.0143rem;
+            margin-bottom: 0.8571rem;
+          }
+
+          & > div {
+            column-gap: 0;
+            row-gap: 1.1429rem;
+
+            & > div {
+              flex: 1 1 50%;
+            }
+          }
         }
       }
     }

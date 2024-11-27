@@ -9,11 +9,12 @@ import { emailMasking } from "utils/text";
 import Slider, { Settings as SliderProps } from "react-slick";
 import { slick, slickTheme } from "utils/styles/slickStyle";
 import ArrowIcon from "components/Icon/ArrowIcon";
+import { useDispatch } from "react-redux";
+import { useRootState } from "store";
+import { handleResetReviewModalState } from "store/globalSlice";
 
 type ModalProps = {
   className?: string;
-  data: ReviewData;
-  onClose(): void;
 };
 
 const settings: SliderProps = {
@@ -36,13 +37,18 @@ const settings: SliderProps = {
   ),
 };
 
-function Modal({ className, data, onClose }: ModalProps) {
+function Modal({ className }: ModalProps) {
+  const dispatch = useDispatch();
+  const { reviewModal } = useRootState((state) => state.globalSlice);
+
+  if (!reviewModal.visible) return null;
+
   return (
     <div className={className}>
       <div className="modal">
         <div className="modal__photo">
           <Slider {...settings}>
-            {data.review.images.map((src, i) => (
+            {reviewModal.data.review.images.map((src, i) => (
               <div className="modal__photo__item">
                 <Image fill={true} src={src} alt={`review_image_${i}`} />
               </div>
@@ -55,7 +61,7 @@ function Modal({ className, data, onClose }: ModalProps) {
             <span className="modal__detail__header--title">리뷰 상세</span>
             <CloseIcon
               className="modal__detail__header--icon"
-              onClick={() => onClose()}
+              onClick={() => dispatch(handleResetReviewModalState())}
             />
           </header>
 
@@ -71,24 +77,26 @@ function Modal({ className, data, onClose }: ModalProps) {
               </div>
               <div className="modal__detail__user__body">
                 <p className="modal__detail__user__body--email">
-                  {emailMasking(data.email)}
+                  {emailMasking(reviewModal.data.email)}
                 </p>
-                <Rate rate={data.review.rate} />
+                <Rate rate={reviewModal.data.review.rate} />
               </div>
               <div className="modal__detail__user--date">
-                {data.review.date}
+                {reviewModal.data.review.date}
               </div>
             </div>
 
-            <div className="modal__detail--comment">{data.review.desc}</div>
+            <div className="modal__detail--comment">
+              {reviewModal.data.review.desc}
+            </div>
           </div>
 
           <ProductInfo
             className="modal__detail--product"
-            title={data.product.title}
-            image={data.product.image}
-            price={data.product.price}
-            option={data.product.option}
+            title={reviewModal.data.product.title}
+            image={reviewModal.data.product.image}
+            price={reviewModal.data.product.price}
+            option={reviewModal.data.product.option}
           />
         </div>
       </div>

@@ -1,26 +1,34 @@
 import CloseIcon from "components/Icon/CloseIcon";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { useRootState } from "store";
+import { handleVisibleMenuModal } from "store/globalSlice";
 import styled from "styled-components";
 
 type MenuModalProps = {
   className?: string;
-  onClose(): void;
 };
 
-function MenuModal({ className, onClose }: MenuModalProps) {
+function MenuModal({ className }: MenuModalProps) {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { menuModal } = useRootState((state) => state.globalSlice);
+
+  if (!menuModal.visible) return null;
 
   return (
     <div className={className}>
       <div className="contents">
-        <CloseIcon className="menuModal__close" onClick={onClose} />
+        <CloseIcon
+          className="menuModal__close"
+          onClick={() => dispatch(handleVisibleMenuModal())}
+        />
 
         <ul className="menuList">
           <li
             className="menuList__item"
             onClick={() => {
-              onClose();
+              dispatch(handleVisibleMenuModal());
               router.push("/");
             }}
           >
@@ -29,7 +37,7 @@ function MenuModal({ className, onClose }: MenuModalProps) {
           <li
             className="menuList__item"
             onClick={() => {
-              onClose();
+              dispatch(handleVisibleMenuModal());
               router.push("/store");
             }}
           >
@@ -38,7 +46,7 @@ function MenuModal({ className, onClose }: MenuModalProps) {
           <li
             className="menuList__item"
             onClick={() => {
-              onClose();
+              dispatch(handleVisibleMenuModal());
               router.push("/review");
             }}
           >
@@ -47,7 +55,7 @@ function MenuModal({ className, onClose }: MenuModalProps) {
           <li
             className="menuList__item"
             onClick={() => {
-              onClose();
+              dispatch(handleVisibleMenuModal());
               router.push("/like");
             }}
           >
@@ -56,7 +64,7 @@ function MenuModal({ className, onClose }: MenuModalProps) {
           <li
             className="menuList__item"
             onClick={() => {
-              onClose();
+              dispatch(handleVisibleMenuModal());
               router.push("/cart");
             }}
           >

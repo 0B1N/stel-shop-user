@@ -33,5 +33,5 @@ function RadioList({
 export default styled(RadioList)`
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 1.1429rem;
 `;

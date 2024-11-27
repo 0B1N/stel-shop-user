@@ -3,16 +3,32 @@ import Collapse from "components/Collapse";
 import ArrowIcon from "components/Icon/ArrowIcon";
 import CloseIcon from "components/Icon/CloseIcon";
 import HeartIcon from "components/Icon/HeartIcon";
+import ShareIcon from "components/Icon/ShareIcon";
 import Modal from "components/Modal";
 import ProductCounter from "components/ProductCounter";
 import { ReviewData } from "components/ReviewCard";
 import ReviewItem from "components/ReviewItem";
 import Table from "components/Table";
+import useProductDetails from "hooks/useProductDetail";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import Slider, { Settings as SliderProps } from "react-slick";
+import { useRootState } from "store";
+import {
+  handleResetReviewModalState,
+  handleReviewModalData,
+  handleVisibleBuyModal,
+  handleVisibleReviewModal,
+} from "store/globalSlice";
+import {
+  handleHideProductImage,
+  handleMainImageIndex,
+  handleProductCount,
+} from "store/productDetailSlice";
 import styled from "styled-components";
 import { PRODCUT_MEMBERS } from "utils/enum/store";
+import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { STELLIVE_PALETTE } from "utils/styles/palette";
 import { slick, slickTheme } from "utils/styles/slickStyle";
@@ -45,406 +61,87 @@ const settings: SliderProps = {
 };
 
 function ProductDetailPage({ className }: ProductDetailPageProps) {
-  const [count, setCount] = useState(1);
-  const [anchorIndex, setAnchorIndex] = useState(0);
-  const [hideProductInfo, setHideProductInfo] = useState(true);
-  const [visibleBuyModal, setVisibleBuyModal] = useState(false);
+  const { handleClick } = useProductDetails();
 
-  const [reviewData, setReviewData] = useState<{ data: ReviewData }>();
-  const [reviewModalVisible, setReviewModalVisible] = useState(false);
-
-  const [imageIndex, setImageIndex] = useState(0);
-
-  const tallent = useMemo(() => 7, []);
-
-  const productImages = useMemo(
-    () => ["/test_image.png", "/test_image2.webp", "/test_image3.webp"],
-    [],
-  );
-
-  function handleClick(id: string) {
-    const scrollTop = document.getElementById(id).offsetTop;
-    const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
-
-    window.scrollTo({
-      top: scrollTop - exclusionArea,
-      behavior: "smooth",
-    });
-  }
-
-  function handleWindowScroll() {
-    const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
-
-    const productDetailScrollTop =
-      document.getElementById("productDetail").offsetTop - exclusionArea;
-    const reviewScrollTop =
-      document.getElementById("review").offsetTop - exclusionArea;
-    const buyGuideScrollTop =
-      document.getElementById("buyGuide").offsetTop - exclusionArea;
-
-    const windowScrollTop = document.documentElement.scrollTop;
-
-    if (
-      windowScrollTop >= productDetailScrollTop &&
-      windowScrollTop < buyGuideScrollTop
-    ) {
-      setAnchorIndex(0);
-    } else if (
-      windowScrollTop >= buyGuideScrollTop &&
-      windowScrollTop < reviewScrollTop
-    ) {
-      setAnchorIndex(1);
-    } else if (windowScrollTop >= reviewScrollTop) {
-      setAnchorIndex(2);
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleWindowScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleWindowScroll);
-    };
-  }, []);
+  const dispatch = useDispatch();
+  const {
+    data,
+    anchorIndex,
+    buyGuides,
+    hideProductImage,
+    reviews,
+    mainImageIndex,
+    productCount,
+  } = useRootState((state) => state.productDetailSlice);
 
   return (
-    <>
-      <div className={className}>
-        <div className="body">
-          <div className="productInfo">
-            <div className="productInfo__image">
-              <div className="productInfo__image__preview">
-                {productImages.map((src, i) => (
-                  <figure
-                    className="productInfo__image__preview--item"
-                    onClick={() => setImageIndex(i)}
-                  >
-                    <Image src={src} fill={true} alt="product_detail" />
-                  </figure>
-                ))}
-              </div>
-              <figure className="productInfo__image__main">
-                <Image
-                  src={productImages[imageIndex]}
-                  fill={true}
-                  alt="product_detail"
-                />
-              </figure>
-
-              <div className="productInfo__image__slider">
-                <Slider {...settings}>
-                  {productImages.map((src, i) => (
-                    <div className="productInfo__image__slider__item">
-                      <Image fill={true} src={src} alt={`product_image_${i}`} />
-                    </div>
-                  ))}
-                </Slider>
-              </div>
-            </div>
-
-            <div className="productInfo__option productForm">
-              <div className="productForm__top">
-                <div
-                  className="productForm__top--badge"
-                  style={{
-                    backgroundColor: STELLIVE_PALETTE[tallent][100],
-                    color: STELLIVE_PALETTE[tallent][500],
-                  }}
+    <div className={className}>
+      <div className="body">
+        <div className="productInfo">
+          <div className="productInfo__image">
+            <div className="productInfo__image__preview">
+              {data.images.map((src, i) => (
+                <figure
+                  className="productInfo__image__preview--item"
+                  onClick={() => dispatch(handleMainImageIndex(i))}
                 >
-                  {PRODCUT_MEMBERS[tallent]}
-                </div>
-
-                <div className="productForm__top__action"></div>
-              </div>
-
-              <p className="productForm__title">2024 타비 뿡댕이 키링</p>
-              <p className="productForm__category">키링</p>
-              <p className="productForm__price">￦ 15,000</p>
-
-              <div className="productForm__review">
-                <Rate
-                  size={19}
-                  rate={5}
-                  className="productForm__review--rate"
-                />
-
-                <span
-                  className="productForm__review--label"
-                  onClick={() => handleClick("review")}
-                >
-                  00개 리뷰 보기
-                </span>
-              </div>
-
-              <div className="productForm__delivery">
-                <p className="productForm__delivery--title">
-                  기본 배송료 : 무료
-                </p>
-                <p className="productForm__delivery--text">
-                  국내 도서 산간/해외는 추가 비용이 발생할 수 있으며, 정확한
-                  배송비는 결제 화면에서 확인할 수 있습니다.
-                </p>
-              </div>
+                  <Image src={src} fill={true} alt="product_detail" />
+                </figure>
+              ))}
             </div>
-
-            <div className="productInfo__tag">
-              <div
-                className="productInfo__tag--line"
-                style={{ left: `${anchorIndex * 33.333333}%` }}
+            <figure className="productInfo__image__main">
+              <Image
+                src={data.images[mainImageIndex]}
+                fill={true}
+                alt="product_detail"
               />
+            </figure>
 
-              <div
-                className="productInfo__tag__item"
-                data-active={anchorIndex === 0}
-                onClick={() => handleClick("productDetail")}
-              >
-                상품 상세
-              </div>
-              <div
-                className="productInfo__tag__item"
-                data-active={anchorIndex === 1}
-                onClick={() => handleClick("buyGuide")}
-              >
-                구매 안내
-              </div>
-              <div
-                className="productInfo__tag__item"
-                data-active={anchorIndex === 2}
-                onClick={() => handleClick("review")}
-              >
-                리뷰 00
-              </div>
-            </div>
-
-            <div
-              id="productDetail"
-              className="productInfo__group"
-              style={{
-                overflow: hideProductInfo ? "hidden" : "visible",
-                maxHeight: hideProductInfo ? "171.42857142857142rem" : "none",
-              }}
-            >
-              <h3 className="productInfo__group--title">상품 소개</h3>
-
-              <div className="box" />
-
-              <button
-                className="productInfo__group--button"
-                onClick={() => setHideProductInfo(!hideProductInfo)}
-              >
-                상품 상세 {hideProductInfo ? "더보기" : "접기"}
-              </button>
-            </div>
-
-            <div className="productInfo__buyGuide" id="buyGuide">
-              <h2 className="productInfo__buyGuide--title">구매 안내</h2>
-
-              <Collapse title="배송 정보">
-                <Table
-                  data={{
-                    "배송 정보": "일반택배(CJ대한통운)",
-                    "배송 지역": "한국",
-                    "배송 기간":
-                      "상품 출고 후 영업일 기준 1~3일 이내 수령이 가능하며 도서 산간 지역이거나 택배사의 물량이 많은 경우 기간이 조금 더 소요될 수 있습니다.",
-                  }}
-                />
-              </Collapse>
-
-              <Collapse
-                title="교환/환불 정보"
-                desc={`주문제작 상품은 단순 변심, 주문 착오 등 고객 사유에 따른 교환/환불이 어렵습니다.\n상품에 이상이 있을 경우, 1:1문의하기를 통해 마플샵에 문의 해주세요`}
-              >
-                <Table
-                  data={{
-                    고객센터: "일반택배(CJ대한통운)",
-                    이메일: "asdf123@naver.com",
-                  }}
-                />
-              </Collapse>
-            </div>
-
-            <div className="productInfo__review" id="review">
-              <h2 className="productInfo__review--title">리뷰 (00)</h2>
-
-              <div className="productInfo__review__content">
-                <ReviewItem
-                  data={{
-                    email: "binnyy01@gmail.com",
-                    product: {
-                      title: "2024 타비 뿡댕이 키링",
-                      image: "/test_image.png",
-                      price: 15000,
-                      option: "옵션 : L (66 x 34 cm)",
-                    },
-                    review: {
-                      rate: 5,
-                      images: [
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                      ],
-                      date: "2024-11-26",
-                      desc: `이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!`,
-                    },
-                  }}
-                  onClick={(data) => {
-                    setReviewData({ data });
-                    setReviewModalVisible(true);
-                  }}
-                />
-
-                <ReviewItem
-                  data={{
-                    email: "binnyy01@gmail.com",
-                    product: {
-                      title: "2024 타비 뿡댕이 키링",
-                      image: "/test_image.png",
-                      price: 15000,
-                      option: "옵션 : L (66 x 34 cm)",
-                    },
-                    review: {
-                      rate: 5,
-                      images: [
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                      ],
-                      date: "2024-11-26",
-                      desc: `이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!`,
-                    },
-                  }}
-                  onClick={(data) => {
-                    setReviewData({ data });
-                    setReviewModalVisible(true);
-                  }}
-                />
-
-                <ReviewItem
-                  data={{
-                    email: "binnyy01@gmail.com",
-                    product: {
-                      title: "2024 타비 뿡댕이 키링",
-                      image: "/test_image.png",
-                      price: 15000,
-                      option: "옵션 : L (66 x 34 cm)",
-                    },
-                    review: {
-                      rate: 5,
-                      images: [
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                      ],
-                      date: "2024-11-26",
-                      desc: `이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!`,
-                    },
-                  }}
-                  onClick={(data) => {
-                    setReviewData({ data });
-                    setReviewModalVisible(true);
-                  }}
-                />
-
-                <ReviewItem
-                  data={{
-                    email: "binnyy01@gmail.com",
-                    product: {
-                      title: "2024 타비 뿡댕이 키링",
-                      image: "/test_image.png",
-                      price: 15000,
-                      option: "옵션 : L (66 x 34 cm)",
-                    },
-                    review: {
-                      rate: 5,
-                      images: [
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                      ],
-                      date: "2024-11-26",
-                      desc: `이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!`,
-                    },
-                  }}
-                  onClick={(data) => {
-                    setReviewData({ data });
-                    setReviewModalVisible(true);
-                  }}
-                />
-
-                <ReviewItem
-                  data={{
-                    email: "binnyy01@gmail.com",
-                    product: {
-                      title: "2024 타비 뿡댕이 키링",
-                      image: "/test_image.png",
-                      price: 15000,
-                      option: "옵션 : L (66 x 34 cm)",
-                    },
-                    review: {
-                      rate: 5,
-                      images: [
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                        "/test_image.png",
-                      ],
-                      date: "2024-11-26",
-                      desc: `이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!`,
-                    },
-                  }}
-                  onClick={(data) => {
-                    setReviewData({ data });
-                    setReviewModalVisible(true);
-                  }}
-                />
-              </div>
+            <div className="productInfo__image__slider">
+              <Slider {...settings}>
+                {data.images.map((src, i) => (
+                  <div className="productInfo__image__slider__item">
+                    <Image fill={true} src={src} alt={`product_image_${i}`} />
+                  </div>
+                ))}
+              </Slider>
             </div>
           </div>
 
-          <div className="productForm">
+          <div className="productInfo__option productForm">
             <div className="productForm__top">
               <div
                 className="productForm__top--badge"
                 style={{
-                  backgroundColor: STELLIVE_PALETTE[tallent][100],
-                  color: STELLIVE_PALETTE[tallent][500],
+                  backgroundColor: STELLIVE_PALETTE[data.tallent][100],
+                  color: STELLIVE_PALETTE[data.tallent][500],
                 }}
               >
-                {PRODCUT_MEMBERS[tallent]}
+                {PRODCUT_MEMBERS[data.tallent]}
               </div>
 
               <div className="productForm__top__action"></div>
             </div>
 
-            <p className="productForm__title">2024 타비 뿡댕이 키링</p>
-            <p className="productForm__category">키링</p>
-            <p className="productForm__price">￦ 15,000</p>
+            <p className="productForm__title">{data.title}</p>
+            <p className="productForm__category">{data.category}</p>
+            <p className="productForm__price">
+              ￦ {numberWithCommas(data.price)}
+            </p>
 
             <div className="productForm__review">
-              <Rate size={19} rate={5} className="productForm__review--rate" />
+              <Rate
+                size={19}
+                rate={data.rate}
+                className="productForm__review--rate"
+              />
 
               <span
                 className="productForm__review--label"
                 onClick={() => handleClick("review")}
               >
-                00개 리뷰 보기
+                {reviews.length}개 리뷰 보기
               </span>
-            </div>
-
-            <ProductCounter
-              count={count}
-              onCountChange={(count) => setCount(count)}
-            />
-
-            <div className="productForm__submit">
-              <div className="productForm__submit--button cart">장바구니</div>
-              <div className="productForm__submit--button buy">
-                바로 구매하기
-              </div>
             </div>
 
             <div className="productForm__delivery">
@@ -456,57 +153,156 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </div>
           </div>
 
-          <div className="productFooter">
-            <div className="productFooter--heart">
-              <HeartIcon />
+          <div className="productInfo__tag">
+            <div
+              className="productInfo__tag--line"
+              style={{ left: `${anchorIndex * 33.333333}%` }}
+            />
+
+            <div
+              className="productInfo__tag__item"
+              data-active={anchorIndex === 0}
+              onClick={() => handleClick("productDetail")}
+            >
+              상품 상세
             </div>
             <div
-              className="productFooter--buy"
-              onClick={() => setVisibleBuyModal(!visibleBuyModal)}
+              className="productInfo__tag__item"
+              data-active={anchorIndex === 1}
+              onClick={() => handleClick("buyGuide")}
             >
-              구매하기
+              구매 안내
+            </div>
+            <div
+              className="productInfo__tag__item"
+              data-active={anchorIndex === 2}
+              onClick={() => handleClick("review")}
+            >
+              리뷰 ({reviews.length})
             </div>
           </div>
 
-          {visibleBuyModal && (
-            <div className="productModal">
-              <div className="productModal__content">
-                <div
-                  className="productModal__content__close"
-                  onClick={() => setVisibleBuyModal(!visibleBuyModal)}
-                >
-                  <CloseIcon />
-                </div>
+          <div
+            id="productDetail"
+            className="productInfo__group"
+            style={{
+              overflow: hideProductImage ? "hidden" : "visible",
+              maxHeight: hideProductImage ? "171.42857142857142rem" : "none",
+            }}
+          >
+            <h3 className="productInfo__group--title">상품 소개</h3>
 
-                <ProductCounter
-                  count={count}
-                  onCountChange={(count) => setCount(count)}
+            <div className="box" />
+
+            <button
+              className="productInfo__group--button"
+              onClick={() => dispatch(handleHideProductImage())}
+            >
+              상품 상세 {hideProductImage ? "더보기" : "접기"}
+            </button>
+          </div>
+
+          <div className="productInfo__buyGuide" id="buyGuide">
+            <h2 className="productInfo__buyGuide--title">구매 안내</h2>
+
+            {buyGuides.map((buyGuide, i) => (
+              <Collapse title={buyGuide.title} desc={buyGuide.desc}>
+                <Table data={buyGuide.list} />
+              </Collapse>
+            ))}
+          </div>
+
+          <div className="productInfo__review" id="review">
+            <h2 className="productInfo__review--title">
+              리뷰 ({reviews.length})
+            </h2>
+
+            <div className="productInfo__review__content">
+              {reviews.map((review, i) => (
+                <ReviewItem
+                  data={review}
+                  onClick={(data) => {
+                    dispatch(handleVisibleReviewModal());
+                    dispatch(handleReviewModalData(data));
+                  }}
                 />
-
-                <div className="productModal__content__submit">
-                  <button className="productModal__content__submit--button cart">
-                    장바구니
-                  </button>
-                  <button className="productModal__content__submit--button buy">
-                    바로 구매하기
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        </div>
+
+        <div className="productForm">
+          <div className="productForm__top">
+            <div
+              className="productForm__top--badge"
+              style={{
+                backgroundColor: STELLIVE_PALETTE[data.tallent][100],
+                color: STELLIVE_PALETTE[data.tallent][500],
+              }}
+            >
+              {PRODCUT_MEMBERS[data.tallent]}
+            </div>
+
+            <div className="productForm__top__action">
+              <button className="productForm__top__action--button share">
+                <ShareIcon />
+              </button>
+
+              <button className="productForm__top__action--button like">
+                <HeartIcon />
+              </button>
+            </div>
+          </div>
+
+          <p className="productForm__title">{data.title}</p>
+          <p className="productForm__category">{data.category}</p>
+          <p className="productForm__price">
+            ￦ {numberWithCommas(data.price)}
+          </p>
+
+          <div className="productForm__review">
+            <Rate size={19} rate={5} className="productForm__review--rate" />
+
+            <span
+              className="productForm__review--label"
+              onClick={() => handleClick("review")}
+            >
+              {reviews.length}개 리뷰 보기
+            </span>
+          </div>
+
+          <ProductCounter
+            count={productCount}
+            onCountChange={(count) => dispatch(handleProductCount(count))}
+          />
+
+          <div className="productForm__submit">
+            <div className="productForm__submit--button cart">장바구니</div>
+            <div className="productForm__submit--button buy">바로 구매하기</div>
+          </div>
+
+          <div className="productForm__delivery">
+            <p className="productForm__delivery--title">기본 배송료 : 무료</p>
+            <p className="productForm__delivery--text">
+              국내 도서 산간/해외는 추가 비용이 발생할 수 있으며, 정확한
+              배송비는 결제 화면에서 확인할 수 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <div className="productFooter">
+          <div className="productFooter--heart">
+            <HeartIcon />
+          </div>
+          <div
+            className="productFooter--buy"
+            onClick={() => dispatch(handleVisibleBuyModal())}
+          >
+            구매하기
+          </div>
         </div>
       </div>
-
-      {reviewModalVisible && (
-        <Modal
-          data={reviewData.data}
-          onClose={() => {
-            setReviewModalVisible(false);
-            setReviewData({ data: {} as ReviewData });
-          }}
-        />
-      )}
-    </>
+    </div>
   );
 }
 
@@ -724,6 +520,8 @@ export default styled(ProductDetailPage)`
       margin-left: 1.142857142857143rem;
 
       &__top {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 0.5714rem;
 
         &--badge {
@@ -743,6 +541,17 @@ export default styled(ProductDetailPage)`
         }
 
         &__action {
+          display: flex;
+          gap: 1.428571428571429rem;
+          align-items: center;
+
+          &--button {
+            width: 1.714285714285714rem;
+            height: 1.714285714285714rem;
+            background-color: transparent;
+            padding: 0;
+            cursor: pointer;
+          }
         }
       }
 
@@ -996,89 +805,6 @@ export default styled(ProductDetailPage)`
         margin: 0;
       }
     }
-
-    .productModal {
-      position: fixed;
-      z-index: 200;
-      inset: 0px;
-
-      &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-      &__content {
-        border-top-left-radius: 1.142857142857143rem;
-        border-top-right-radius: 1.142857142857143rem;
-        height: 45%;
-        position: absolute;
-        background-color: #fff;
-        width: 100%;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap: 1.142857142857143rem;
-        margin: 0;
-        padding: 0 1.142857142857143rem 1.142857142857143rem;
-        max-height: calc(90dvh - 6rem - 58px);
-        overflow-x: hidden;
-        overflow-y: auto;
-        box-sizing: border-box;
-
-        &__close {
-          display: flex;
-          align-self: center;
-          padding: 1.142857142857143rem 0 1.142857142857143rem
-            1.142857142857143rem;
-          margin-left: auto;
-          cursor: pointer;
-        }
-
-        &__submit {
-          margin-top: auto;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          gap: 0.5714285714285714rem;
-
-          &--button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 4rem;
-            width: 100%;
-            font-family: Pretendard;
-            font-size: 1.142857142857143rem;
-            font-weight: 700;
-            line-height: 1.714285714285714rem;
-            letter-spacing: -0.014285714285714287rem;
-            line-height: normal;
-            outline: none;
-            border: none;
-            border-radius: 0.5714285714285714rem;
-            box-sizing: border-box;
-            cursor: pointer;
-
-            &.cart {
-              border: solid 1px #d9d9d9;
-              background: #fff;
-              color: #141414;
-            }
-
-            &.buy {
-              background: #141414;
-              color: #fff;
-            }
-          }
-        }
-      }
-    }
   }
 
   ${media.small} {
@@ -1086,6 +812,8 @@ export default styled(ProductDetailPage)`
   }
 
   ${media.large} {
+    padding-top: 2.285714285714286rem;
+
     .body {
       .productInfo {
         max-width: 65.14285714285714rem;
