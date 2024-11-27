@@ -34,11 +34,11 @@ export default function useProductDetails(idx: number) {
     const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
 
     const productDetailScrollTop =
-      document.getElementById("productDetail").offsetTop - exclusionArea;
+      document.getElementById("productDetail")?.offsetTop - exclusionArea;
     const reviewScrollTop =
-      document.getElementById("review").offsetTop - exclusionArea;
+      document.getElementById("review")?.offsetTop - exclusionArea;
     const buyGuideScrollTop =
-      document.getElementById("buyGuide").offsetTop - exclusionArea;
+      document.getElementById("buyGuide")?.offsetTop - exclusionArea;
 
     const windowScrollTop = document.documentElement.scrollTop;
 

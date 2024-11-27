@@ -38,6 +38,12 @@ function ReviewPage({ className }: ReviewPageProps) {
 
 export default styled(ReviewPage)`
   margin-top: 61px;
+  min-height: calc(100vh - 121px);
+  padding-bottom: 80px;
+
+  section.new {
+    padding: 20px 16px 0;
+  }
 
   .homeSection__header {
     justify-content: center;
@@ -51,6 +57,7 @@ export default styled(ReviewPage)`
     max-width: 1280px;
     width: 100%;
     margin: 86px auto 0;
+    min-height: calc(100vh - 147px);
 
     .homeSection__header {
       justify-content: flex-start;

@@ -9,7 +9,7 @@ type ReviewPageState = {
 };
 
 const initialState: ReviewPageState = {
-  list: review_page_data,
+  list: review_page_data.slice(0, 5),
 };
 
 const reviewPageSlice = createSlice({

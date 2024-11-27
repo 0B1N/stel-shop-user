@@ -1,25 +1,20 @@
 import Rate from "components/Card/Rate";
 import Collapse from "components/Collapse";
 import ArrowIcon from "components/Icon/ArrowIcon";
-import CloseIcon from "components/Icon/CloseIcon";
 import HeartIcon from "components/Icon/HeartIcon";
 import ShareIcon from "components/Icon/ShareIcon";
 import Loading from "components/Loading";
-import Modal from "components/Modal";
 import ProductCounter from "components/ProductCounter";
-import { ReviewData } from "components/ReviewCard";
 import ReviewItem from "components/ReviewItem";
 import Table from "components/Table";
 import { getCookie } from "cookies-next";
 import useDidMountEffect from "hooks/useDidMountEffect";
 import useProductDetails from "hooks/useProductDetail";
 import Image from "next/image";
-import { use, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import Slider, { Settings as SliderProps } from "react-slick";
 import { useRootState } from "store";
 import {
-  handleResetReviewModalState,
   handleReviewModalData,
   handleVisibleBuyModal,
   handleVisibleReviewModal,
@@ -366,7 +361,7 @@ export default styled(ProductDetailPage)`
   ${slick}
   ${slickTheme}
   margin-top: 61px;
-  padding-bottom: 77px;
+  padding-bottom: 80px;
 
   &.loading {
     width: 100%;
@@ -889,7 +884,6 @@ export default styled(ProductDetailPage)`
 
   ${media.large} {
     padding-top: 2.285714285714286rem;
-    padding-bottom: 0;
 
     .body {
       .productInfo {

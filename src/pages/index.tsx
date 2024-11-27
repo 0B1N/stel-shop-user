@@ -1,7 +1,7 @@
 import Card from "components/Card";
 import HomeBanner from "components/HomeBanner";
 import HomeSection from "components/HomeSection";
-import ReviewCard, { ReviewData } from "components/ReviewCard";
+import ReviewCard from "components/ReviewCard";
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
 import {
@@ -54,6 +54,7 @@ function MainPage({ className }: MainPageProps) {
 
 export default styled(MainPage)`
   margin-top: 61px;
+  padding-bottom: 80px;
 
   .new {
     max-width: 1280px;

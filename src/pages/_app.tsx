@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "store";
 import ProductBuyModal from "components/ProductBuyModal";
 import { ToastContainer } from "react-toastify";
+import Footer from "components/Footer";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -30,6 +31,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Modal />
         <ProductBuyModal />
         <ToastContainer />
+
+        <Footer />
       </Provider>
     </>
   );
