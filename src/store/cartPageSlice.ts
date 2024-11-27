@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { CartItemData } from "components/CartItem";
-import { ReviewData } from "components/ReviewCard";
 
 type CartPageState = {
   list: CartItemData[];

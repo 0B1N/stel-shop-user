@@ -1,13 +1,11 @@
-import { useRouter } from "next/router";
-import { StorePageParams } from "pages/store";
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
-import { handleFilter } from "store/storePageSlice";
-import { ProductOrderType } from "utils/enum/store";
-import useDidMountEffect from "./useDidMountEffect";
-import { handleLikeList } from "store/likePageSlice";
+
 import { getCookie } from "cookies-next";
+
+import { handleLikeList } from "store/likePageSlice";
 
 export default function useLike() {
   const dispatch = useDispatch();

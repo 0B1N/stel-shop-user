@@ -1,19 +1,18 @@
-import { useRouter } from "next/router";
-import { StorePageParams } from "pages/store";
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
-import { handleFilter } from "store/storePageSlice";
-import { ProductOrderType } from "utils/enum/store";
-import useDidMountEffect from "./useDidMountEffect";
-import { handleLikeList } from "store/likePageSlice";
+
+import { toast } from "react-toastify";
+
 import { getCookie, setCookie } from "cookies-next";
+
+import useDidMountEffect from "hooks/useDidMountEffect";
 import {
   deleteCartItem,
   editCartItemCount,
   setCartList,
 } from "store/cartPageSlice";
-import { toast } from "react-toastify";
 
 export default function useCart() {
   const dispatch = useDispatch();

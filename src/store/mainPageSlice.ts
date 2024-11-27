@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { CardData } from "components/Card";
 import { ReviewData } from "components/ReviewCard";
+
 import {
   new_mockup_data,
   photo_review_mockup_data,

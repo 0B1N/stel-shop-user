@@ -1,5 +1,6 @@
-import StarIcon from "components/Icon/StarIcon";
 import styled from "styled-components";
+
+import StarIcon from "components/Icon/StarIcon";
 
 type RateProps = { rate: number; size?: number; className?: string };
 

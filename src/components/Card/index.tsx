@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import Rate from "./Rate";
-import Image from "next/image";
-import { numberWithCommas } from "utils/number";
-import Figure from "./Figure";
+
 import Link from "next/link";
+
+import Rate from "components/Card/Rate";
+import Figure from "components/Card/Figure";
+
 import { ProductCategoryType, ProductMemberType } from "utils/enum/store";
+
+import { numberWithCommas } from "utils/number";
 
 export type CardData = {
   idx: number;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import RadioItem from "./RadioItem";
+import RadioItem from "components/Radio/RadioItem";
 
 type RadioListProps = {
   className?: string;

@@ -1,11 +1,15 @@
-import { useRouter } from "next/router";
-import { StorePageParams } from "pages/store";
 import { useCallback, useEffect, useMemo } from "react";
+
+import { useRouter } from "next/router";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
+
 import { handleFilter } from "store/storePageSlice";
-import { ProductOrderType } from "utils/enum/store";
-import useDidMountEffect from "./useDidMountEffect";
+
+import useDidMountEffect from "hooks/useDidMountEffect";
+
+import { StorePageParams } from "pages/store";
 
 function getURLParameters(url: string): Record<string, string> {
   const params = {};

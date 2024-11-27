@@ -1,6 +1,8 @@
-import ArrowIcon from "components/Icon/ArrowIcon";
-import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { ReactNode, useCallback, useRef, useState } from "react";
+
 import styled from "styled-components";
+
+import ArrowIcon from "components/Icon/ArrowIcon";
 
 type CollapseProps = {
   title: string;

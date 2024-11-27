@@ -1,6 +1,7 @@
+import styled from "styled-components";
+
 import MinusIcon from "components/Icon/MinusIcon";
 import PlusIcon from "components/Icon/PlusIcon";
-import styled from "styled-components";
 
 type CounterProps = {
   className?: string;

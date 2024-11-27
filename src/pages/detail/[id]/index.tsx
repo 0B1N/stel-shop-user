@@ -1,18 +1,12 @@
-import Rate from "components/Card/Rate";
-import Collapse from "components/Collapse";
-import ArrowIcon from "components/Icon/ArrowIcon";
-import HeartIcon from "components/Icon/HeartIcon";
-import ShareIcon from "components/Icon/ShareIcon";
-import Loading from "components/Loading";
-import ProductCounter from "components/ProductCounter";
-import ReviewItem from "components/ReviewItem";
-import Table from "components/Table";
-import { getCookie } from "cookies-next";
-import useDidMountEffect from "hooks/useDidMountEffect";
-import useProductDetails from "hooks/useProductDetail";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
 import Slider, { Settings as SliderProps } from "react-slick";
+
+import styled from "styled-components";
+
+import { getCookie } from "cookies-next";
+
+import Image from "next/image";
+
+import { useDispatch } from "react-redux";
 import { useRootState } from "store";
 import {
   handleReviewModalData,
@@ -25,12 +19,25 @@ import {
   handleMainImageIndex,
   handleProductCount,
 } from "store/productDetailSlice";
-import styled from "styled-components";
+
+import ProductCounter from "components/ProductCounter";
+import ArrowIcon from "components/Icon/ArrowIcon";
+import HeartIcon from "components/Icon/HeartIcon";
+import ShareIcon from "components/Icon/ShareIcon";
+import ReviewItem from "components/ReviewItem";
+import Collapse from "components/Collapse";
+import Loading from "components/Loading";
+import Rate from "components/Card/Rate";
+import Table from "components/Table";
+
+import useDidMountEffect from "hooks/useDidMountEffect";
+import useProductDetails from "hooks/useProductDetail";
+
 import { PRODCUT_MEMBERS, PRODUCT_CATEGORY } from "utils/enum/store";
+import { slick, slickTheme } from "utils/styles/slickStyle";
+import { STELLIVE_PALETTE } from "utils/styles/palette";
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
-import { STELLIVE_PALETTE } from "utils/styles/palette";
-import { slick, slickTheme } from "utils/styles/slickStyle";
 
 type ProductDetailPageProps = {
   className?: string;

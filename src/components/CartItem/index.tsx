@@ -1,10 +1,13 @@
-import CloseIcon from "components/Icon/CloseIcon";
-import Counter from "components/ProductCounter/Counter";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
+
+import { useRouter } from "next/router";
+import Image from "next/image";
+
+import Counter from "components/ProductCounter/Counter";
+import CloseIcon from "components/Icon/CloseIcon";
+
 import { PRODUCT_CATEGORY, ProductCategoryType } from "utils/enum/store";
+
 import { numberWithCommas } from "utils/number";
 
 export type CartItemData = {

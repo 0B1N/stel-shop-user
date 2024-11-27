@@ -1,24 +1,24 @@
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import { Action, combineReducers } from "redux";
 
-import globalSlice from "store/globalSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+import productDetailSlice from "store/productDetailSlice";
+import reviewPageSlice from "store/reviewPageSlice";
+import storePageSlice from "store/storePageSlice";
 import cartPageSlice from "store/cartPageSlice";
 import mainPageSlice from "store/mainPageSlice";
 import likePageSlice from "store/likePageSlice";
-import storePageSlice from "store/storePageSlice";
-import reviewPageSlice from "store/reviewPageSlice";
-import productDetailSlice from "store/productDetailSlice";
-import { useDispatch } from "react-redux";
+import globalSlice from "store/globalSlice";
 
 const rootReducer = combineReducers({
-  globalSlice,
+  productDetailSlice,
+  reviewPageSlice,
+  storePageSlice,
   cartPageSlice,
   mainPageSlice,
   likePageSlice,
-  storePageSlice,
-  reviewPageSlice,
-  productDetailSlice,
+  globalSlice,
 });
 
 export const store = configureStore({

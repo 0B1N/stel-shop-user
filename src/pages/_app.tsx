@@ -2,15 +2,19 @@ import React from "react";
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import GlobalStyles from "utils/styles/global";
-import Header from "components/header";
-import MenuModal from "components/MenuModal";
-import Modal from "components/Modal";
+
 import { Provider } from "react-redux";
 import { store } from "store";
-import ProductBuyModal from "components/ProductBuyModal";
+
 import { ToastContainer } from "react-toastify";
+
+import ProductBuyModal from "components/ProductBuyModal";
+import MenuModal from "components/MenuModal";
+import Header from "components/header";
 import Footer from "components/Footer";
+import Modal from "components/Modal";
+
+import GlobalStyles from "utils/styles/global";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

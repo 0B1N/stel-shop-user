@@ -1,14 +1,17 @@
-import Card from "components/Card";
-import HomeBanner from "components/HomeBanner";
-import HomeSection from "components/HomeSection";
-import ReviewCard from "components/ReviewCard";
+import styled from "styled-components";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
+
+import HomeSection from "components/HomeSection";
+import HomeBanner from "components/HomeBanner";
+import ReviewCard from "components/ReviewCard";
+import Card from "components/Card";
+
 import {
   handleReviewModalData,
   handleVisibleReviewModal,
 } from "store/globalSlice";
-import styled from "styled-components";
 
 import media from "utils/styles/mediaQuery";
 

@@ -1,8 +1,8 @@
-import MinusIcon from "components/Icon/MinusIcon";
-import PlusIcon from "components/Icon/PlusIcon";
 import styled from "styled-components";
+
+import Counter from "components/ProductCounter/Counter";
+
 import { numberWithCommas } from "utils/number";
-import Counter from "./Counter";
 
 type ProductCounterProps = {
   className?: string;

@@ -1,11 +1,14 @@
-import CartItem from "components/CartItem";
-import ArrowIcon from "components/Icon/ArrowIcon";
-import useCart from "hooks/useCart";
+import { useMemo } from "react";
+
+import styled from "styled-components";
 
 import Link from "next/link";
-import { useMemo } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+
+import ArrowIcon from "components/Icon/ArrowIcon";
+import CartItem from "components/CartItem";
+
+import useCart from "hooks/useCart";
+
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 
@@ -14,8 +17,6 @@ type CartPageProps = {
 };
 
 function CartPage({ className }: CartPageProps) {
-  const dispatch = useDispatch();
-
   const { list, handleCartItemCount, handleDeleteCartItem } = useCart();
 
   const totalCount = useMemo(

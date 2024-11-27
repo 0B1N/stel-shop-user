@@ -1,7 +1,9 @@
-import Rate from "components/Card/Rate";
 import styled from "styled-components";
-import ProductInfo from "./ProductInfo";
+
+import ProductInfo from "components/ReviewCard/ProductInfo";
 import Figure from "components/Card/Figure";
+import Rate from "components/Card/Rate";
+
 import { ProductCategoryType } from "utils/enum/store";
 
 export type ReviewData = {

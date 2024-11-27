@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import media from "utils/styles/mediaQuery";
+
+import Image from "next/image";
 
 import Slider, { Settings as SliderProps } from "react-slick";
+
+import media from "utils/styles/mediaQuery";
 import { slick, slickTheme } from "utils/styles/slickStyle";
-import Image from "next/image";
 
 type HomeBannerProps = {
   className?: string;

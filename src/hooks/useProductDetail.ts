@@ -1,10 +1,13 @@
-import { CardData } from "components/Card";
-import { CartItemData } from "components/CartItem";
-import { getCookie, setCookie } from "cookies-next";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { toast } from "react-toastify";
+
 import { useAppDispatch, useRootState } from "store";
+
+import { getCookie, setCookie } from "cookies-next";
+
+import { CartItemData } from "components/CartItem";
+
 import { handleCartCount, handleLikeCount } from "store/globalSlice";
 import {
   getProductDetail,

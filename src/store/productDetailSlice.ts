@@ -1,6 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { ReviewData } from "components/ReviewCard";
+
 import { ProductCategoryType, ProductMemberType } from "utils/enum/store";
 
 type ProductDetailState = {

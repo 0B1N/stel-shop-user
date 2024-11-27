@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { CardData } from "components/Card";
+
 import {
   ProductCategoryType,
   ProductMemberType,
   ProductOrderType,
 } from "utils/enum/store";
-
 import { store_page_mockup } from "utils/mockup/store";
 
 type StorePageState = {

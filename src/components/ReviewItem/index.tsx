@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import UserInfo from "./UserInfo";
+
 import Image from "next/image";
+
+import UserInfo from "components/ReviewItem/UserInfo";
 import { ReviewData } from "components/ReviewCard";
+
 import { PRODUCT_CATEGORY } from "utils/enum/store";
 import media from "utils/styles/mediaQuery";
 

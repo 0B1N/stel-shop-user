@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
-import HomeSection from "components/HomeSection";
-import ReviewCard from "components/ReviewCard";
-import media from "utils/styles/mediaQuery";
 import { useDispatch } from "react-redux";
+import { useRootState } from "store";
 import {
   handleReviewModalData,
   handleVisibleReviewModal,
 } from "store/globalSlice";
-import { useRootState } from "store";
+
+import HomeSection from "components/HomeSection";
+import ReviewCard from "components/ReviewCard";
+
+import media from "utils/styles/mediaQuery";
 
 type ReviewPageProps = {
   className?: string;

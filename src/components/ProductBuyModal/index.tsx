@@ -1,10 +1,13 @@
-import CloseIcon from "components/Icon/CloseIcon";
-import ProductCounter from "components/ProductCounter";
+import styled from "styled-components";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
+
+import ProductCounter from "components/ProductCounter";
+import CloseIcon from "components/Icon/CloseIcon";
+
 import { handleVisibleBuyModal } from "store/globalSlice";
 import { handleProductCount } from "store/productDetailSlice";
-import styled from "styled-components";
 
 type ProductBuyModalProps = {
   className?: string;

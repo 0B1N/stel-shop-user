@@ -1,17 +1,22 @@
-import Rate from "components/Card/Rate";
-import CloseIcon from "components/Icon/CloseIcon";
-import { ReviewData } from "components/ReviewCard";
-import ProductInfo from "components/ReviewCard/ProductInfo";
-import Image from "next/image";
 import styled from "styled-components";
-import media from "utils/styles/mediaQuery";
-import { emailMasking } from "utils/text";
+
+import Image from "next/image";
+
 import Slider, { Settings as SliderProps } from "react-slick";
-import { slick, slickTheme } from "utils/styles/slickStyle";
-import ArrowIcon from "components/Icon/ArrowIcon";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
+
+import ProductInfo from "components/ReviewCard/ProductInfo";
+import ArrowIcon from "components/Icon/ArrowIcon";
+import CloseIcon from "components/Icon/CloseIcon";
+import Rate from "components/Card/Rate";
+
 import { handleResetReviewModalState } from "store/globalSlice";
+
+import { slick, slickTheme } from "utils/styles/slickStyle";
+import media from "utils/styles/mediaQuery";
+import { emailMasking } from "utils/text";
 
 type ModalProps = {
   className?: string;
@@ -93,6 +98,7 @@ function Modal({ className }: ModalProps) {
 
           <ProductInfo
             className="modal__detail--product"
+            idx={reviewModal.data.product.idx}
             title={reviewModal.data.product.title}
             image={reviewModal.data.product.image}
             price={reviewModal.data.product.price}

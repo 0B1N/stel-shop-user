@@ -1,9 +1,13 @@
-import CloseIcon from "components/Icon/CloseIcon";
+import styled from "styled-components";
+
 import { useRouter } from "next/router";
+
 import { useDispatch } from "react-redux";
 import { useRootState } from "store";
+
+import CloseIcon from "components/Icon/CloseIcon";
+
 import { handleVisibleMenuModal } from "store/globalSlice";
-import styled from "styled-components";
 
 type MenuModalProps = {
   className?: string;

@@ -1,7 +1,11 @@
-import ArrowIcon from "components/Icon/ArrowIcon";
-import Link from "next/link";
 import { ReactNode } from "react";
+
+import Link from "next/link";
+
 import styled from "styled-components";
+
+import ArrowIcon from "components/Icon/ArrowIcon";
+
 import media from "utils/styles/mediaQuery";
 
 type HomeSectionProps = {

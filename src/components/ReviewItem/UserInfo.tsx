@@ -1,6 +1,9 @@
-import Rate from "components/Card/Rate";
-import Image from "next/image";
 import styled from "styled-components";
+
+import Image from "next/image";
+
+import Rate from "components/Card/Rate";
+
 import { emailMasking } from "utils/text";
 
 type UserInfoProps = {

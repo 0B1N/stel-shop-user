@@ -1,18 +1,26 @@
+import { useEffect } from "react";
+
 import styled from "styled-components";
-import HamburgerIcon from "components/Icon/HamburgerIcon";
-import HeartIcon from "components/Icon/HeartIcon";
+
+import { getCookie } from "cookies-next";
+
 import Link from "next/link";
-import media from "utils/styles/mediaQuery";
-import SearchIcon from "components/Icon/SearchIcon";
+
 import { useDispatch } from "react-redux";
+
+import { useRootState } from "store";
+
+import HamburgerIcon from "components/Icon/HamburgerIcon";
+import SearchIcon from "components/Icon/SearchIcon";
+import HeartIcon from "components/Icon/HeartIcon";
+
+import media from "utils/styles/mediaQuery";
+
 import {
   handleCartCount,
   handleLikeCount,
   handleVisibleMenuModal,
 } from "store/globalSlice";
-import { useEffect } from "react";
-import { useRootState } from "store";
-import { getCookie } from "cookies-next";
 
 type HeaderProps = {
   className?: string;

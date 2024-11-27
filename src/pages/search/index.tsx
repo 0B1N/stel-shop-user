@@ -1,5 +1,6 @@
-import Header from "components/header";
 import styled from "styled-components";
+
+import Header from "components/header";
 
 type SearchPageProps = {
   className?: string;

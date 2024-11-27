@@ -1,6 +1,9 @@
-import Card from "components/Card";
-import useLike from "hooks/useLike";
 import styled from "styled-components";
+
+import Card from "components/Card";
+
+import useLike from "hooks/useLike";
+
 import media from "utils/styles/mediaQuery";
 
 type LikdePageProps = {
