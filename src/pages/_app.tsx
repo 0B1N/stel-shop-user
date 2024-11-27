@@ -9,6 +9,7 @@ import Modal from "components/Modal";
 import { Provider } from "react-redux";
 import { store } from "store";
 import ProductBuyModal from "components/ProductBuyModal";
+import { ToastContainer } from "react-toastify";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,6 +29,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <MenuModal />
         <Modal />
         <ProductBuyModal />
+        <ToastContainer />
       </Provider>
     </>
   );
