@@ -1,45 +1,37 @@
 import styled from "styled-components";
 
-import Header from "components/header";
 import HomeSection from "components/HomeSection";
-import { review_page_data } from "utils/mockup/review";
-import ReviewCard, { ReviewData } from "components/ReviewCard";
-import Modal from "components/Modal";
-import { useState } from "react";
+import ReviewCard from "components/ReviewCard";
 import media from "utils/styles/mediaQuery";
+import { useDispatch } from "react-redux";
+import {
+  handleReviewModalData,
+  handleVisibleReviewModal,
+} from "store/globalSlice";
+import { useRootState } from "store";
 
 type ReviewPageProps = {
   className?: string;
 };
 
 function ReviewPage({ className }: ReviewPageProps) {
-  const [reviewData, setReviewData] = useState<{ data: ReviewData }>();
-  const [reviewModalVisible, setReviewModalVisible] = useState(false);
+  const dispatch = useDispatch();
+  const { list } = useRootState((state) => state.reviewPageSlice);
 
   return (
     <div className={className}>
       <HomeSection title="PHOTO REVIEW">
-        {review_page_data.map((v, i) => (
+        {list.map((v, i) => (
           <ReviewCard
             data={v}
             key={i}
             onClick={(data) => {
-              setReviewData({ data });
-              setReviewModalVisible(true);
+              dispatch(handleReviewModalData(data));
+              dispatch(handleVisibleReviewModal());
             }}
           />
         ))}
       </HomeSection>
-
-      {reviewModalVisible && (
-        <Modal
-          data={reviewData.data}
-          onClose={() => {
-            setReviewModalVisible(false);
-            setReviewData({ data: {} as ReviewData });
-          }}
-        />
-      )}
     </div>
   );
 }

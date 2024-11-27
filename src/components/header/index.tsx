@@ -4,13 +4,16 @@ import HeartIcon from "components/Icon/HeartIcon";
 import Link from "next/link";
 import media from "utils/styles/mediaQuery";
 import SearchIcon from "components/Icon/SearchIcon";
+import { useDispatch } from "react-redux";
+import { handleVisibleMenuModal } from "store/globalSlice";
 
 type HeaderProps = {
   className?: string;
-  onMenuClick(): void;
 };
 
-function Header({ className, onMenuClick }: HeaderProps) {
+function Header({ className }: HeaderProps) {
+  const dispatch = useDispatch();
+
   return (
     <header className={className}>
       <div className="wrapper">
@@ -48,7 +51,7 @@ function Header({ className, onMenuClick }: HeaderProps) {
 
           <HamburgerIcon
             className="header__contents--hamburger"
-            onClick={() => onMenuClick()}
+            onClick={() => dispatch(handleVisibleMenuModal())}
           />
 
           <Link href="/">
@@ -65,7 +68,7 @@ export default styled(Header)`
   width: 100%;
   top: 0;
   background-color: #fff;
-  z-index: 3;
+  z-index: 5;
 
   .wrapper {
     max-width: 1280px;

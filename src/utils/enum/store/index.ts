@@ -9,6 +9,7 @@ export const PRODUCT_ORDER = {
 export type ProductOrderType = keyof typeof PRODUCT_ORDER;
 
 export const PRODUCT_CATEGORY = {
+  0: "전체",
   1: "키링",
   2: "키캡",
   3: "인형",
@@ -19,6 +20,7 @@ export const PRODUCT_CATEGORY = {
 export type ProductCategoryType = keyof typeof PRODUCT_CATEGORY;
 
 export const PRODCUT_MEMBERS = {
+  0: "전체",
   1: "강지",
   2: "아이리 칸나",
   3: "아야츠노 유니",
