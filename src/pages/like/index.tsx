@@ -1,6 +1,6 @@
 import Card from "components/Card";
+import useLike from "hooks/useLike";
 import styled from "styled-components";
-import { store_page_mockup } from "utils/mockup/store";
 import media from "utils/styles/mediaQuery";
 
 type LikdePageProps = {
@@ -9,6 +9,7 @@ type LikdePageProps = {
 
 function LikePage({ className }: LikdePageProps) {
   // TODO: 로컬스토리지로 처리하기
+  const { list } = useLike();
 
   return (
     <div className={className}>
@@ -18,7 +19,7 @@ function LikePage({ className }: LikdePageProps) {
         </header>
 
         <div className="contents">
-          {store_page_mockup.map((data, i) => (
+          {list.map((data, i) => (
             <Card {...data} key={i} />
           ))}
         </div>

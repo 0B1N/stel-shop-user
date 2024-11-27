@@ -1,0 +1,133 @@
+{
+  "data": {
+    "idx": 9,
+    "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+    "tallent": 3,
+    "category": 2,
+    "detailInfo": "",
+    "price": 65000,
+    "rate": 5,
+    "images": ["/test_image10.webp", "/test_image10.webp", "/test_image10.webp"]
+  },
+  "reviews": [
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+        "category": 2,
+        "image": "/test_image10.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp"
+        ],
+        "date": "2024-11-26",
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    },
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+        "category": 2,
+        "image": "/test_image10.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp"
+        ],
+        "date": "2024-11-26",
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    },
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+        "category": 2,
+        "image": "/test_image10.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp"
+        ],
+        "date": "2024-11-26",
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    },
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+        "category": 2,
+        "image": "/test_image10.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp"
+        ],
+        "date": "2024-11-26",
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    },
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 아야츠노 유니",
+        "category": 2,
+        "image": "/test_image10.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp",
+          "/test_image10.webp"
+        ],
+        "date": "2024-11-26",
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    }
+  ],
+  "buyGuides": [
+    {
+      "title": "배송 정보",
+      "list": {
+        "배송 정보": "일반택배(CJ대한통운)",
+        "배송 지역": "한국",
+        "배송 기간": "상품 출고 후 영업일 기준 1~3일 이내 수령이 가능하며 도서 산간 지역이거나 택배사의 물량이 많은 경우 기간이 조금 더 소요될 수 있습니다."
+      }
+    },
+    {
+      "title": "교환/환불 정보",
+      "desc": "주문제작 상품은 단순 변심, 주문 착오 등 고객 사유에 따른 교환/환불이 어렵습니다.\n상품에 이상이 있을 경우, 1:1문의하기를 통해 마플샵에 문의 해주세요",
+      "list": {
+        "배송 정보": "일반택배(CJ대한통운)",
+        "배송 지역": "한국",
+        "배송 기간": "상품 출고 후 영업일 기준 1~3일 이내 수령이 가능하며 도서 산간 지역이거나 택배사의 물량이 많은 경우 기간이 조금 더 소요될 수 있습니다."
+      }
+    }
+  ]
+}

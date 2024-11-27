@@ -2,6 +2,7 @@ import Rate from "components/Card/Rate";
 import styled from "styled-components";
 import ProductInfo from "./ProductInfo";
 import Figure from "components/Card/Figure";
+import { ProductCategoryType } from "utils/enum/store";
 
 export type ReviewData = {
   email: string;
@@ -15,7 +16,7 @@ export type ReviewData = {
     image: string;
     title: string;
     price: number;
-    option?: string;
+    category: ProductCategoryType;
   };
 };
 
@@ -53,7 +54,7 @@ function ReviewCard({ className, data, onClick }: ReviewCardProps) {
         title={data.product.title}
         image={data.product.image}
         price={data.product.price}
-        option={data.product.option}
+        category={data.product.category}
       />
     </div>
   );

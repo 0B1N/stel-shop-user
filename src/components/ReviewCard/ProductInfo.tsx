@@ -1,13 +1,14 @@
 import Image from "next/image";
 
 import styled from "styled-components";
+import { PRODUCT_CATEGORY, ProductCategoryType } from "utils/enum/store";
 import { numberWithCommas } from "utils/number";
 
 type ProductInfoProps = {
   title: string;
   image: string;
   price: number;
-  option?: string;
+  category: ProductCategoryType;
   className?: string;
 };
 
@@ -16,7 +17,7 @@ function ProductInfo({
   title,
   price,
   image,
-  option,
+  category,
 }: ProductInfoProps) {
   return (
     <div className={className}>
@@ -26,7 +27,9 @@ function ProductInfo({
 
       <div className="productInfo__detail">
         <span className="productInfo__detail--text title">{title}</span>
-        <span className="productInfo__detail--text option">{option}</span>
+        <span className="productInfo__detail--text option">
+          {PRODUCT_CATEGORY[category]}
+        </span>
         <span className="productInfo__detail--text price">
           ￦{numberWithCommas(price)}
         </span>

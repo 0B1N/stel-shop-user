@@ -42,7 +42,7 @@ export default styled(UserInfo)`
     font-size: 0;
     border-radius: 50%;
     overflow: hidden;
-    margin-right: 12px;
+    margin-right: 0.8571rem;
   }
 
   .userInfo__content {

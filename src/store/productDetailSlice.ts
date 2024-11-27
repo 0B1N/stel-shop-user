@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { ReviewData } from "components/ReviewCard";
-import { ProductMemberType } from "utils/enum/store";
+import { ProductCategoryType, ProductMemberType } from "utils/enum/store";
 
 type ProductDetailState = {
   hideProductImage: boolean;
@@ -8,20 +9,25 @@ type ProductDetailState = {
   reviews: ReviewData[];
   mainImageIndex: number;
   productCount: number;
+  activeLike: boolean;
   buyGuides: {
     title: string;
     desc?: string;
     list: Record<string, string>;
   }[];
   data: {
+    idx: number;
     title: string;
     tallent: ProductMemberType;
     images: string[];
     price: number;
-    category: string;
+    category: ProductCategoryType;
     detailInfo: string;
     rate: number;
+    isNew?: boolean;
   };
+  loading: boolean;
+  error: boolean;
 };
 
 const initialState: ProductDetailState = {
@@ -29,10 +35,14 @@ const initialState: ProductDetailState = {
   anchorIndex: 0,
   productCount: 1,
   mainImageIndex: 0,
+  loading: false,
+  error: false,
+  activeLike: false,
   data: {
+    idx: 0,
     title: "2024 타비 뿡댕이 키링",
     tallent: 7,
-    category: "키링",
+    category: 2,
     detailInfo: "",
     price: 15000,
     rate: 5,
@@ -45,7 +55,7 @@ const initialState: ProductDetailState = {
         title: "2024 타비 뿡댕이 키링",
         image: "/test_image.png",
         price: 15000,
-        option: "옵션 : L (66 x 34 cm)",
+        category: 1,
       },
       review: {
         rate: 5,
@@ -65,7 +75,7 @@ const initialState: ProductDetailState = {
         title: "2024 타비 뿡댕이 키링",
         image: "/test_image.png",
         price: 15000,
-        option: "옵션 : L (66 x 34 cm)",
+        category: 1,
       },
       review: {
         rate: 5,
@@ -85,7 +95,7 @@ const initialState: ProductDetailState = {
         title: "2024 타비 뿡댕이 키링",
         image: "/test_image.png",
         price: 15000,
-        option: "옵션 : L (66 x 34 cm)",
+        category: 1,
       },
       review: {
         rate: 5,
@@ -105,7 +115,7 @@ const initialState: ProductDetailState = {
         title: "2024 타비 뿡댕이 키링",
         image: "/test_image.png",
         price: 15000,
-        option: "옵션 : L (66 x 34 cm)",
+        category: 1,
       },
       review: {
         rate: 5,
@@ -125,7 +135,7 @@ const initialState: ProductDetailState = {
         title: "2024 타비 뿡댕이 키링",
         image: "/test_image.png",
         price: 15000,
-        option: "옵션 : L (66 x 34 cm)",
+        category: 1,
       },
       review: {
         rate: 5,
@@ -163,6 +173,23 @@ const initialState: ProductDetailState = {
   ],
 };
 
+export const getProductDetail = createAsyncThunk(
+  "productDetail",
+  async (idx: number, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/detail/test${idx}.json`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue("에러");
+    }
+  },
+);
+
 const productDetailSlice = createSlice({
   name: "productDetailSlice",
   initialState,
@@ -179,6 +206,27 @@ const productDetailSlice = createSlice({
     handleMainImageIndex(state, action) {
       state.mainImageIndex = action.payload;
     },
+    handleActiveLike(state, action) {
+      state.activeLike = action.payload;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getProductDetail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProductDetail.fulfilled, (state, action) => {
+        state.data = action.payload.data;
+        state.reviews = action.payload.reviews;
+        state.buyGuides = action.payload.buyGuides;
+
+        state.loading = false;
+      })
+      .addCase(getProductDetail.rejected, (state, action) => {
+        state.error = true;
+        state.loading = false;
+        state.data = null;
+      });
   },
 });
 
@@ -186,6 +234,7 @@ export const {
   handleMainImageIndex,
   handleAnchorIndex,
   handleHideProductImage,
+  handleActiveLike,
   handleProductCount,
 } = productDetailSlice.actions;
 export default productDetailSlice.reducer;

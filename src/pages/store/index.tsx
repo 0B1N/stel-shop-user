@@ -15,7 +15,8 @@ import FilterIcon from "components/Icon/FilterIcon";
 import media from "utils/styles/mediaQuery";
 import useStore from "hooks/useStore";
 import { useDispatch } from "react-redux";
-import { handleFilter } from "store/storePageSlice";
+import { handleFilter, handleVisibleFilterMenu } from "store/storePageSlice";
+import { useMemo } from "react";
 
 export type StorePageParams = {
   order: ProductOrderType;
@@ -29,8 +30,39 @@ type StorePageProps = {
 };
 
 function StorePage({ className, params }: StorePageProps) {
-  const { filter, list } = useStore(params);
+  const { filter, list, visibleFilterMenu } = useStore(params);
   const dispatch = useDispatch();
+
+  const filterData = useMemo(() => {
+    return list
+      .filter((item) => {
+        if (+filter.category === 0) {
+          return item;
+        } else {
+          return +item.category === +filter.category;
+        }
+      })
+      .filter((item) => {
+        if (+filter.member === 0) {
+          return item;
+        } else {
+          return +item.tallent === +filter.member;
+        }
+      })
+      .sort((a, b) => {
+        if (filter.order === "new") {
+          return (
+            new Date(b.updateDate).getTime() - new Date(a.updateDate).getTime()
+          );
+        } else if (filter.order === "popular") {
+          return b.reviewCount - a.reviewCount;
+        } else if (filter.order === "highPrice") {
+          return b.price - a.price;
+        } else {
+          return a.price - b.price;
+        }
+      });
+  }, [filter.category, filter.member, filter.order]);
 
   return (
     <div className={className}>
@@ -40,12 +72,12 @@ function StorePage({ className, params }: StorePageProps) {
 
           <div
             className="header__filter"
-            onClick={() => dispatch(handleFilter({ menu: !filter.menu }))}
+            onClick={() => dispatch(handleVisibleFilterMenu())}
           >
             <FilterIcon />
           </div>
 
-          {filter.menu && (
+          {visibleFilterMenu && (
             <div className="header__filterMenu">
               <div className="header__filterMenu__item">
                 <div className="header__filterMenu__item--title">정렬</div>
@@ -66,7 +98,7 @@ function StorePage({ className, params }: StorePageProps) {
                   data={PRODUCT_CATEGORY}
                   selectedCategoryId={`${filter.category}`}
                   onChange={(category: ProductCategoryType) => {
-                    dispatch(handleFilter({ category }));
+                    dispatch(handleFilter({ category: +category }));
                   }}
                 />
               </div>
@@ -78,7 +110,7 @@ function StorePage({ className, params }: StorePageProps) {
                   data={PRODCUT_MEMBERS}
                   selectedCategoryId={`${filter.member}`}
                   onChange={(member: ProductMemberType) => {
-                    dispatch(handleFilter({ member }));
+                    dispatch(handleFilter({ member: +member }));
                   }}
                 />
               </div>
@@ -125,7 +157,7 @@ function StorePage({ className, params }: StorePageProps) {
             </div>
           </div>
           <HomeSection title="POPULAR" className="list">
-            {list.map((data, i) => (
+            {filterData.map((data, i) => (
               <Card {...data} key={i} />
             ))}
           </HomeSection>

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import UserInfo from "./UserInfo";
 import Image from "next/image";
 import { ReviewData } from "components/ReviewCard";
+import { PRODUCT_CATEGORY } from "utils/enum/store";
+import media from "utils/styles/mediaQuery";
 
 type ReviewItemProps = {
   className?: string;
@@ -20,11 +22,9 @@ function ReviewItem({ className, data, onClick }: ReviewItemProps) {
 
       <div className="reviewItem__content">
         <div className="reviewItem__content__body">
-          {data.product.option && (
-            <p className="reviewItem__content__body--option">
-              {data.product.option}
-            </p>
-          )}
+          <p className="reviewItem__content__body--option">
+            {PRODUCT_CATEGORY[data.product.category]}
+          </p>
           <p className="reviewItem__content__body--desc">{data.review.desc}</p>
         </div>
 
@@ -57,7 +57,7 @@ export default styled(ReviewItem)`
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    padding-left: 3.57142857142857rem;
+    padding-left: 4.371429rem;
 
     &__body {
       display: flex;
@@ -112,6 +112,12 @@ export default styled(ReviewItem)`
         color: #fff;
         z-index: 2;
       }
+    }
+  }
+
+  ${media.large} {
+    .reviewItem__content {
+      padding-left: 3.57142857142857rem;
     }
   }
 `;

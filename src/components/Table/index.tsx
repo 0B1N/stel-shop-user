@@ -9,8 +9,8 @@ function Table({ className, data }: TableProps) {
   return (
     <table className={className}>
       <tbody>
-        {Object.keys(data).map((key) => (
-          <tr>
+        {Object.keys(data).map((key, i) => (
+          <tr key={i}>
             <th>{key}</th>
             <td>{data[key]}</td>
           </tr>

@@ -12,6 +12,7 @@ type MenuModalProps = {
 function MenuModal({ className }: MenuModalProps) {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const { menuModal } = useRootState((state) => state.globalSlice);
 
   if (!menuModal.visible) return null;
@@ -38,7 +39,7 @@ function MenuModal({ className }: MenuModalProps) {
             className="menuList__item"
             onClick={() => {
               dispatch(handleVisibleMenuModal());
-              router.push("/store");
+              router.push("/store?order=popular");
             }}
           >
             STORE
@@ -81,7 +82,7 @@ export default styled(MenuModal)`
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 20;
   display: flex;
 
   &::before {
