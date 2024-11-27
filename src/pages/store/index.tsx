@@ -179,6 +179,7 @@ StorePage.getInitialProps = async (ctx) => {
 
 export default styled(StorePage)`
   margin-top: 61px;
+  padding-bottom: 80px;
 
   .homeSection__header {
     display: none !important;

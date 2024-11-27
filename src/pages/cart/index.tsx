@@ -1,13 +1,10 @@
 import CartItem from "components/CartItem";
 import ArrowIcon from "components/Icon/ArrowIcon";
-import CloseIcon from "components/Icon/CloseIcon";
-import Counter from "components/ProductCounter/Counter";
 import useCart from "hooks/useCart";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { deleteCartItem, editCartItemCount } from "store/cartPageSlice";
 import styled from "styled-components";
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
@@ -100,6 +97,8 @@ function CartPage({ className }: CartPageProps) {
 export default styled(CartPage)`
   position: relative;
   padding-bottom: 70px;
+  z-index: 6;
+  min-height: calc(100vh - 127px);
 
   .header {
     background-color: #fff;
@@ -259,10 +258,13 @@ export default styled(CartPage)`
     margin: 86px auto 0;
     padding-top: 2.285714285714286rem;
     padding-bottom: 8.571428571428571rem;
+    min-height: calc(100vh - 147px);
+    z-index: 4;
 
     .header {
       padding: 0;
       justify-content: flex-start;
+      position: relative;
 
       &--icon {
         display: none;
@@ -325,6 +327,8 @@ export default styled(CartPage)`
 
       .receipt {
         flex: 0 0 32rem;
+        position: sticky;
+        top: 86px;
 
         &__content {
           margin: 0;

@@ -8,7 +8,6 @@ type LikdePageProps = {
 };
 
 function LikePage({ className }: LikdePageProps) {
-  // TODO: 로컬스토리지로 처리하기
   const { list } = useLike();
 
   return (
@@ -30,6 +29,7 @@ function LikePage({ className }: LikdePageProps) {
 
 export default styled(LikePage)`
   margin-top: 61px;
+  min-height: calc(100vh - 121px);
 
   .header {
     &__title {
@@ -70,6 +70,7 @@ export default styled(LikePage)`
 
   ${media.large} {
     margin-top: 84px;
+    min-height: calc(100vh - 145px);
 
     .wrapper {
       padding: 2.571428571428572rem 0 0;
