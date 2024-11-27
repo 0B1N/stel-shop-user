@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 import media from "./mediaQuery";
+import "react-toastify/dist/ReactToastify.css";
 
 const resetCSS = css`
   * {

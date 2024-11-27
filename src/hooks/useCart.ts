@@ -13,14 +13,18 @@ import {
   editCartItemCount,
   setCartList,
 } from "store/cartPageSlice";
+import { toast } from "react-toastify";
 
 export default function useCart() {
   const dispatch = useDispatch();
   const { list } = useRootState((state) => state.cartPageSlice);
 
   function handleDeleteCartItem(idx: number) {
-    // dispatch(deleteCartItem({ idx }));
-    alert("장바구니에서 삭제됐습니다.");
+    dispatch(deleteCartItem({ idx }));
+
+    toast.error("장바구니에서 삭제됐습니다.", {
+      position: "bottom-center",
+    });
   }
 
   function handleCartItemCount(idx: number, count: number) {

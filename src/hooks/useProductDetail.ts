@@ -3,6 +3,7 @@ import { CartItemData } from "components/CartItem";
 import { getCookie, setCookie } from "cookies-next";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { useAppDispatch, useRootState } from "store";
 import { handleCartCount, handleLikeCount } from "store/globalSlice";
 import {
@@ -60,7 +61,9 @@ export default function useProductDetails(idx: number) {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
 
-    alert("주소가 복사되었습니다.");
+    toast.info("주소가 복사되었습니다.", {
+      position: "bottom-center",
+    });
   }
 
   function handleLikeClick() {
@@ -74,7 +77,10 @@ export default function useProductDetails(idx: number) {
       setCookie("likeList", JSON.stringify(removeData));
       dispatch(handleLikeCount(removeData.length));
       dispatch(handleActiveLike(false));
-      alert("좋아요 목록에서 삭제됐습니다.");
+
+      toast.error("좋아요 목록에서 삭제됐습니다.", {
+        position: "bottom-center",
+      });
     } else {
       const updateData = cookieData ? [data, ...cookieData] : [data];
 
@@ -84,7 +90,10 @@ export default function useProductDetails(idx: number) {
 
       dispatch(handleLikeCount(updateData.length));
       dispatch(handleActiveLike(true));
-      alert("좋아요 목록에 추가됐습니다.");
+
+      toast.success("좋아요 목록에 추가됐습니다.", {
+        position: "bottom-center",
+      });
     }
   }
 
@@ -132,7 +141,9 @@ export default function useProductDetails(idx: number) {
 
     dispatch(handleCartCount(cartCount + productCount));
 
-    alert("장바구니에 추가됐습니다.");
+    toast.success("장바구니에 추가됐습니다.", {
+      position: "bottom-center",
+    });
   }
 
   useEffect(() => {
