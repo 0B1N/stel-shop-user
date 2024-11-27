@@ -5,7 +5,14 @@ import Link from "next/link";
 import media from "utils/styles/mediaQuery";
 import SearchIcon from "components/Icon/SearchIcon";
 import { useDispatch } from "react-redux";
-import { handleVisibleMenuModal } from "store/globalSlice";
+import {
+  handleCartCount,
+  handleLikeCount,
+  handleVisibleMenuModal,
+} from "store/globalSlice";
+import { useEffect } from "react";
+import { useRootState } from "store";
+import { getCookie } from "cookies-next";
 
 type HeaderProps = {
   className?: string;
@@ -13,6 +20,22 @@ type HeaderProps = {
 
 function Header({ className }: HeaderProps) {
   const dispatch = useDispatch();
+  const { likeCount, cartCount } = useRootState((state) => state.globalSlice);
+
+  useEffect(() => {
+    if (getCookie("likeList")) {
+      const cookieData = JSON.parse(getCookie("likeList") as string);
+      dispatch(handleLikeCount(cookieData.length));
+    }
+
+    if (getCookie("cartList")) {
+      const cookieData = JSON.parse(getCookie("cartList") as string);
+
+      const count = cookieData.reduce((acc, curr) => acc + curr.count, 0);
+
+      dispatch(handleCartCount(count));
+    }
+  }, []);
 
   return (
     <header className={className}>
@@ -40,13 +63,12 @@ function Header({ className }: HeaderProps) {
 
           <Link href="/like">
             <span className="header__contents--heart">
-              <HeartIcon />
-              (0)
+              <HeartIcon />({likeCount})
             </span>
           </Link>
 
           <Link href="/cart">
-            <span className="header__contents--text">CART (0)</span>
+            <span className="header__contents--text">CART ({cartCount})</span>
           </Link>
 
           <HamburgerIcon

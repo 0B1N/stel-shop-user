@@ -3,7 +3,6 @@ export const PRODUCT_ORDER = {
   new: "최신순",
   lowPrice: "낮은가격순",
   highPrice: "높은가격순",
-  reivew: "리뷰순",
 } as const;
 
 export type ProductOrderType = keyof typeof PRODUCT_ORDER;
@@ -15,6 +14,7 @@ export const PRODUCT_CATEGORY = {
   3: "인형",
   4: "아크릴 굿즈",
   5: "머그컵",
+  6: "슬리퍼",
 } as const;
 
 export type ProductCategoryType = keyof typeof PRODUCT_CATEGORY;

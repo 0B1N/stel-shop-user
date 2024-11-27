@@ -1,32 +1,46 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import styled from "styled-components";
+import { PRODUCT_CATEGORY, ProductCategoryType } from "utils/enum/store";
 import { numberWithCommas } from "utils/number";
 
 type ProductInfoProps = {
+  idx: number;
   title: string;
   image: string;
   price: number;
-  option?: string;
+  category: ProductCategoryType;
   className?: string;
 };
 
 function ProductInfo({
   className,
+  idx,
   title,
   price,
   image,
-  option,
+  category,
 }: ProductInfoProps) {
+  const router = useRouter();
+
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onClick={(e) => {
+        e.stopPropagation();
+        router.push("/detail/[id]", `/detail/${idx}`);
+      }}
+    >
       <div className="productInfo--image">
         <Image width={60} height={60} src={image} alt="product_image" />
       </div>
 
       <div className="productInfo__detail">
         <span className="productInfo__detail--text title">{title}</span>
-        <span className="productInfo__detail--text option">{option}</span>
+        <span className="productInfo__detail--text option">
+          {PRODUCT_CATEGORY[category]}
+        </span>
         <span className="productInfo__detail--text price">
           ￦{numberWithCommas(price)}
         </span>

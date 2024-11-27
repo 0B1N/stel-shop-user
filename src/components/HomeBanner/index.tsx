@@ -26,7 +26,7 @@ function HomeBanner({ className }: HomeBannerProps) {
     <div className={className}>
       <Slider {...settings}>
         {["/main_image1.webp", "/main_image2.webp"].map((src, i) => (
-          <div className={`slide__item slide__item${i}`}>
+          <div className={`slide__item slide__item${i}`} key={i}>
             <Image src={src} fill={true} alt="main_image" />
           </div>
         ))}

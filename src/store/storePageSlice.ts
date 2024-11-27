@@ -13,8 +13,8 @@ type StorePageState = {
     category: ProductCategoryType;
     member: ProductMemberType;
     order: ProductOrderType;
-    menu: boolean;
   };
+  visibleFilterMenu: boolean;
   list: CardData[];
 };
 
@@ -23,8 +23,8 @@ const initialState: StorePageState = {
     order: "new",
     member: 0,
     category: 0,
-    menu: false,
   },
+  visibleFilterMenu: false,
   list: store_page_mockup,
 };
 
@@ -35,8 +35,11 @@ const storePageSlice = createSlice({
     handleFilter(state, action) {
       state.filter = { ...state.filter, ...action.payload };
     },
+    handleVisibleFilterMenu(state) {
+      state.visibleFilterMenu = !state.visibleFilterMenu;
+    },
   },
 });
 
-export const { handleFilter } = storePageSlice.actions;
+export const { handleFilter, handleVisibleFilterMenu } = storePageSlice.actions;
 export default storePageSlice.reducer;

@@ -49,7 +49,7 @@ function Modal({ className }: ModalProps) {
         <div className="modal__photo">
           <Slider {...settings}>
             {reviewModal.data.review.images.map((src, i) => (
-              <div className="modal__photo__item">
+              <div className="modal__photo__item" key={i}>
                 <Image fill={true} src={src} alt={`review_image_${i}`} />
               </div>
             ))}
@@ -96,7 +96,7 @@ function Modal({ className }: ModalProps) {
             title={reviewModal.data.product.title}
             image={reviewModal.data.product.image}
             price={reviewModal.data.product.price}
-            option={reviewModal.data.product.option}
+            category={reviewModal.data.product.category}
           />
         </div>
       </div>

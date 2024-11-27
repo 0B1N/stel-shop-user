@@ -4,14 +4,17 @@ import ArrowIcon from "components/Icon/ArrowIcon";
 import CloseIcon from "components/Icon/CloseIcon";
 import HeartIcon from "components/Icon/HeartIcon";
 import ShareIcon from "components/Icon/ShareIcon";
+import Loading from "components/Loading";
 import Modal from "components/Modal";
 import ProductCounter from "components/ProductCounter";
 import { ReviewData } from "components/ReviewCard";
 import ReviewItem from "components/ReviewItem";
 import Table from "components/Table";
+import { getCookie } from "cookies-next";
+import useDidMountEffect from "hooks/useDidMountEffect";
 import useProductDetails from "hooks/useProductDetail";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import Slider, { Settings as SliderProps } from "react-slick";
 import { useRootState } from "store";
@@ -22,12 +25,13 @@ import {
   handleVisibleReviewModal,
 } from "store/globalSlice";
 import {
+  handleActiveLike,
   handleHideProductImage,
   handleMainImageIndex,
   handleProductCount,
 } from "store/productDetailSlice";
 import styled from "styled-components";
-import { PRODCUT_MEMBERS } from "utils/enum/store";
+import { PRODCUT_MEMBERS, PRODUCT_CATEGORY } from "utils/enum/store";
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { STELLIVE_PALETTE } from "utils/styles/palette";
@@ -36,7 +40,7 @@ import { slick, slickTheme } from "utils/styles/slickStyle";
 type ProductDetailPageProps = {
   className?: string;
   params: {
-    id: number;
+    idx: number;
   };
 };
 
@@ -60,8 +64,9 @@ const settings: SliderProps = {
   ),
 };
 
-function ProductDetailPage({ className }: ProductDetailPageProps) {
-  const { handleClick } = useProductDetails();
+function ProductDetailPage({ className, params }: ProductDetailPageProps) {
+  const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
+    useProductDetails(params.idx);
 
   const dispatch = useDispatch();
   const {
@@ -72,7 +77,28 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
     reviews,
     mainImageIndex,
     productCount,
+    activeLike,
+    loading,
   } = useRootState((state) => state.productDetailSlice);
+
+  useDidMountEffect(() => {
+    if (getCookie("likeList")) {
+      const cookieData = JSON.parse(getCookie("likeList") as string);
+      dispatch(
+        handleActiveLike(
+          cookieData.findIndex((item) => item.idx === data.idx) !== -1,
+        ),
+      );
+    }
+  }, [JSON.stringify(data)]);
+
+  if (loading) {
+    return (
+      <div className={`${className} loading`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className={className}>
@@ -82,6 +108,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <div className="productInfo__image__preview">
               {data.images.map((src, i) => (
                 <figure
+                  key={i}
                   className="productInfo__image__preview--item"
                   onClick={() => dispatch(handleMainImageIndex(i))}
                 >
@@ -100,7 +127,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <div className="productInfo__image__slider">
               <Slider {...settings}>
                 {data.images.map((src, i) => (
-                  <div className="productInfo__image__slider__item">
+                  <div className="productInfo__image__slider__item" key={i}>
                     <Image fill={true} src={src} alt={`product_image_${i}`} />
                   </div>
                 ))}
@@ -124,7 +151,9 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </div>
 
             <p className="productForm__title">{data.title}</p>
-            <p className="productForm__category">{data.category}</p>
+            <p className="productForm__category">
+              {PRODUCT_CATEGORY[data.category]}
+            </p>
             <p className="productForm__price">
               ￦ {numberWithCommas(data.price)}
             </p>
@@ -206,7 +235,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <h2 className="productInfo__buyGuide--title">구매 안내</h2>
 
             {buyGuides.map((buyGuide, i) => (
-              <Collapse title={buyGuide.title} desc={buyGuide.desc}>
+              <Collapse title={buyGuide.title} desc={buyGuide.desc} key={i}>
                 <Table data={buyGuide.list} />
               </Collapse>
             ))}
@@ -220,6 +249,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             <div className="productInfo__review__content">
               {reviews.map((review, i) => (
                 <ReviewItem
+                  key={i}
                   data={review}
                   onClick={(data) => {
                     dispatch(handleVisibleReviewModal());
@@ -244,18 +274,27 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
             </div>
 
             <div className="productForm__top__action">
-              <button className="productForm__top__action--button share">
+              <button
+                className="productForm__top__action--button share"
+                onClick={handleShareClick}
+              >
                 <ShareIcon />
               </button>
 
-              <button className="productForm__top__action--button like">
+              <button
+                className="productForm__top__action--button like"
+                data-active={activeLike}
+                onClick={handleLikeClick}
+              >
                 <HeartIcon />
               </button>
             </div>
           </div>
 
           <p className="productForm__title">{data.title}</p>
-          <p className="productForm__category">{data.category}</p>
+          <p className="productForm__category">
+            {PRODUCT_CATEGORY[data.category]}
+          </p>
           <p className="productForm__price">
             ￦ {numberWithCommas(data.price)}
           </p>
@@ -277,7 +316,12 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
           />
 
           <div className="productForm__submit">
-            <div className="productForm__submit--button cart">장바구니</div>
+            <div
+              className="productForm__submit--button cart"
+              onClick={handleCartClick}
+            >
+              장바구니
+            </div>
             <div className="productForm__submit--button buy">바로 구매하기</div>
           </div>
 
@@ -291,7 +335,11 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
         </div>
 
         <div className="productFooter">
-          <div className="productFooter--heart">
+          <div
+            className="productFooter--heart"
+            data-active={activeLike}
+            onClick={handleLikeClick}
+          >
             <HeartIcon />
           </div>
           <div
@@ -309,7 +357,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
 ProductDetailPage.getInitialProps = async (ctx) => {
   return {
     params: {
-      order: +ctx.query.id,
+      idx: +ctx.query.id,
     },
   };
 };
@@ -318,6 +366,16 @@ export default styled(ProductDetailPage)`
   ${slick}
   ${slickTheme}
   margin-top: 61px;
+  padding-bottom: 77px;
+
+  &.loading {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .body {
     max-width: 1280px;
@@ -551,6 +609,14 @@ export default styled(ProductDetailPage)`
             background-color: transparent;
             padding: 0;
             cursor: pointer;
+
+            &[data-active="true"] {
+              svg {
+                path {
+                  fill: red;
+                }
+              }
+            }
           }
         }
       }
@@ -764,13 +830,23 @@ export default styled(ProductDetailPage)`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 52px !important;
-        height: 52px !important;
+        width: 40px !important;
+        height: 40px !important;
         padding: 0;
         color: #d9d9d9;
         background: #fff;
         box-sizing: content-box;
         border-radius: 50%;
+        flex: 0 0 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        &[data-active="true"] {
+          svg {
+            path {
+              fill: red;
+            }
+          }
+        }
 
         svg {
           width: 2.285714285714286rem;
@@ -813,6 +889,7 @@ export default styled(ProductDetailPage)`
 
   ${media.large} {
     padding-top: 2.285714285714286rem;
+    padding-bottom: 0;
 
     .body {
       .productInfo {

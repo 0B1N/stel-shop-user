@@ -1,11 +1,23 @@
+import { CardData } from "components/Card";
+import { CartItemData } from "components/CartItem";
+import { getCookie, setCookie } from "cookies-next";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useRootState } from "store";
-import { handleAnchorIndex } from "store/productDetailSlice";
+import { useAppDispatch, useRootState } from "store";
+import { handleCartCount, handleLikeCount } from "store/globalSlice";
+import {
+  getProductDetail,
+  handleActiveLike,
+  handleAnchorIndex,
+  resetProductDetailData,
+} from "store/productDetailSlice";
 
-export default function useProductDetails() {
-  const dispatch = useDispatch();
-  //   const { anchorIndex } = useRootState((state) => state.productDetailSlice);
+export default function useProductDetails(idx: number) {
+  const dispatch = useAppDispatch();
+  const { data, activeLike, productCount } = useRootState(
+    (state) => state.productDetailSlice,
+  );
+  const { cartCount } = useRootState((state) => state.globalSlice);
 
   function handleClick(id: string) {
     const scrollTop = document.getElementById(id).offsetTop;
@@ -44,6 +56,85 @@ export default function useProductDetails() {
     }
   }
 
+  function handleShareClick() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+
+    alert("주소가 복사되었습니다.");
+  }
+
+  function handleLikeClick() {
+    const cookieData = getCookie("likeList")
+      ? JSON.parse(getCookie("likeList") as string)
+      : "";
+
+    if (activeLike) {
+      const removeData = cookieData.filter((item) => item.idx !== data.idx);
+
+      setCookie("likeList", JSON.stringify(removeData));
+      dispatch(handleLikeCount(removeData.length));
+      dispatch(handleActiveLike(false));
+      alert("좋아요 목록에서 삭제됐습니다.");
+    } else {
+      const updateData = cookieData ? [data, ...cookieData] : [data];
+
+      setCookie("likeList", JSON.stringify(updateData), {
+        maxAge: 60 * 60 * 24 * 365,
+      });
+
+      dispatch(handleLikeCount(updateData.length));
+      dispatch(handleActiveLike(true));
+      alert("좋아요 목록에 추가됐습니다.");
+    }
+  }
+
+  function handleCartClick() {
+    const addData: CartItemData = {
+      category: data.category,
+      idx: data.idx,
+      image: data.images[0],
+      title: data.title,
+      price: data.price,
+      count: productCount,
+    };
+
+    let updateData: CartItemData[];
+    const parseCookieCartList: CartItemData[] = getCookie("cartList")
+      ? JSON.parse(getCookie("cartList") as string)
+      : [];
+
+    const hasCartData =
+      parseCookieCartList.findIndex(
+        (cartItem, i) => cartItem.idx === data.idx,
+      ) >= 0;
+
+    if (parseCookieCartList.length) {
+      // 1. 쿠키가 있을 경우
+      if (hasCartData) {
+        // 1-1. 같은 데이터가 있을 경우 -> count에 +1 하기
+        updateData = parseCookieCartList.map((cartItem) =>
+          cartItem.idx === data.idx
+            ? { ...cartItem, count: cartItem.count + productCount }
+            : cartItem,
+        );
+      } else {
+        // 1-2. 데이터가 없을 경우 -> 있는 데이터 앞에 추가하기
+        updateData = [addData, ...parseCookieCartList];
+      }
+    } else {
+      // 2. 쿠키가 없을경우 -> 데이터 자체를 넣기
+      updateData = [addData];
+    }
+
+    setCookie("cartList", JSON.stringify(updateData), {
+      maxAge: 60 * 60 * 24 * 365,
+    });
+
+    dispatch(handleCartCount(cartCount + productCount));
+
+    alert("장바구니에 추가됐습니다.");
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", handleWindowScroll);
 
@@ -52,5 +143,15 @@ export default function useProductDetails() {
     };
   }, []);
 
-  return { handleClick };
+  useEffect(() => {
+    dispatch(getProductDetail(idx));
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetProductDetailData());
+    };
+  }, []);
+
+  return { handleClick, handleLikeClick, handleShareClick, handleCartClick };
 }

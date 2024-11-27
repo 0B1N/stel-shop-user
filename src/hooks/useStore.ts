@@ -21,7 +21,9 @@ function getURLParameters(url: string): Record<string, string> {
 export default function useStore(params: StorePageParams) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { filter, list } = useRootState((state) => state.storePageSlice);
+  const { filter, list, visibleFilterMenu } = useRootState(
+    (state) => state.storePageSlice,
+  );
 
   function convertQueryString(object: Object) {
     Object.keys(object).forEach((key) =>
@@ -60,12 +62,18 @@ export default function useStore(params: StorePageParams) {
   );
 
   useEffect(() => {
-    dispatch(handleFilter(params));
+    dispatch(
+      handleFilter({
+        category: +params.category,
+        member: +params.member,
+        order: params.order,
+      }),
+    );
   }, []);
 
   useDidMountEffect(() => {
-    router.push(`/store?${setURL(filter)}`);
+    router.replace(`/store?${setURL(filter)}`);
   }, [filter.category, filter.member, filter.order]);
 
-  return { filter, list };
+  return { filter, list, visibleFilterMenu };
 }

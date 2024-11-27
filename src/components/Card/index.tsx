@@ -4,12 +4,19 @@ import Image from "next/image";
 import { numberWithCommas } from "utils/number";
 import Figure from "./Figure";
 import Link from "next/link";
+import { ProductCategoryType, ProductMemberType } from "utils/enum/store";
 
 export type CardData = {
+  idx: number;
   title: string;
-  rate: number;
+  tallent: ProductMemberType;
+  category: ProductCategoryType;
+  detailInfo: string;
   price: number;
-  img?: string;
+  rate: number;
+  images: string[];
+  reviewCount: number;
+  updateDate: string;
   isNew?: boolean;
   sale?: number;
 };
@@ -18,13 +25,24 @@ type CardProps = {
   className?: string;
 } & CardData;
 
-function Card({ className, title, img, rate, price, isNew, sale }: CardProps) {
+function Card({
+  className,
+  title,
+  category,
+  tallent,
+  images,
+  rate,
+  price,
+  isNew,
+  sale,
+  idx,
+}: CardProps) {
   return (
-    <Link href="/detail/[id]" as="/detail/1">
+    <Link href="/detail/[id]" as={`/detail/${idx}`}>
       <div className={className}>
         <Figure
           className={`card__image ${isNew ? "new" : ""}`}
-          src={img}
+          src={images[0]}
           alt={title}
         />
 

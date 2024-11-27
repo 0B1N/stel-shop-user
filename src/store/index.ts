@@ -3,14 +3,19 @@ import { useSelector } from "react-redux";
 import { Action, combineReducers } from "redux";
 
 import globalSlice from "store/globalSlice";
+import cartPageSlice from "store/cartPageSlice";
 import mainPageSlice from "store/mainPageSlice";
+import likePageSlice from "store/likePageSlice";
 import storePageSlice from "store/storePageSlice";
 import reviewPageSlice from "store/reviewPageSlice";
 import productDetailSlice from "store/productDetailSlice";
+import { useDispatch } from "react-redux";
 
 const rootReducer = combineReducers({
   globalSlice,
+  cartPageSlice,
   mainPageSlice,
+  likePageSlice,
   storePageSlice,
   reviewPageSlice,
   productDetailSlice,
@@ -34,3 +39,5 @@ export function useRootState<T>(
 
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>;
 export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
