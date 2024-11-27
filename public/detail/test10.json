@@ -15,6 +15,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 아이리 칸나",
         "category": 2,
+        "idx": 10,
         "image": "/test_image11.webp",
         "price": 65000
       },
@@ -35,6 +36,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 아이리 칸나",
         "category": 2,
+        "idx": 10,
         "image": "/test_image11.webp",
         "price": 65000
       },
@@ -55,6 +57,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 아이리 칸나",
         "category": 2,
+        "idx": 10,
         "image": "/test_image11.webp",
         "price": 65000
       },
@@ -75,6 +78,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 아이리 칸나",
         "category": 2,
+        "idx": 10,
         "image": "/test_image11.webp",
         "price": 65000
       },
@@ -95,6 +99,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 아이리 칸나",
         "category": 2,
+        "idx": 10,
         "image": "/test_image11.webp",
         "price": 65000
       },

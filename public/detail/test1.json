@@ -14,6 +14,7 @@
       "email": "binnyy01@gmail.com",
       "product": {
         "title": "2024 타비 뿡댕이 키링",
+        "idx": 1,
         "image": "/test_image.png",
         "category": 1,
         "price": 15000
@@ -35,6 +36,7 @@
       "product": {
         "title": "2024 타비 뿡댕이 키링",
         "image": "/test_image.png",
+        "idx": 1,
         "category": 1,
         "price": 15000
       },
@@ -55,6 +57,7 @@
       "product": {
         "title": "2024 타비 뿡댕이 키링",
         "category": 1,
+        "idx": 1,
         "image": "/test_image.png",
         "price": 15000
       },
@@ -74,6 +77,7 @@
       "email": "binnyy01@gmail.com",
       "product": {
         "title": "2024 타비 뿡댕이 키링",
+        "idx": 1,
         "image": "/test_image.png",
         "category": 1,
         "price": 15000
@@ -95,6 +99,7 @@
       "product": {
         "title": "2024 타비 뿡댕이 키링",
         "image": "/test_image.png",
+        "idx": 1,
         "category": 1,
         "price": 15000
       },

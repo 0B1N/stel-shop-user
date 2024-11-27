@@ -15,6 +15,29 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
         "category": 2,
+        "idx": 6,
+        "image": "/test_image3.webp",
+        "price": 65000
+      },
+      "review": {
+        "rate": 5,
+        "images": [
+          "/test_image3.webp",
+          "/test_image3.webp",
+          "/test_image3.webp",
+          "/test_image3.webp"
+        ],
+        "date": "2024-11-26",
+        "idx": 6,
+        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
+      }
+    },
+    {
+      "email": "binnyy01@gmail.com",
+      "product": {
+        "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
+        "category": 2,
+        "idx": 6,
         "image": "/test_image3.webp",
         "price": 65000
       },
@@ -35,6 +58,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
         "category": 2,
+        "idx": 6,
         "image": "/test_image3.webp",
         "price": 65000
       },
@@ -55,46 +79,7 @@
       "product": {
         "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
         "category": 2,
-        "image": "/test_image3.webp",
-        "price": 65000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image3.webp",
-          "/test_image3.webp",
-          "/test_image3.webp",
-          "/test_image3.webp"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
-        "category": 2,
-        "image": "/test_image3.webp",
-        "price": 65000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image3.webp",
-          "/test_image3.webp",
-          "/test_image3.webp",
-          "/test_image3.webp"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "title": "스텔라이브 아티산 키캡 - 네네코 마시로",
-        "category": 2,
+        "idx": 6,
         "image": "/test_image3.webp",
         "price": 65000
       },

@@ -11,11 +11,22 @@ type CounterProps = {
 function Counter({ className, count, onCountChange }: CounterProps) {
   return (
     <div className={className}>
-      <button disabled={count === 1} onClick={() => onCountChange(count - 1)}>
+      <button
+        disabled={count === 1}
+        onClick={(e) => {
+          e.stopPropagation();
+          onCountChange(count - 1);
+        }}
+      >
         <MinusIcon />
       </button>
       <span>{count}</span>
-      <button onClick={() => onCountChange(count + 1)}>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onCountChange(count + 1);
+        }}
+      >
         <PlusIcon />
       </button>
     </div>

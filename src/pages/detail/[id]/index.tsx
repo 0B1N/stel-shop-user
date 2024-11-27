@@ -4,6 +4,7 @@ import ArrowIcon from "components/Icon/ArrowIcon";
 import CloseIcon from "components/Icon/CloseIcon";
 import HeartIcon from "components/Icon/HeartIcon";
 import ShareIcon from "components/Icon/ShareIcon";
+import Loading from "components/Loading";
 import Modal from "components/Modal";
 import ProductCounter from "components/ProductCounter";
 import { ReviewData } from "components/ReviewCard";
@@ -64,9 +65,8 @@ const settings: SliderProps = {
 };
 
 function ProductDetailPage({ className, params }: ProductDetailPageProps) {
-  const { handleClick, handleLikeClick, handleShareClick } = useProductDetails(
-    params.idx,
-  );
+  const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
+    useProductDetails(params.idx);
 
   const dispatch = useDispatch();
   const {
@@ -78,14 +78,27 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
     mainImageIndex,
     productCount,
     activeLike,
+    loading,
   } = useRootState((state) => state.productDetailSlice);
 
   useDidMountEffect(() => {
-    const a = JSON.parse(getCookie("likeList") as string);
-    const b = a?.findIndex((item) => item.idx === data.idx) !== -1;
-
-    dispatch(handleActiveLike(b));
+    if (getCookie("likeList")) {
+      const cookieData = JSON.parse(getCookie("likeList") as string);
+      dispatch(
+        handleActiveLike(
+          cookieData.findIndex((item) => item.idx === data.idx) !== -1,
+        ),
+      );
+    }
   }, [JSON.stringify(data)]);
+
+  if (loading) {
+    return (
+      <div className={`${className} loading`}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className={className}>
@@ -303,7 +316,12 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
           />
 
           <div className="productForm__submit">
-            <div className="productForm__submit--button cart">장바구니</div>
+            <div
+              className="productForm__submit--button cart"
+              onClick={handleCartClick}
+            >
+              장바구니
+            </div>
             <div className="productForm__submit--button buy">바로 구매하기</div>
           </div>
 
@@ -317,7 +335,11 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
         </div>
 
         <div className="productFooter">
-          <div className="productFooter--heart" data-active={activeLike}>
+          <div
+            className="productFooter--heart"
+            data-active={activeLike}
+            onClick={handleLikeClick}
+          >
             <HeartIcon />
           </div>
           <div
@@ -345,6 +367,15 @@ export default styled(ProductDetailPage)`
   ${slickTheme}
   margin-top: 61px;
   padding-bottom: 77px;
+
+  &.loading {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .body {
     max-width: 1280px;
@@ -809,13 +840,17 @@ export default styled(ProductDetailPage)`
         flex: 0 0 40px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
+        &[data-active="true"] {
+          svg {
+            path {
+              fill: red;
+            }
+          }
+        }
+
         svg {
           width: 2.285714285714286rem;
           height: 2.285714285714286rem;
-
-          path {
-            fill: red;
-          }
         }
       }
 

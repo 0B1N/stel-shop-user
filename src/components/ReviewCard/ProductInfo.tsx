@@ -1,10 +1,12 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import styled from "styled-components";
 import { PRODUCT_CATEGORY, ProductCategoryType } from "utils/enum/store";
 import { numberWithCommas } from "utils/number";
 
 type ProductInfoProps = {
+  idx: number;
   title: string;
   image: string;
   price: number;
@@ -14,13 +16,22 @@ type ProductInfoProps = {
 
 function ProductInfo({
   className,
+  idx,
   title,
   price,
   image,
   category,
 }: ProductInfoProps) {
+  const router = useRouter();
+
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onClick={(e) => {
+        e.stopPropagation();
+        router.push("/detail/[id]", `/detail/${idx}`);
+      }}
+    >
       <div className="productInfo--image">
         <Image width={60} height={60} src={image} alt="product_image" />
       </div>

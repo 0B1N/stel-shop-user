@@ -15,6 +15,7 @@
       "product": {
         "title": "유니 아크릴 키링 Ver.1",
         "category": 1,
+        "idx": 16,
         "image": "/test_image17.png",
         "price": 9000
       },
@@ -35,6 +36,7 @@
       "product": {
         "title": "유니 아크릴 키링 Ver.1",
         "category": 1,
+        "idx": 16,
         "image": "/test_image17.png",
         "price": 9000
       },
@@ -55,6 +57,7 @@
       "product": {
         "title": "유니 아크릴 키링 Ver.1",
         "category": 1,
+        "idx": 16,
         "image": "/test_image17.png",
         "price": 9000
       },
@@ -75,26 +78,7 @@
       "product": {
         "title": "유니 아크릴 키링 Ver.1",
         "category": 1,
-        "image": "/test_image17.png",
-        "price": 9000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image17.png",
-          "/test_image17.png",
-          "/test_image17.png",
-          "/test_image17.png"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "title": "유니 아크릴 키링 Ver.1",
-        "category": 1,
+        "idx": 16,
         "image": "/test_image17.png",
         "price": 9000
       },

@@ -101,10 +101,11 @@ export const photo_review_mockup_data = [
       date: "2024-11-19",
     },
     product: {
+      idx: 1,
       image: "/test_image.png",
       title: "2024 타비 뿡댕이 키링",
       price: 15000,
-      option: "옵션 : L (66 x 34 cm)",
+      category: 1,
     },
   },
   {
@@ -119,7 +120,8 @@ export const photo_review_mockup_data = [
       image: "/test_image.png",
       title: "2024 타비 뿡댕이 키링",
       price: 15000,
-      option: "옵션 : L (66 x 34 cm)",
+      idx: 1,
+      category: 1,
     },
   },
   {
@@ -134,7 +136,8 @@ export const photo_review_mockup_data = [
       image: "/test_image.png",
       title: "2024 타비 뿡댕이 키링",
       price: 15000,
-      option: "옵션 : L (66 x 34 cm)",
+      idx: 1,
+      category: 1,
     },
   },
   {
@@ -149,7 +152,8 @@ export const photo_review_mockup_data = [
       image: "/test_image.png",
       title: "2024 타비 뿡댕이 키링",
       price: 15000,
-      option: "옵션 : L (66 x 34 cm)",
+      idx: 1,
+      category: 1,
     },
   },
 ] as ReviewData[];

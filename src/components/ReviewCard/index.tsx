@@ -13,6 +13,7 @@ export type ReviewData = {
     date: string;
   };
   product: {
+    idx: number;
     image: string;
     title: string;
     price: number;
@@ -28,15 +29,7 @@ type ReviewCardProps = {
 
 function ReviewCard({ className, data, onClick }: ReviewCardProps) {
   return (
-    <div
-      className={className}
-      onClick={(e) => {
-        e.preventDefault();
-        e.isPropagationStopped();
-
-        onClick(data);
-      }}
-    >
+    <div className={className} onClick={() => onClick(data)}>
       <Figure
         className="reviewCard__image"
         src={data.review.images[0]}
@@ -51,6 +44,7 @@ function ReviewCard({ className, data, onClick }: ReviewCardProps) {
       </div>
 
       <ProductInfo
+        idx={data.product.idx}
         title={data.product.title}
         image={data.product.image}
         price={data.product.price}

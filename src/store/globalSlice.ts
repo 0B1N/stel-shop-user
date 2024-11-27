@@ -13,6 +13,7 @@ type GlobalState = {
     visible: boolean;
   };
   likeCount: number;
+  cartCount: number;
 };
 
 const initialState: GlobalState = {
@@ -27,6 +28,7 @@ const initialState: GlobalState = {
     visible: false,
   },
   likeCount: 0,
+  cartCount: 0,
 };
 
 const globalSlice = createSlice({
@@ -52,6 +54,9 @@ const globalSlice = createSlice({
     handleLikeCount(state, action) {
       state.likeCount = action.payload;
     },
+    handleCartCount(state, action) {
+      state.cartCount = action.payload;
+    },
   },
 });
 
@@ -62,5 +67,6 @@ export const {
   handleVisibleReviewModal,
   handleVisibleBuyModal,
   handleLikeCount,
+  handleCartCount,
 } = globalSlice.actions;
 export default globalSlice.reducer;

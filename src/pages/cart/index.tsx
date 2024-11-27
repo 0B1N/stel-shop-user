@@ -1,10 +1,15 @@
+import CartItem from "components/CartItem";
 import ArrowIcon from "components/Icon/ArrowIcon";
 import CloseIcon from "components/Icon/CloseIcon";
 import Counter from "components/ProductCounter/Counter";
-import Image from "next/image";
+import useCart from "hooks/useCart";
+
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteCartItem, editCartItemCount } from "store/cartPageSlice";
 import styled from "styled-components";
+import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 
 type CartPageProps = {
@@ -12,7 +17,19 @@ type CartPageProps = {
 };
 
 function CartPage({ className }: CartPageProps) {
-  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+
+  const { list, handleCartItemCount, handleDeleteCartItem } = useCart();
+
+  const totalCount = useMemo(
+    () => list.reduce((acc, curr) => acc + curr.count, 0),
+    [JSON.stringify(list)],
+  );
+
+  const totalPrice = useMemo(
+    () => list.reduce((acc, curr) => acc + curr.count * curr.price, 0),
+    [JSON.stringify(list)],
+  );
 
   return (
     <div className={className}>
@@ -26,101 +43,14 @@ function CartPage({ className }: CartPageProps) {
 
       <div className="contents">
         <div className="order">
-          <div className="order__item">
-            <div className="order__item__main">
-              <div className="order__item__main--image">
-                <Image
-                  width={100}
-                  height={100}
-                  src="/test_image.png"
-                  alt="order_image"
-                />
-              </div>
-              <div className="order__item__main__info">
-                <p className="order__item__main__info--title">
-                  2024 타비 뿡댕이 키링
-                </p>
-                <p className="order__item__main__info--option">키링</p>
-                <p className="order__item__main__info--price">21,000원</p>
-              </div>
-
-              <CloseIcon className="order__item__main--close" size={16} />
-
-              <Counter
-                count={count}
-                className="order__item__main--button"
-                onCountChange={(count) => setCount(count)}
-              />
-            </div>
-            <div className="order__item__option">
-              <span className="order__item__option--title">수량/1개</span>
-              <span className="order__item__option--price">17,000원</span>
-            </div>
-          </div>
-
-          <div className="order__item">
-            <div className="order__item__main">
-              <div className="order__item__main--image">
-                <Image
-                  width={100}
-                  height={100}
-                  src="/test_image.png"
-                  alt="order_image"
-                />
-              </div>
-              <div className="order__item__main__info">
-                <p className="order__item__main__info--title">
-                  2024 타비 뿡댕이 키링
-                </p>
-                <p className="order__item__main__info--option">키링</p>
-                <p className="order__item__main__info--price">21,000원</p>
-              </div>
-
-              <CloseIcon className="order__item__main--close" size={16} />
-
-              <Counter
-                count={count}
-                className="order__item__main--button"
-                onCountChange={(count) => setCount(count)}
-              />
-            </div>
-            <div className="order__item__option">
-              <span className="order__item__option--title">수량/1개</span>
-              <span className="order__item__option--price">17,000원</span>
-            </div>
-          </div>
-
-          <div className="order__item">
-            <div className="order__item__main">
-              <div className="order__item__main--image">
-                <Image
-                  width={100}
-                  height={100}
-                  src="/test_image.png"
-                  alt="order_image"
-                />
-              </div>
-              <div className="order__item__main__info">
-                <p className="order__item__main__info--title">
-                  2024 타비 뿡댕이 키링
-                </p>
-                <p className="order__item__main__info--option">키링</p>
-                <p className="order__item__main__info--price">21,000원</p>
-              </div>
-
-              <CloseIcon className="order__item__main--close" size={16} />
-
-              <Counter
-                count={count}
-                className="order__item__main--button"
-                onCountChange={(count) => setCount(count)}
-              />
-            </div>
-            <div className="order__item__option">
-              <span className="order__item__option--title">수량/1개</span>
-              <span className="order__item__option--price">17,000원</span>
-            </div>
-          </div>
+          {list.map((item, key) => (
+            <CartItem
+              {...item}
+              key={key}
+              onCountChange={handleCartItemCount}
+              onDelete={handleDeleteCartItem}
+            />
+          ))}
         </div>
 
         <div className="receipt">
@@ -129,22 +59,30 @@ function CartPage({ className }: CartPageProps) {
 
             <div className="receipt__content__item">
               <span className="receipt__content__item--title">총 수량</span>
-              <span className="receipt__content__item--price">2개</span>
+              <span className="receipt__content__item--price">
+                {totalCount}개
+              </span>
             </div>
 
             <div className="receipt__content__item">
               <span className="receipt__content__item--title">총 상품금액</span>
-              <span className="receipt__content__item--price">38,000원</span>
+              <span className="receipt__content__item--price">
+                ￦ {numberWithCommas(totalPrice)}
+              </span>
             </div>
 
             <div className="receipt__content__item">
               <span className="receipt__content__item--title">총 배송비</span>
-              <span className="receipt__content__item--price">3,000원</span>
+              <span className="receipt__content__item--price">
+                ￦ {numberWithCommas(3000)}
+              </span>
             </div>
 
             <div className="receipt__content__total">
               <div className="receipt__content__total--title">총 주문금액</div>
-              <div className="receipt__content__total--price">41,000원</div>
+              <div className="receipt__content__total--price">
+                ￦ {numberWithCommas(totalPrice + 3000)}
+              </div>
             </div>
           </div>
 
@@ -198,99 +136,6 @@ export default styled(CartPage)`
   .contents {
     .order {
       padding: 1.714285714285714rem 1.142857142857143rem 0;
-
-      &__item {
-        padding: 1.142857142857143rem 0;
-
-        &__main {
-          display: flex;
-          position: relative;
-          margin-bottom: 0.5714285714285714rem;
-
-          &--image {
-            margin-right: 1.142857142857143rem;
-            flex-shrink: 0;
-            width: 7.142857142857143rem;
-            height: 7.142857142857143rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f6f6f6;
-            overflow: hidden;
-            border-radius: 16px;
-          }
-
-          &__info {
-            display: flex;
-            flex-direction: column;
-            align-items: baseline;
-
-            &--title {
-              font-size: 1rem;
-              font-style: normal;
-              font-weight: 500;
-              letter-spacing: -0.0142857143rem;
-              line-height: 1.5714285714;
-              color: #141414;
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 2;
-              overflow: hidden;
-            }
-
-            &--option {
-              color: #a2a2a2;
-              font-size: 1rem;
-              font-style: normal;
-              font-weight: 500;
-              letter-spacing: -0.0142857143rem;
-              line-height: 1.5714285714;
-            }
-
-            &--price {
-              margin-top: auto;
-              color: #141414;
-              margin-bottom: 0.35714285714285715rem;
-              font-size: 1rem;
-            }
-          }
-
-          &--close {
-            width: 1.1429rem;
-            height: 1.1429rem;
-            margin-left: auto;
-          }
-
-          &--button {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 6.3rem;
-            height: 2.5rem;
-            padding: 0 0.8571428571428571rem;
-          }
-        }
-
-        &__option {
-          padding: 0.2857142857142857rem 0 0;
-          display: flex;
-          justify-content: space-between;
-
-          &--title,
-          &--price {
-            font-size: 0.8571428571rem;
-            font-style: normal;
-            font-weight: 500;
-            letter-spacing: -0.0142857143rem;
-            line-height: 1.4166666667;
-            color: #6b6b6b;
-          }
-        }
-      }
-
-      &__item + .order__item {
-        border-top: 1px solid #f2f2f2;
-      }
     }
 
     .receipt {

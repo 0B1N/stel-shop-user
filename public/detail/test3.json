@@ -16,6 +16,7 @@
         "title": "나나 카라비너 머그",
         "image": "/test_image8.webp",
         "category": 5,
+        "idx": 3,
         "price": 32000
       },
       "review": {
@@ -36,66 +37,7 @@
         "title": "나나 카라비너 머그",
         "image": "/test_image8.webp",
         "category": 5,
-        "price": 32000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "title": "나나 카라비너 머그",
-        "category": 5,
-        "image": "/test_image8.webp",
-        "price": 32000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "category": 5,
-        "title": "나나 카라비너 머그",
-        "image": "/test_image8.webp",
-        "price": 32000
-      },
-      "review": {
-        "rate": 5,
-        "images": [
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp",
-          "/test_image8.webp"
-        ],
-        "date": "2024-11-26",
-        "desc": "이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!\n이건꼭사야대!이건꼭사야대!!!이건꼭사야대!이건꼭사야대!!!"
-      }
-    },
-    {
-      "email": "binnyy01@gmail.com",
-      "product": {
-        "title": "나나 카라비너 머그",
-        "category": 5,
-        "image": "/test_image8.webp",
+        "idx": 3,
         "price": 32000
       },
       "review": {
