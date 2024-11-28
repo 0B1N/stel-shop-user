@@ -15,6 +15,10 @@ type GlobalState = {
   };
   likeCount: number;
   cartCount: number;
+  isLogin: boolean;
+  needLoginModal: {
+    visible: boolean;
+  };
 };
 
 const initialState: GlobalState = {
@@ -28,8 +32,10 @@ const initialState: GlobalState = {
   buyModal: {
     visible: false,
   },
+  needLoginModal: { visible: false },
   likeCount: 0,
   cartCount: 0,
+  isLogin: false,
 };
 
 const globalSlice = createSlice({
@@ -58,10 +64,17 @@ const globalSlice = createSlice({
     handleCartCount(state, action) {
       state.cartCount = action.payload;
     },
+    handleIsLogin(state, action) {
+      state.isLogin = action.payload;
+    },
+    handleVisibleNeedLoginModal(state, action) {
+      state.needLoginModal.visible = action.payload;
+    },
   },
 });
 
 export const {
+  handleVisibleNeedLoginModal,
   handleResetReviewModalState,
   handleReviewModalData,
   handleVisibleMenuModal,
@@ -69,5 +82,6 @@ export const {
   handleVisibleBuyModal,
   handleLikeCount,
   handleCartCount,
+  handleIsLogin,
 } = globalSlice.actions;
 export default globalSlice.reducer;

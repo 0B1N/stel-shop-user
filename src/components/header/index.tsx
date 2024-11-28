@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import styled from "styled-components";
 
-import { getCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 
 import Link from "next/link";
 
@@ -18,17 +18,23 @@ import media from "utils/styles/mediaQuery";
 
 import {
   handleCartCount,
+  handleIsLogin,
   handleLikeCount,
   handleVisibleMenuModal,
 } from "store/globalSlice";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 type HeaderProps = {
   className?: string;
 };
 
 function Header({ className }: HeaderProps) {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const { likeCount, cartCount } = useRootState((state) => state.globalSlice);
+  const { likeCount, cartCount, isLogin } = useRootState(
+    (state) => state.globalSlice,
+  );
 
   useEffect(() => {
     if (getCookie("likeList")) {
@@ -42,6 +48,12 @@ function Header({ className }: HeaderProps) {
       const count = cookieData.reduce((acc, curr) => acc + curr.count, 0);
 
       dispatch(handleCartCount(count));
+    }
+
+    if (getCookie("isLogin")) {
+      const cookieData = JSON.parse(getCookie("isLogin") as string);
+
+      dispatch(handleIsLogin(cookieData));
     }
   }, []);
 
@@ -65,19 +77,40 @@ function Header({ className }: HeaderProps) {
         </Link>
 
         <div className="header__contents">
-          <a className="header__contents--text" href="">
-            LOGIN
-          </a>
+          {isLogin ? (
+            <>
+              <span
+                className="header__contents--text"
+                onClick={() => {
+                  deleteCookie("isLogin");
 
-          <Link href="/like">
-            <span className="header__contents--heart">
-              <HeartIcon />({likeCount})
-            </span>
-          </Link>
+                  dispatch(handleIsLogin(false));
 
-          <Link href="/cart">
-            <span className="header__contents--text">CART ({cartCount})</span>
-          </Link>
+                  toast.info("로그아웃 성공했습니다.", {
+                    position: "bottom-center",
+                  });
+                }}
+              >
+                LOGOUT
+              </span>
+
+              <Link href="/like">
+                <span className="header__contents--heart">
+                  <HeartIcon />({likeCount})
+                </span>
+              </Link>
+
+              <Link href="/cart">
+                <span className="header__contents--text">
+                  CART ({cartCount})
+                </span>
+              </Link>
+            </>
+          ) : (
+            <Link href="/login">
+              <span className="header__contents--text">LOGIN</span>
+            </Link>
+          )}
 
           <HamburgerIcon
             className="header__contents--hamburger"
@@ -130,6 +163,7 @@ export default styled(Header)`
 
       &--text,
       &--heart {
+        cursor: pointer;
         font-size: 1rem;
       }
 

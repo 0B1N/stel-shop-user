@@ -82,6 +82,7 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
     activeLike,
     loading,
   } = useRootState((state) => state.productDetailSlice);
+  const { isLogin } = useRootState((state) => state.globalSlice);
 
   useDidMountEffect(() => {
     if (getCookie("likeList")) {
@@ -285,7 +286,7 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
 
               <button
                 className="productForm__top__action--button like"
-                data-active={activeLike}
+                data-active={isLogin && activeLike}
                 onClick={handleLikeClick}
               >
                 <HeartIcon />
@@ -339,7 +340,7 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
         <div className="productFooter">
           <div
             className="productFooter--heart"
-            data-active={activeLike}
+            data-active={isLogin && activeLike}
             onClick={handleLikeClick}
           >
             <HeartIcon />
