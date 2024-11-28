@@ -2,22 +2,13 @@ import React from "react";
 
 import styled from "styled-components";
 
-function Error({ statusCode, className }) {
+function Error({ className }) {
   return (
     <div className={className}>
-      <p>
-        {statusCode
-          ? `An error ${statusCode} occurred on server`
-          : "An error occurred on client"}
-      </p>
+      <p>{"An error occurred on client"}</p>
     </div>
   );
 }
-
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { statusCode };
-};
 
 export default styled(Error)`
   width: 100vw;

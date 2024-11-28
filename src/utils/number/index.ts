@@ -4,5 +4,5 @@
  * console.log(nuberWithCommas(100000)); // result: 100,000
  */
 export const numberWithCommas = (x: number) => {
-  return x.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `${x}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") ?? "";
 };

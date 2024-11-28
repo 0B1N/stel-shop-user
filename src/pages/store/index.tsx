@@ -30,11 +30,10 @@ export type StorePageParams = {
 
 type StorePageProps = {
   className?: string;
-  params: StorePageParams;
 };
 
-function StorePage({ className, params }: StorePageProps) {
-  const { filter, list, visibleFilterMenu } = useStore(params);
+function StorePage({ className }: StorePageProps) {
+  const { filter, list, visibleFilterMenu } = useStore();
   const dispatch = useDispatch();
 
   const filterData = useMemo(() => {
@@ -170,16 +169,6 @@ function StorePage({ className, params }: StorePageProps) {
     </div>
   );
 }
-
-StorePage.getInitialProps = async (ctx) => {
-  return {
-    params: {
-      order: `${ctx.query.order ?? "popular"}` as ProductOrderType | undefined,
-      member: (ctx.query.member ?? 0) as ProductMemberType,
-      category: (ctx.query.category ?? 0) as ProductCategoryType,
-    },
-  };
-};
 
 export default styled(StorePage)`
   margin-top: 61px;

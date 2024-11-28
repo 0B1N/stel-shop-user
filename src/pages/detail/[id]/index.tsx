@@ -41,12 +41,10 @@ import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { useEffect } from "react";
 import { CardData } from "components/Card";
+import { useRouter } from "next/router";
 
 type ProductDetailPageProps = {
   className?: string;
-  params: {
-    idx: number;
-  };
 };
 
 const settings: SliderProps = {
@@ -69,8 +67,9 @@ const settings: SliderProps = {
   ),
 };
 
-function ProductDetailPage({ className, params }: ProductDetailPageProps) {
+function ProductDetailPage({ className }: ProductDetailPageProps) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
     useProductDetails();
 
@@ -136,7 +135,7 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
   }, []);
 
   useEffect(() => {
-    dispatch(getProductDetail(params.idx));
+    dispatch(getProductDetail(+router.query.idx));
   }, []);
 
   if (loading) {
@@ -400,14 +399,6 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
     </div>
   );
 }
-
-ProductDetailPage.getInitialProps = async (ctx) => {
-  return {
-    params: {
-      idx: +ctx.query.id,
-    },
-  };
-};
 
 export default styled(ProductDetailPage)`
   ${slick}

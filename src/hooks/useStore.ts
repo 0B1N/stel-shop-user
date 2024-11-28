@@ -9,12 +9,10 @@ import { handleFilter } from "store/storePageSlice";
 
 import useDidMountEffect from "hooks/useDidMountEffect";
 
-import { StorePageParams } from "pages/store";
-
 function getURLParameters(url: string): Record<string, string> {
   const params = {};
 
-  url.replace(
+  url?.replaceAll(
     /([^=&]+)=([^&]*)/gi,
     (_, key, value) => (params[key] = decodeURIComponent(value)),
   );
@@ -22,7 +20,7 @@ function getURLParameters(url: string): Record<string, string> {
   return params;
 }
 
-export default function useStore(params: StorePageParams) {
+export default function useStore() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { filter, list, visibleFilterMenu } = useRootState(
@@ -68,15 +66,15 @@ export default function useStore(params: StorePageParams) {
   useEffect(() => {
     dispatch(
       handleFilter({
-        category: +params.category,
-        member: +params.member,
-        order: params.order,
+        category: +router.query.category,
+        member: +router.query.member,
+        order: router.query.order,
       }),
     );
   }, []);
 
   useDidMountEffect(() => {
-    router.replace(`/store?${setURL(filter)}`);
+    router.push(`/store?${setURL(filter)}`);
   }, [filter.category, filter.member, filter.order]);
 
   return { filter, list, visibleFilterMenu };
