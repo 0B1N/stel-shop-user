@@ -83,7 +83,7 @@ function MenuModal({ className }: MenuModalProps) {
             className="menuList__item"
             onClick={() => {
               dispatch(handleVisibleMenuModal());
-              router.push("/store?order=popular");
+              router.push("/store?order=popular&category=0&member=0");
             }}
           >
             STORE

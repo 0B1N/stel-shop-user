@@ -12,7 +12,7 @@ import useDidMountEffect from "hooks/useDidMountEffect";
 function getURLParameters(url: string): Record<string, string> {
   const params = {};
 
-  url?.replaceAll(
+  url?.replace(
     /([^=&]+)=([^&]*)/gi,
     (_, key, value) => (params[key] = decodeURIComponent(value)),
   );
@@ -47,6 +47,7 @@ export default function useStore() {
   const setURL = useCallback(
     (queryStrings: Record<string, string | number>, url?: string) => {
       const object = url ? getURLParameters(url) : searchParams;
+      console.log(object);
       const changeParams = { ...object, ...queryStrings };
 
       Object.keys(changeParams).reduce((prev, key) => {
