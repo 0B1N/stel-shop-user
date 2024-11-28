@@ -11,7 +11,7 @@ type HomeBannerProps = {
   className?: string;
 };
 
-var settings: SliderProps = {
+const settings: SliderProps = {
   dots: true,
   infinite: true,
   speed: 500,

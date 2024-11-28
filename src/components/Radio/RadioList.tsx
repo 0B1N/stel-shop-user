@@ -6,7 +6,7 @@ type RadioListProps = {
   className?: string;
   selectedCategoryId: string;
   data: Record<string, string>;
-  onChange(value: any): void;
+  onChange(value: string | number): void;
 };
 
 function RadioList({

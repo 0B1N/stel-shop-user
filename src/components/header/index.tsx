@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { useRootState } from "store";
 
 import HamburgerIcon from "components/Icon/HamburgerIcon";
-import SearchIcon from "components/Icon/SearchIcon";
 import HeartIcon from "components/Icon/HeartIcon";
 
 import media from "utils/styles/mediaQuery";
@@ -23,14 +22,12 @@ import {
   handleVisibleMenuModal,
 } from "store/globalSlice";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 
 type HeaderProps = {
   className?: string;
 };
 
 function Header({ className }: HeaderProps) {
-  const router = useRouter();
   const dispatch = useDispatch();
   const { likeCount, cartCount, isLogin } = useRootState(
     (state) => state.globalSlice,

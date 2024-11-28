@@ -10,18 +10,15 @@ import { CartItemData } from "components/CartItem";
 
 import {
   handleCartCount,
-  handleIsLogin,
   handleLikeCount,
   handleVisibleNeedLoginModal,
 } from "store/globalSlice";
 import {
-  getProductDetail,
   handleActiveLike,
-  handleAnchorIndex,
   resetProductDetailData,
 } from "store/productDetailSlice";
 
-export default function useProductDetails(idx: number) {
+export default function useProductDetails() {
   const dispatch = useAppDispatch();
   const { data, activeLike, productCount } = useRootState(
     (state) => state.productDetailSlice,
@@ -102,9 +99,8 @@ export default function useProductDetails(idx: number) {
       : [];
 
     const hasCartData =
-      parseCookieCartList.findIndex(
-        (cartItem, i) => cartItem.idx === data.idx,
-      ) >= 0;
+      parseCookieCartList.findIndex((cartItem) => cartItem.idx === data.idx) >=
+      0;
 
     if (parseCookieCartList.length) {
       // 1. 쿠키가 있을 경우

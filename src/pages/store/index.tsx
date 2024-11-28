@@ -66,7 +66,7 @@ function StorePage({ className, params }: StorePageProps) {
           return a.price - b.price;
         }
       });
-  }, [filter.category, filter.member, filter.order]);
+  }, [filter.category, filter.member, filter.order, list]);
 
   return (
     <div className={className}>

@@ -6,8 +6,7 @@ import { getCookie } from "cookies-next";
 
 import Image from "next/image";
 
-import { useDispatch } from "react-redux";
-import { useRootState } from "store";
+import { useAppDispatch, useRootState } from "store";
 import {
   handleReviewModalData,
   handleVisibleBuyModal,
@@ -41,6 +40,7 @@ import { STELLIVE_PALETTE } from "utils/styles/palette";
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { useEffect } from "react";
+import { CardData } from "components/Card";
 
 type ProductDetailPageProps = {
   className?: string;
@@ -70,9 +70,9 @@ const settings: SliderProps = {
 };
 
 function ProductDetailPage({ className, params }: ProductDetailPageProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
-    useProductDetails(params.idx);
+    useProductDetails();
 
   const {
     data,
@@ -89,7 +89,9 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
 
   useDidMountEffect(() => {
     if (getCookie("likeList")) {
-      const cookieData = JSON.parse(getCookie("likeList") as string);
+      const cookieData: CardData[] = JSON.parse(
+        getCookie("likeList") as string,
+      );
       dispatch(
         handleActiveLike(
           cookieData.findIndex((item) => item.idx === data.idx) !== -1,
@@ -134,7 +136,7 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
   }, []);
 
   useEffect(() => {
-    dispatch(getProductDetail(params.idx) as any);
+    dispatch(getProductDetail(params.idx));
   }, []);
 
   if (loading) {

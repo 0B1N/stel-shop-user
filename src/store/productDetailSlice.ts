@@ -92,7 +92,16 @@ const productDetailSlice = createSlice({
       state.activeLike = action.payload;
     },
     resetProductDetailData(state) {
-      state = initialState;
+      state.activeLike = initialState.activeLike;
+      state.data = initialState.data;
+      state.anchorIndex = initialState.anchorIndex;
+      state.hideProductImage = initialState.hideProductImage;
+      state.mainImageIndex = initialState.mainImageIndex;
+      state.productCount = initialState.productCount;
+      state.reviews = initialState.reviews;
+      state.buyGuides = initialState.buyGuides;
+      state.error = false;
+      state.loading = true;
     },
   },
   extraReducers(builder) {
@@ -107,7 +116,7 @@ const productDetailSlice = createSlice({
 
         state.loading = false;
       })
-      .addCase(getProductDetail.rejected, (state, action) => {
+      .addCase(getProductDetail.rejected, (state) => {
         state.error = true;
         state.loading = false;
         state.data = null;

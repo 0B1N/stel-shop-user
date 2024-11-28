@@ -31,8 +31,6 @@ type CardProps = {
 function Card({
   className,
   title,
-  category,
-  tallent,
   images,
   rate,
   price,

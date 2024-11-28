@@ -29,7 +29,7 @@ export default function useStore(params: StorePageParams) {
     (state) => state.storePageSlice,
   );
 
-  function convertQueryString(object: Object) {
+  function convertQueryString(object: Record<string, string | number>) {
     Object.keys(object).forEach((key) =>
       object[key] === undefined ? delete object[key] : {},
     );
