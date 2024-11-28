@@ -8,6 +8,26 @@
         "destination": "/detail/[id].html"
       },
       {
+        "source": "/login",
+        "destination": "/login.html"
+      },
+      {
+        "source": "/store",
+        "destination": "/store.html"
+      },
+      {
+        "source": "/cart",
+        "destination": "/cart.html"
+      },
+      {
+        "source": "/like",
+        "destination": "/like.html"
+      },
+      {
+        "source": "/review",
+        "destination": "/review.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
