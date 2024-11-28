@@ -12,10 +12,12 @@ export default function useLike() {
   const { list } = useRootState((state) => state.likePageSlice);
 
   useEffect(() => {
-    const cookieData = JSON.parse(getCookie("likeList") as string);
+    if (getCookie("likeList")) {
+      const cookieData = JSON.parse(getCookie("likeList") as string);
 
-    if (cookieData?.length === 0) return;
-    dispatch(handleLikeList(cookieData));
+      if (cookieData?.length === 0) return;
+      dispatch(handleLikeList(cookieData));
+    }
   }, []);
 
   return { list };
