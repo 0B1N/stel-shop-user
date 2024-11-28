@@ -13,7 +13,6 @@ import {
   handleVisibleReviewModal,
 } from "store/globalSlice";
 import {
-  getProductDetail,
   handleActiveLike,
   handleAnchorIndex,
   handleHideProductImage,
@@ -41,7 +40,6 @@ import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { useEffect } from "react";
 import { CardData } from "components/Card";
-import { useRouter } from "next/router";
 
 type ProductDetailPageProps = {
   className?: string;
@@ -69,7 +67,6 @@ const settings: SliderProps = {
 
 function ProductDetailPage({ className }: ProductDetailPageProps) {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
     useProductDetails();
 
@@ -84,6 +81,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
     activeLike,
     loading,
   } = useRootState((state) => state.productDetailSlice);
+
   const { isLogin } = useRootState((state) => state.globalSlice);
 
   useDidMountEffect(() => {
@@ -132,10 +130,6 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
     return () => {
       window.removeEventListener("scroll", handleWindowScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    dispatch(getProductDetail(+router.query.idx));
   }, []);
 
   if (loading) {

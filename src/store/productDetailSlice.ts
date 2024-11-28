@@ -59,7 +59,7 @@ export const getProductDetail = createAsyncThunk(
   "productDetail",
   async (idx: number, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/detail/test${idx}.json`, {
+      const response = await axios.get(`/test${idx}.json`, {
         headers: {
           "Content-Type": "application/json",
         },

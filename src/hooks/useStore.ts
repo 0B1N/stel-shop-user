@@ -22,7 +22,9 @@ function getURLParameters(url: string): Record<string, string> {
 
 export default function useStore() {
   const router = useRouter();
+
   const dispatch = useDispatch();
+
   const { filter, list, visibleFilterMenu } = useRootState(
     (state) => state.storePageSlice,
   );
@@ -47,7 +49,6 @@ export default function useStore() {
   const setURL = useCallback(
     (queryStrings: Record<string, string | number>, url?: string) => {
       const object = url ? getURLParameters(url) : searchParams;
-      console.log(object);
       const changeParams = { ...object, ...queryStrings };
 
       Object.keys(changeParams).reduce((prev, key) => {
@@ -65,14 +66,16 @@ export default function useStore() {
   );
 
   useEffect(() => {
-    dispatch(
-      handleFilter({
-        category: +router.query.category,
-        member: +router.query.member,
-        order: router.query.order,
-      }),
-    );
-  }, []);
+    if (router.isReady) {
+      dispatch(
+        handleFilter({
+          category: +router.query.category,
+          member: +router.query.member,
+          order: router.query.order,
+        }),
+      );
+    }
+  }, [router.isReady]);
 
   useDidMountEffect(() => {
     router.push(`/store?${setURL(filter)}`);
