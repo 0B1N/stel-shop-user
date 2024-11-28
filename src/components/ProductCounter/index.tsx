@@ -6,12 +6,14 @@ import { numberWithCommas } from "utils/number";
 
 type ProductCounterProps = {
   className?: string;
+  price: number;
   count: number;
   onCountChange: (count: number) => void;
 };
 
 function ProductCounter({
   className,
+  price,
   count,
   onCountChange,
 }: ProductCounterProps) {
@@ -29,7 +31,7 @@ function ProductCounter({
       <div className="productCounter__wrap">
         <span className="productCounter__wrap--label">총 상품 금액</span>
         <div className="productCounter__wrap--total">
-          ￦ {numberWithCommas(15000 * count)}
+          ￦ {numberWithCommas(price * count)}
         </div>
       </div>
     </div>

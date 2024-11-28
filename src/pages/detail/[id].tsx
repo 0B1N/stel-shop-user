@@ -362,6 +362,7 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
           </div>
 
           <ProductCounter
+            price={data.price}
             count={productCount}
             onCountChange={(count) => dispatch(handleProductCount(count))}
           />

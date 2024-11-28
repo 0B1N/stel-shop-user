@@ -17,7 +17,9 @@ type ProductBuyModalProps = {
 function ProductBuyModal({ className }: ProductBuyModalProps) {
   const { buyModal } = useRootState((state) => state.globalSlice);
   const dispatch = useDispatch();
-  const { productCount } = useRootState((state) => state.productDetailSlice);
+  const { productCount, data } = useRootState(
+    (state) => state.productDetailSlice,
+  );
 
   const { handleCartClick } = useProductDetails();
   if (!buyModal.visible) return null;
@@ -33,6 +35,7 @@ function ProductBuyModal({ className }: ProductBuyModalProps) {
         </div>
 
         <ProductCounter
+          price={data.price}
           count={productCount}
           onCountChange={(count) => dispatch(handleProductCount(count))}
         />
