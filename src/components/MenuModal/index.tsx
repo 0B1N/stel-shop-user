@@ -16,12 +16,12 @@ type MenuModalProps = {
 };
 
 function MenuModal({ className }: MenuModalProps) {
-  const router = useRouter();
-  const dispatch = useDispatch();
-
   const { menuModal, isLogin } = useRootState((state) => state.globalSlice);
 
   if (!menuModal.visible) return null;
+
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <div className={className}>

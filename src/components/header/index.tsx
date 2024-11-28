@@ -116,10 +116,6 @@ function Header({ className }: HeaderProps) {
             className="header__contents--hamburger"
             onClick={() => dispatch(handleVisibleMenuModal())}
           />
-
-          <Link href="/">
-            <SearchIcon className="header__contents--search" />
-          </Link>
         </div>
       </div>
     </header>

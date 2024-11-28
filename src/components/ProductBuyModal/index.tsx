@@ -15,15 +15,16 @@ type ProductBuyModalProps = {
 };
 
 function ProductBuyModal({ className }: ProductBuyModalProps) {
-  const dispatch = useDispatch();
   const { buyModal } = useRootState((state) => state.globalSlice);
+
+  if (!buyModal.visible) return null;
+
+  const dispatch = useDispatch();
   const { productCount, data } = useRootState(
     (state) => state.productDetailSlice,
   );
 
   const { handleCartClick } = useProductDetails(data.idx);
-
-  if (!buyModal.visible) return null;
 
   return (
     <div className={className}>

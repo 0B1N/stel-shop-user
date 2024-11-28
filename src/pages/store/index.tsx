@@ -228,7 +228,7 @@ export default styled(StorePage)`
       }
 
       &__filterMenu {
-        width: calc(100vw - 32px);
+        width: calc(100vw - 49px);
         position: absolute;
         padding: 1.1429rem;
         border-radius: 10px;
@@ -315,6 +315,10 @@ export default styled(StorePage)`
     .wrapper {
       .header {
         &__filter {
+          display: none;
+        }
+
+        &__filterMenu {
           display: none;
         }
       }

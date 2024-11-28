@@ -14,7 +14,9 @@ import {
   handleVisibleReviewModal,
 } from "store/globalSlice";
 import {
+  getProductDetail,
   handleActiveLike,
+  handleAnchorIndex,
   handleHideProductImage,
   handleMainImageIndex,
   handleProductCount,
@@ -38,6 +40,7 @@ import { slick, slickTheme } from "utils/styles/slickStyle";
 import { STELLIVE_PALETTE } from "utils/styles/palette";
 import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
+import { useEffect } from "react";
 
 type ProductDetailPageProps = {
   className?: string;
@@ -67,10 +70,10 @@ const settings: SliderProps = {
 };
 
 function ProductDetailPage({ className, params }: ProductDetailPageProps) {
+  const dispatch = useDispatch();
   const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
     useProductDetails(params.idx);
 
-  const dispatch = useDispatch();
   const {
     data,
     anchorIndex,
@@ -94,6 +97,45 @@ function ProductDetailPage({ className, params }: ProductDetailPageProps) {
       );
     }
   }, [JSON.stringify(data)]);
+
+  function handleWindowScroll() {
+    const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
+
+    const productDetailScrollTop =
+      document.getElementById("productDetail")?.offsetTop - exclusionArea;
+    const reviewScrollTop =
+      document.getElementById("review")?.offsetTop - exclusionArea;
+    const buyGuideScrollTop =
+      document.getElementById("buyGuide")?.offsetTop - exclusionArea;
+
+    const windowScrollTop = document.documentElement.scrollTop;
+
+    if (
+      windowScrollTop >= productDetailScrollTop &&
+      windowScrollTop < buyGuideScrollTop
+    ) {
+      dispatch(handleAnchorIndex(0));
+    } else if (
+      windowScrollTop >= buyGuideScrollTop &&
+      windowScrollTop < reviewScrollTop
+    ) {
+      dispatch(handleAnchorIndex(1));
+    } else if (windowScrollTop >= reviewScrollTop) {
+      dispatch(handleAnchorIndex(2));
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleWindowScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProductDetail(params.idx) as any);
+  }, []);
 
   if (loading) {
     return (

@@ -38,33 +38,6 @@ export default function useProductDetails(idx: number) {
     });
   }
 
-  function handleWindowScroll() {
-    const exclusionArea = window.outerWidth < 1280 ? 61 + 41 : 48 + 86;
-
-    const productDetailScrollTop =
-      document.getElementById("productDetail")?.offsetTop - exclusionArea;
-    const reviewScrollTop =
-      document.getElementById("review")?.offsetTop - exclusionArea;
-    const buyGuideScrollTop =
-      document.getElementById("buyGuide")?.offsetTop - exclusionArea;
-
-    const windowScrollTop = document.documentElement.scrollTop;
-
-    if (
-      windowScrollTop >= productDetailScrollTop &&
-      windowScrollTop < buyGuideScrollTop
-    ) {
-      dispatch(handleAnchorIndex(0));
-    } else if (
-      windowScrollTop >= buyGuideScrollTop &&
-      windowScrollTop < reviewScrollTop
-    ) {
-      dispatch(handleAnchorIndex(1));
-    } else if (windowScrollTop >= reviewScrollTop) {
-      dispatch(handleAnchorIndex(2));
-    }
-  }
-
   function handleShareClick() {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
@@ -161,18 +134,6 @@ export default function useProductDetails(idx: number) {
       position: "bottom-center",
     });
   }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleWindowScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleWindowScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    dispatch(getProductDetail(idx));
-  }, []);
 
   useEffect(() => {
     return () => {
