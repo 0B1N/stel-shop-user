@@ -903,7 +903,7 @@ export default styled(ProductDetailPage)`
         line-height: 1.714285714285714rem;
         letter-spacing: -0.014285714285714287rem;
         text-align: center;
-        color: $whtie;
+        color: #fff;
         outline: none;
         border: none;
         border-radius: 0.5714285714285714rem;
