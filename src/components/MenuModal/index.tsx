@@ -7,7 +7,9 @@ import { useRootState } from "store";
 
 import CloseIcon from "components/Icon/CloseIcon";
 
-import { handleVisibleMenuModal } from "store/globalSlice";
+import { handleIsLogin, handleVisibleMenuModal } from "store/globalSlice";
+import { deleteCookie } from "cookies-next";
+import { toast } from "react-toastify";
 
 type MenuModalProps = {
   className?: string;
@@ -17,7 +19,7 @@ function MenuModal({ className }: MenuModalProps) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { menuModal } = useRootState((state) => state.globalSlice);
+  const { menuModal, isLogin } = useRootState((state) => state.globalSlice);
 
   if (!menuModal.visible) return null;
 
@@ -30,15 +32,54 @@ function MenuModal({ className }: MenuModalProps) {
         />
 
         <ul className="menuList">
-          <li
-            className="menuList__item"
-            onClick={() => {
-              dispatch(handleVisibleMenuModal());
-              router.push("/");
-            }}
-          >
-            LOGIN
-          </li>
+          {isLogin ? (
+            <>
+              <li
+                className="menuList__item"
+                onClick={() => {
+                  deleteCookie("isLogin");
+
+                  dispatch(handleIsLogin(false));
+                  dispatch(handleVisibleMenuModal());
+
+                  toast.info("로그아웃 성공했습니다.", {
+                    position: "bottom-center",
+                  });
+                }}
+              >
+                LOGOUT
+              </li>
+              <li
+                className="menuList__item"
+                onClick={() => {
+                  dispatch(handleVisibleMenuModal());
+                  router.push("/like");
+                }}
+              >
+                WISH LIST
+              </li>
+              <li
+                className="menuList__item"
+                onClick={() => {
+                  dispatch(handleVisibleMenuModal());
+                  router.push("/cart");
+                }}
+              >
+                CART
+              </li>
+            </>
+          ) : (
+            <li
+              className="menuList__item"
+              onClick={() => {
+                dispatch(handleVisibleMenuModal());
+                router.push("/login");
+              }}
+            >
+              LOGIN
+            </li>
+          )}
+
           <li
             className="menuList__item"
             onClick={() => {
@@ -56,24 +97,6 @@ function MenuModal({ className }: MenuModalProps) {
             }}
           >
             REVIEW
-          </li>
-          <li
-            className="menuList__item"
-            onClick={() => {
-              dispatch(handleVisibleMenuModal());
-              router.push("/like");
-            }}
-          >
-            WISH LIST
-          </li>
-          <li
-            className="menuList__item"
-            onClick={() => {
-              dispatch(handleVisibleMenuModal());
-              router.push("/cart");
-            }}
-          >
-            CART
           </li>
         </ul>
       </div>

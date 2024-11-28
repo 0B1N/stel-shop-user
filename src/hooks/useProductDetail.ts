@@ -8,7 +8,12 @@ import { getCookie, setCookie } from "cookies-next";
 
 import { CartItemData } from "components/CartItem";
 
-import { handleCartCount, handleLikeCount } from "store/globalSlice";
+import {
+  handleCartCount,
+  handleIsLogin,
+  handleLikeCount,
+  handleVisibleNeedLoginModal,
+} from "store/globalSlice";
 import {
   getProductDetail,
   handleActiveLike,
@@ -21,7 +26,7 @@ export default function useProductDetails(idx: number) {
   const { data, activeLike, productCount } = useRootState(
     (state) => state.productDetailSlice,
   );
-  const { cartCount } = useRootState((state) => state.globalSlice);
+  const { cartCount, isLogin } = useRootState((state) => state.globalSlice);
 
   function handleClick(id: string) {
     const scrollTop = document.getElementById(id).offsetTop;
@@ -70,6 +75,10 @@ export default function useProductDetails(idx: number) {
   }
 
   function handleLikeClick() {
+    if (!isLogin) {
+      return dispatch(handleVisibleNeedLoginModal(true));
+    }
+
     const cookieData = getCookie("likeList")
       ? JSON.parse(getCookie("likeList") as string)
       : "";
@@ -101,6 +110,10 @@ export default function useProductDetails(idx: number) {
   }
 
   function handleCartClick() {
+    if (!isLogin) {
+      return dispatch(handleVisibleNeedLoginModal(true));
+    }
+
     const addData: CartItemData = {
       category: data.category,
       idx: data.idx,

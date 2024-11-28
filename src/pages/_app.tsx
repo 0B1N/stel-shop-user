@@ -15,6 +15,7 @@ import Footer from "components/Footer";
 import Modal from "components/Modal";
 
 import GlobalStyles from "utils/styles/global";
+import NeedLoginModal from "components/NeedLoginModal";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -34,6 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <MenuModal />
         <Modal />
         <ProductBuyModal />
+        <NeedLoginModal />
         <ToastContainer />
 
         <Footer />

@@ -8,6 +8,7 @@ import CloseIcon from "components/Icon/CloseIcon";
 
 import { handleVisibleBuyModal } from "store/globalSlice";
 import { handleProductCount } from "store/productDetailSlice";
+import useProductDetails from "hooks/useProductDetail";
 
 type ProductBuyModalProps = {
   className?: string;
@@ -16,7 +17,11 @@ type ProductBuyModalProps = {
 function ProductBuyModal({ className }: ProductBuyModalProps) {
   const dispatch = useDispatch();
   const { buyModal } = useRootState((state) => state.globalSlice);
-  const { productCount } = useRootState((state) => state.productDetailSlice);
+  const { productCount, data } = useRootState(
+    (state) => state.productDetailSlice,
+  );
+
+  const { handleCartClick } = useProductDetails(data.idx);
 
   if (!buyModal.visible) return null;
 
@@ -36,7 +41,12 @@ function ProductBuyModal({ className }: ProductBuyModalProps) {
         />
 
         <div className="content__submit">
-          <button className="content__submit--button cart">장바구니</button>
+          <button
+            className="content__submit--button cart"
+            onClick={handleCartClick}
+          >
+            장바구니
+          </button>
           <button className="content__submit--button buy">바로 구매하기</button>
         </div>
       </div>
