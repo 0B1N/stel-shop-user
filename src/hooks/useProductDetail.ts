@@ -14,15 +14,11 @@ import {
   handleVisibleNeedLoginModal,
 } from "store/globalSlice";
 import {
-  getProductDetail,
   handleActiveLike,
   resetProductDetailData,
 } from "store/productDetailSlice";
-import { useRouter } from "next/router";
 
 export default function useProductDetails() {
-  const router = useRouter();
-
   const dispatch = useAppDispatch();
   const { data, activeLike, productCount } = useRootState(
     (state) => state.productDetailSlice,
@@ -134,12 +130,6 @@ export default function useProductDetails() {
       position: "bottom-center",
     });
   }
-
-  useEffect(() => {
-    if (router.isReady) {
-      dispatch(getProductDetail(+router.query.id));
-    }
-  }, [router.isReady]);
 
   useEffect(() => {
     return () => {

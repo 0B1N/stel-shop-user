@@ -13,6 +13,7 @@ import {
   handleVisibleReviewModal,
 } from "store/globalSlice";
 import {
+  getProductDetail,
   handleActiveLike,
   handleAnchorIndex,
   handleHideProductImage,
@@ -40,6 +41,7 @@ import { numberWithCommas } from "utils/number";
 import media from "utils/styles/mediaQuery";
 import { useEffect } from "react";
 import { CardData } from "components/Card";
+import { useRouter } from "next/router";
 
 type ProductDetailPageProps = {
   className?: string;
@@ -66,9 +68,16 @@ const settings: SliderProps = {
 };
 
 function ProductDetailPage({ className }: ProductDetailPageProps) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { handleClick, handleLikeClick, handleShareClick, handleCartClick } =
     useProductDetails();
+
+  useEffect(() => {
+    if (router.isReady) {
+      dispatch(getProductDetail(+router.query.id));
+    }
+  }, [router.isReady]);
 
   const {
     data,
@@ -139,6 +148,8 @@ function ProductDetailPage({ className }: ProductDetailPageProps) {
       </div>
     );
   }
+
+  console.log(data);
 
   return (
     <div className={className}>
