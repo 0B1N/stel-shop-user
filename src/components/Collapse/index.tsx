@@ -40,7 +40,7 @@ function Collapse({ title, className, desc, children }: CollapseProps) {
         <span className="collapse__header--title">{title}</span>
         <ArrowIcon
           className="collapse__header--icon"
-          rotate={isOpen ? 90 : 270}
+          rotate={isOpen ? 270 : 90}
         />
       </header>
 

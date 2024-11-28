@@ -27,13 +27,16 @@ function MainPage({ className }: MainPageProps) {
     <div className={className}>
       <HomeBanner />
 
-      <HomeSection title="NEW" href="/store?order=new">
+      <HomeSection title="NEW" href="/store?order=new&category=0&member=0">
         {product.new.map((data, i) => (
           <Card {...data} key={i} />
         ))}
       </HomeSection>
 
-      <HomeSection title="POPULAR" href="/store?order=popular">
+      <HomeSection
+        title="POPULAR"
+        href="/store?order=popular&category=0&member=0"
+      >
         {product.popular.map((data, i) => (
           <Card {...data} key={i} />
         ))}
