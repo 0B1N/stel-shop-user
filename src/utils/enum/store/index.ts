@@ -20,7 +20,7 @@ export const PRODUCT_CATEGORY = {
 export type ProductCategoryType = keyof typeof PRODUCT_CATEGORY;
 
 export const PRODCUT_MEMBERS = {
-  0: "전체",
+  0: "스텔라이브",
   1: "강지",
   2: "아이리 칸나",
   3: "아야츠노 유니",

@@ -130,7 +130,20 @@ export const RIKO_COLOR = {
   900: "#1F6337",
 } as const;
 
+export const STELLIVE_COLOR = {
+  100: "#E6EAFD",
+  200: "#CFD5FB",
+  300: "#B4BCF5",
+  400: "#9DA6EB",
+  500: "#7C86DF",
+  600: "#5A63BF",
+  700: "#3E46A0",
+  800: "#272D81",
+  900: "#171C6B",
+} as const;
+
 export const STELLIVE_PALETTE = {
+  0: STELLIVE_COLOR,
   1: GANGJI_COLOR,
   2: KANNA_COLOR,
   3: YUNI_COLOR,
